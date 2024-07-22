@@ -19,6 +19,7 @@ export const Checkbox = component$<PropsOf<"input"> & { type?: "checkbox" }>(
           props.class,
         )}
         id={inputId}
+        name={name}
       />
     );
   },
