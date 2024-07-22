@@ -53,5 +53,8 @@
     "vite": "^5.2.10",
     "vite-tsconfig-paths": "^4.2.1"
   },
-  "nx": {}
+  "nx": {},
+  "dependencies": {
+    "wretch": "^2.9.0"
+  }
 }
