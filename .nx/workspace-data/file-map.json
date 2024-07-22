@@ -147,6 +147,10 @@
           "hash": "5371163332259449716"
         },
         {
+          "file": "src/components/ui/checkbox/checkbox.tsx",
+          "hash": "1063549948452685264"
+        },
+        {
           "file": "src/components/ui/input/input.tsx",
           "hash": "8896049444565434923"
         },
