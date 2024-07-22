@@ -21,6 +21,7 @@
     "prettier-plugin-tailwindcss": "^0.5.4",
     "qwik-ui": "^0.1.0",
     "tailwindcss": "3.3.3",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "5.4.5",
     "undici": "*",
     "vite": "^5.2.10",
@@ -73,7 +74,7 @@
         },
         {
           "file": "package.json",
-          "hash": "13667266050602381603",
+          "hash": "10238790492653217302",
           "deps": [
             "npm:@builder.io/qwik",
             "npm:@builder.io/qwik-city",
@@ -94,6 +95,7 @@
             "npm:prettier-plugin-tailwindcss",
             "npm:qwik-ui",
             "npm:tailwindcss",
+            "npm:tailwindcss-animate",
             "npm:typescript",
             "npm:undici",
             "npm:vite",
@@ -102,7 +104,7 @@
         },
         {
           "file": "pnpm-lock.yaml",
-          "hash": "14655759352282356920"
+          "hash": "14021212671005211943"
         },
         {
           "file": "postcss.config.cjs",
@@ -146,7 +148,7 @@
         },
         {
           "file": "src/global.css",
-          "hash": "2885799375830454325"
+          "hash": "14221340038390401754"
         },
         {
           "file": "src/root.tsx",
@@ -166,7 +168,7 @@
         },
         {
           "file": "tailwind.config.js",
-          "hash": "2698005983013824542"
+          "hash": "18340035634599436185"
         },
         {
           "file": "tsconfig.json",

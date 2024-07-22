@@ -4986,6 +4986,15 @@
         "hash": "sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew=="
       }
     },
+    "npm:tailwindcss-animate": {
+      "type": "npm",
+      "name": "npm:tailwindcss-animate",
+      "data": {
+        "version": "1.0.7",
+        "packageName": "tailwindcss-animate",
+        "hash": "sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA=="
+      }
+    },
     "npm:tailwindcss": {
       "type": "npm",
       "name": "npm:tailwindcss",
@@ -10642,6 +10651,11 @@
     {
       "source": "npm:svgo",
       "target": "npm:picocolors",
+      "type": "static"
+    },
+    {
+      "source": "npm:tailwindcss-animate",
+      "target": "npm:tailwindcss",
       "type": "static"
     },
     {
