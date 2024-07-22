@@ -135,6 +135,10 @@
           "hash": "13869225469366272939"
         },
         {
+          "file": "src/components/ui/alert/alert.tsx",
+          "hash": "4952891852778860116"
+        },
+        {
           "file": "src/entry.dev.tsx",
           "hash": "15859778472158270085"
         },
