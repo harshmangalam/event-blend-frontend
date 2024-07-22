@@ -62,6 +62,9 @@ devDependencies:
   tailwindcss:
     specifier: 3.3.3
     version: 3.3.3
+  tailwindcss-animate:
+    specifier: ^1.0.7
+    version: 1.0.7(tailwindcss@3.3.3)
   typescript:
     specifier: 5.4.5
     version: 5.4.5
@@ -4424,6 +4427,14 @@ packages:
 
   /tabbable@6.2.0:
     resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
+    dev: true
+
+  /tailwindcss-animate@1.0.7(tailwindcss@3.3.3):
+    resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
+    dependencies:
+      tailwindcss: 3.3.3
     dev: true
 
   /tailwindcss@3.3.3:
