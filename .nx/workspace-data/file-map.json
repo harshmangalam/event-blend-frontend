@@ -139,6 +139,10 @@
           "hash": "4952891852778860116"
         },
         {
+          "file": "src/components/ui/card/card.tsx",
+          "hash": "5371163332259449716"
+        },
+        {
           "file": "src/entry.dev.tsx",
           "hash": "15859778472158270085"
         },
