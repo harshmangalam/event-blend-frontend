@@ -11,31 +11,19 @@ import { type ApiResponse } from "~/lib/types";
 import { LuAlertTriangle } from "@qwikest/icons/lucide";
 
 export const useSignup = routeAction$(
-  async (values, requestEv) => {
-    const resp = await fetchBackend
+  async (values, { redirect, fail }) => {
+    const resp: any = await fetchBackend
       .url("/auth/signup")
       .post({ ...values, isAdult: true })
-      .badRequest((err) => {
-        return requestEv.fail(400, {
-          message: err.message,
-        });
-      })
-      .internalError((err) => {
-        return requestEv.fail(500, {
-          message: err.message,
-        });
-      })
-      .fetchError((err) => {
-        return requestEv.fail(500, {
-          message: err.message,
-        });
-      })
+      .badRequest((err) => fail(err.status, err.json))
+      .internalError((err) => fail(err.status, err.json))
+      .fetchError((err) => fail(500, err.json))
       .json<ApiResponse>();
 
     if (!resp.success) {
       return { error: resp };
     }
-    throw requestEv.redirect(302, "/login");
+    throw redirect(302, "/login");
   },
   zod$((z) => ({
     name: z
