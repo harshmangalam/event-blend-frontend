@@ -3,33 +3,41 @@ import { Form, Link, routeAction$, zod$ } from "@builder.io/qwik-city";
 import { Alert } from "~/components/ui/alert/alert";
 import { Button } from "~/components/ui/button/button";
 import { Card } from "~/components/ui/card/card";
-import { Checkbox } from "~/components/ui/checkbox/checkbox";
 import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
 import { fetchBackend } from "~/lib/fetch-backend";
-import { type ApiResponse } from "~/lib/types";
+import { type LoginResponse, type ApiResponse } from "~/lib/types";
 import { LuAlertTriangle } from "@qwikest/icons/lucide";
+import { ACCESS_TOKEN_EXP, REFRESH_TOKEN_EXP } from "~/lib/constatnts";
 
-export const useSignup = routeAction$(
-  async (values, { redirect, fail }) => {
-    const resp: any = await fetchBackend
-      .url("/auth/signup")
+export const useLogin = routeAction$(
+  async (values, { fail, redirect, cookie }) => {
+    const resp = await fetchBackend
+      .url("/auth/login")
       .post({ ...values, isAdult: true })
       .badRequest((err) => fail(err.status, err.json))
       .internalError((err) => fail(err.status, err.json))
       .fetchError((err) => fail(500, err.json))
-      .json<ApiResponse>();
+      .json<ApiResponse<LoginResponse>>();
 
     if (!resp.success) {
       return { error: resp };
     }
-    throw redirect(302, "/login");
+    if (resp.data) {
+      cookie.set("accessToken", resp.data.accessToken, {
+        httpOnly: true,
+        path: "/",
+        maxAge: ACCESS_TOKEN_EXP,
+      });
+      cookie.set("refreshToken", resp.data.refreshToken, {
+        httpOnly: true,
+        path: "/",
+        maxAge: REFRESH_TOKEN_EXP,
+      });
+    }
+    throw redirect(302, "/");
   },
   zod$((z) => ({
-    name: z
-      .string()
-      .min(1, "Name is required")
-      .max(32, "Name has to be less than 32 characters"),
     email: z
       .string({
         message: "Email is required",
@@ -38,17 +46,14 @@ export const useSignup = routeAction$(
         message: "Email has invalid format",
       }),
     password: z.string().min(6, "Password has to be at least 6 characters"),
-    age: z.literal("on", {
-      message: "You need to be 18 or older to continue",
-    }),
   })),
 );
 export default component$(() => {
-  const action = useSignup();
+  const action = useLogin();
   return (
     <Card.Root class="mx-auto w-full max-w-md">
       <Card.Header>
-        <Card.Title class="text-2xl font-bold">Finish signing up</Card.Title>
+        <Card.Title class="text-2xl font-bold">Log in</Card.Title>
       </Card.Header>
       <Card.Content>
         {action.value?.error && (
@@ -59,13 +64,6 @@ export default component$(() => {
           </Alert.Root>
         )}
         <Form action={action} class="grid grid-cols-1 gap-4">
-          <div class="flex flex-col gap-1">
-            <Label for="name">Your name</Label>
-            <Input type="text" id="name" name="name" />
-            <span class="text-sm text-alert">
-              {action.value?.fieldErrors?.name}
-            </span>
-          </div>
           <div class="flex flex-col gap-1">
             <Label for="email">Email address</Label>
             <Input type="email" id="email" name="email" />
@@ -80,49 +78,19 @@ export default component$(() => {
               {action.value?.fieldErrors?.password}
             </span>
           </div>
-          <div class="flex flex-col gap-1">
-            <Label for="age">Age</Label>
-            <div class="flex items-center space-x-2">
-              <Checkbox name="age" id="age" />
-              <Label
-                for="age"
-                class="text-sm font-normal text-muted-foreground"
-              >
-                I am 18 years of age or older.
-              </Label>
-            </div>
-            <span class="text-sm text-alert">
-              {action.value?.fieldErrors?.age}
-            </span>
-          </div>
+
           <Button disabled={action.isRunning} type="submit" class="w-full">
-            Sign up
+            Log in
           </Button>
         </Form>
       </Card.Content>
       <Card.Footer>
-        <div class="grid grid-cols-1 gap-4">
-          <p class="text-center text-muted-foreground">
-            By signing up, you agree to{" "}
-            <a class="text-sm text-primary hover:underline" href="#">
-              Terms of Service,{" "}
-            </a>
-            <a class="text-sm text-primary hover:underline" href="#">
-              Privacy Policy,{" "}
-            </a>
-            and{" "}
-            <a class="text-sm text-primary hover:underline" href="#">
-              Cookie Policy
-            </a>
-            .
-          </p>
-          <p class="text-center">
-            Already a member?{" "}
-            <Link href="/login" class="text-primary">
-              Log in
-            </Link>
-          </p>
-        </div>
+        <p class="w-full text-center">
+          Not a member yet?{" "}
+          <Link href="/signup" class="text-primary">
+            Sign up
+          </Link>
+        </p>
       </Card.Footer>
     </Card.Root>
   );
