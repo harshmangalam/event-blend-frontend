@@ -1,11 +1,14 @@
 import { component$ } from "@builder.io/qwik";
 import { Form, Link, routeAction$, zod$ } from "@builder.io/qwik-city";
+import { Alert } from "~/components/ui/alert/alert";
 import { Button } from "~/components/ui/button/button";
 import { Card } from "~/components/ui/card/card";
 import { Checkbox } from "~/components/ui/checkbox/checkbox";
 import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
 import { fetchBackend } from "~/lib/fetch-backend";
+import { type ApiResponse } from "~/lib/types";
+import { LuAlertTriangle } from "@qwikest/icons/lucide";
 
 export const useSignup = routeAction$(
   async (values, requestEv) => {
@@ -13,11 +16,26 @@ export const useSignup = routeAction$(
       .url("/auth/signup")
       .post({ ...values, isAdult: true })
       .badRequest((err) => {
-        console.log(JSON.stringify(err.json));
+        return requestEv.fail(400, {
+          message: err.message,
+        });
       })
-      .fetchError((err) => console.log("Fetch Err:::", err.message))
-      .json();
-    console.log(resp);
+      .internalError((err) => {
+        return requestEv.fail(500, {
+          message: err.message,
+        });
+      })
+      .fetchError((err) => {
+        return requestEv.fail(500, {
+          message: err.message,
+        });
+      })
+      .json<ApiResponse>();
+
+    if (!resp.success) {
+      return { error: resp };
+    }
+    throw requestEv.redirect(302, "/login");
   },
   zod$((z) => ({
     name: z
@@ -45,6 +63,13 @@ export default component$(() => {
         <Card.Title class="text-2xl font-bold">Finish signing up</Card.Title>
       </Card.Header>
       <Card.Content>
+        {action.value?.error && (
+          <Alert.Root look="alert" class="mb-3 rounded-sm">
+            <LuAlertTriangle class="h-4 w-4" />
+            <Alert.Title>Error</Alert.Title>
+            <Alert.Description>{action.value.error.message}</Alert.Description>
+          </Alert.Root>
+        )}
         <Form action={action} class="grid grid-cols-1 gap-4">
           <div class="flex flex-col gap-1">
             <Label for="name">Your name</Label>
@@ -91,14 +116,14 @@ export default component$(() => {
         <div class="grid grid-cols-1 gap-4">
           <p class="text-center text-muted-foreground">
             By signing up, you agree to{" "}
-            <a class="text-sm text-primary" href="#">
+            <a class="text-sm text-primary hover:underline" href="#">
               Terms of Service,{" "}
             </a>
-            <a class="text-sm text-primary" href="#">
+            <a class="text-sm text-primary hover:underline" href="#">
               Privacy Policy,{" "}
             </a>
             and{" "}
-            <a class="text-sm text-primary" href="#">
+            <a class="text-sm text-primary hover:underline" href="#">
               Cookie Policy
             </a>
             .
