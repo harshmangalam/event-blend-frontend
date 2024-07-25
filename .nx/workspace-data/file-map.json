@@ -2,6 +2,9 @@
   "version": "6.0",
   "nxVersion": "19.5.1",
   "deps": {
+    "add": "^2.0.6",
+    "badge": "^1.0.3",
+    "wretch": "^2.9.0",
     "@builder.io/qwik": "^1.7.1",
     "@builder.io/qwik-city": "^1.7.1",
     "@qwik-ui/headless": "^0.5.0",
@@ -13,6 +16,7 @@
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.7.1",
     "autoprefixer": "^10.4.14",
+    "class-variance-authority": "^0.7.0",
     "eslint": "^8.57.0",
     "eslint-plugin-qwik": "^1.7.1",
     "nx": "^19.5.1",
@@ -74,7 +78,7 @@
         },
         {
           "file": "package.json",
-          "hash": "10238790492653217302",
+          "hash": "3599882486867153420",
           "deps": [
             "npm:@builder.io/qwik",
             "npm:@builder.io/qwik-city",
@@ -87,6 +91,7 @@
             "npm:@typescript-eslint/eslint-plugin",
             "npm:@typescript-eslint/parser",
             "npm:autoprefixer",
+            "npm:class-variance-authority",
             "npm:eslint",
             "npm:eslint-plugin-qwik",
             "npm:nx",
@@ -99,12 +104,15 @@
             "npm:typescript",
             "npm:undici",
             "npm:vite",
-            "npm:vite-tsconfig-paths"
+            "npm:vite-tsconfig-paths",
+            "npm:add",
+            "npm:badge",
+            "npm:wretch"
           ]
         },
         {
           "file": "pnpm-lock.yaml",
-          "hash": "14021212671005211943"
+          "hash": "15295630353521747683"
         },
         {
           "file": "postcss.config.cjs",
@@ -131,12 +139,20 @@
           "hash": "1792037603741036108"
         },
         {
+          "file": "src/components/navigations/navbar.tsx",
+          "hash": "6512470063157770651"
+        },
+        {
           "file": "src/components/router-head/router-head.tsx",
           "hash": "13869225469366272939"
         },
         {
           "file": "src/components/ui/alert/alert.tsx",
           "hash": "4952891852778860116"
+        },
+        {
+          "file": "src/components/ui/avatar/avatar.tsx",
+          "hash": "4032751369564844801"
         },
         {
           "file": "src/components/ui/button/button.tsx",
@@ -148,15 +164,19 @@
         },
         {
           "file": "src/components/ui/checkbox/checkbox.tsx",
-          "hash": "1063549948452685264"
+          "hash": "8070439907618064080"
         },
         {
           "file": "src/components/ui/input/input.tsx",
-          "hash": "8896049444565434923"
+          "hash": "5248844582827909674"
         },
         {
           "file": "src/components/ui/label/label.tsx",
           "hash": "12436589004438559187"
+        },
+        {
+          "file": "src/components/ui/separator/separator.tsx",
+          "hash": "16048755266257626029"
         },
         {
           "file": "src/entry.dev.tsx",
@@ -175,16 +195,48 @@
           "hash": "14221340038390401754"
         },
         {
+          "file": "src/lib/constatnts.ts",
+          "hash": "11785761485279808649"
+        },
+        {
+          "file": "src/lib/fetch-backend.ts",
+          "hash": "5239152254167529934"
+        },
+        {
+          "file": "src/lib/types.ts",
+          "hash": "6263760552121134769"
+        },
+        {
           "file": "src/root.tsx",
           "hash": "2032960384381040240"
         },
         {
-          "file": "src/routes/index.tsx",
-          "hash": "9611889894005730386"
+          "file": "src/routes/(auth)/layout.tsx",
+          "hash": "15044115529873395648"
+        },
+        {
+          "file": "src/routes/(auth)/login/index.tsx",
+          "hash": "10492223698605855518"
+        },
+        {
+          "file": "src/routes/(auth)/signup/index.tsx",
+          "hash": "16736664452507557457"
+        },
+        {
+          "file": "src/routes/(unauthenticated)/index.tsx",
+          "hash": "8993077567397462118"
+        },
+        {
+          "file": "src/routes/(unauthenticated)/layout.tsx",
+          "hash": "9986145028446766147"
+        },
+        {
+          "file": "src/routes/(unauthenticated)/popular-cities.tsx",
+          "hash": "6647336764198971271"
         },
         {
           "file": "src/routes/layout.tsx",
-          "hash": "11030970175985742327"
+          "hash": "7424530404661561249"
         },
         {
           "file": "src/routes/service-worker.ts",

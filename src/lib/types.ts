@@ -16,3 +16,22 @@ export type ApiMetaData = {
     accessToken:string;
     refreshToken:string;
   }
+
+
+  export type _Count = {
+    groups: number;
+    members: number;
+  };
+
+  export type Location = {
+    id: string;
+    lat: number;
+    lon: number;
+    city: string;
+    state: string;
+    country: string;
+    createdAt: string;
+    updatedAt: string;
+    timezone: string;
+    _count: Pick<_Count, "groups">;
+  };
