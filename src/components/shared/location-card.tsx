@@ -8,7 +8,7 @@ export const LocationCard = component$(
   ({ location }: { location: Pick<Location, "id" | "city" | "_count"> }) => {
     const { id, city, _count } = location;
     return (
-      <Link key={id} href={`/cities/${id}`}>
+      <Link href={`/cities/${id}`}>
         <Card.Root class="max-w-md">
           <Card.Content class="m-0 flex flex-col items-center gap-3 p-4">
             <div class="grid h-36 w-36 place-items-center rounded-full bg-muted">
