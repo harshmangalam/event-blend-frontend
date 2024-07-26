@@ -45,7 +45,7 @@
     "postcss": "^8.4.31",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.4",
-    "qwik-ui": "^0.1.0",
+    "qwik-ui": "^0.1.1",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.4.5",

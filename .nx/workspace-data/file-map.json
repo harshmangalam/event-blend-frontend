@@ -22,7 +22,7 @@
     "postcss": "^8.4.31",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.4",
-    "qwik-ui": "^0.1.0",
+    "qwik-ui": "^0.1.1",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.4.5",
@@ -77,7 +77,7 @@
         },
         {
           "file": "package.json",
-          "hash": "15892413398389634162",
+          "hash": "1322421244177020444",
           "deps": [
             "npm:@builder.io/qwik",
             "npm:@builder.io/qwik-city",
@@ -110,7 +110,7 @@
         },
         {
           "file": "pnpm-lock.yaml",
-          "hash": "8952336158635702007"
+          "hash": "7172424637810874847"
         },
         {
           "file": "postcss.config.cjs",
@@ -157,6 +157,10 @@
           "hash": "11712739796102334255"
         },
         {
+          "file": "src/components/shared/topics-combobox.tsx",
+          "hash": "3744074264730183230"
+        },
+        {
           "file": "src/components/ui/alert/alert.tsx",
           "hash": "4952891852778860116"
         },
@@ -179,6 +183,10 @@
         {
           "file": "src/components/ui/checkbox/checkbox.tsx",
           "hash": "8070439907618064080"
+        },
+        {
+          "file": "src/components/ui/combobox/combobox.tsx",
+          "hash": "1386689858368289549"
         },
         {
           "file": "src/components/ui/input/input.tsx",
@@ -242,7 +250,7 @@
         },
         {
           "file": "src/routes/(unauthenticated)/groups/index.tsx",
-          "hash": "16852072162727630019"
+          "hash": "12448509818333266675"
         },
         {
           "file": "src/routes/(unauthenticated)/index.tsx",
