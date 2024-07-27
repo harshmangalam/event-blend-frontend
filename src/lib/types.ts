@@ -77,3 +77,4 @@ export type ApiMetaData = {
     updatedAt: string;
     network: Pick<Network, "id" | "name">;
   };
+
