@@ -23,10 +23,12 @@ export const GroupCard = component$(({ group }: { group: Group }) => {
         <Card.Content>
           <div class="flex justify-between gap-4">
             <h3 class="flex-1 text-xl font-semibold">{name}</h3>
-            <Badge look={"primary"} class="rounded-full">
-              <LuUsers class="mr-2 h-4 w-4" />
-              {_count.members}
-            </Badge>
+            <div>
+              <Badge look={"primary"} class="py-1.5">
+                <LuUsers class="mr-1 h-4 w-4" />
+                {_count.members}
+              </Badge>
+            </div>
           </div>
           <IconWithText text={admin.name}>
             <LuUser2 class="h-4 w-4" />
