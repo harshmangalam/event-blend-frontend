@@ -22,6 +22,7 @@ interface _Count {
   members: number;
   events: number;
   topics: number;
+  followedByUsers:number;
 }
 interface Location extends BaseSchema {
   lat: number;
@@ -45,7 +46,7 @@ interface Topic extends BaseSchema {
   isActive: boolean;
   categoryId: string;
   slug:string;
-  _count: Pick<_Count, "groups">;
+  _count: Pick<_Count, "groups"|"events"|"followedByUsers">;
 }
 
 interface Group extends BaseSchema {

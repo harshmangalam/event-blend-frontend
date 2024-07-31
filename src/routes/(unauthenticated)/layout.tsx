@@ -6,7 +6,7 @@ export default component$(() => {
   return (
     <div class="flex h-full min-h-screen flex-col justify-between bg-background">
       <Navbar />
-      <main>
+      <main class="flex-1">
         <Slot />
       </main>
       <Footer />
