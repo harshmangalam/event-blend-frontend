@@ -4,7 +4,7 @@ import { Navbar } from "~/components/navigations/navbar";
 
 export default component$(() => {
   return (
-    <div>
+    <div class="flex h-full min-h-screen flex-col justify-between bg-background">
       <Navbar />
       <main>
         <Slot />

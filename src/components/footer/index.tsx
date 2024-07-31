@@ -35,6 +35,10 @@ export const Footer = component$(() => {
           name: "Cities",
           href: "/cities",
         },
+        {
+          name: "Topics",
+          href: "/topics",
+        },
       ],
     },
     {

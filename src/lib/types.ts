@@ -1,80 +1,90 @@
-export type ApiMetaData = {
-    totalCount: number;
-    totalPages: number;
-    page: number;
-    pageSize: number;
-  };
+interface BaseSchema {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
-  export type ApiResponse<T={}> = {
-    data?: T;
-    message: string;
-    success: boolean;
-  }
+interface ApiMetaData {
+  totalCount: number;
+  totalPages: number;
+  page: number;
+  pageSize: number;
+}
+
+interface ApiResponse<T={}> {
+  data?: T;
+  message: string;
+  success: boolean;
+}
+
+interface _Count {
+  groups: number;
+  members: number;
+  events: number;
+  topics: number;
+}
+interface Location extends BaseSchema {
+  lat: number;
+  lon: number;
+  city: string;
+  state: string;
+  country: string;
+  timezone: string;
+  _count: Pick<_Count, "groups">;
+}
+
+interface User extends BaseSchema {
+  name: string;
+  profilePhoto: string;
+  role: "User" | "Admin";
+}
+
+interface Topic extends BaseSchema {
+  name: string;
+  user: Pick<User, "id" | "name">;
+  isActive: boolean;
+  categoryId: string;
+  slug:string;
+  _count: Pick<_Count, "groups">;
+}
+
+interface Group extends BaseSchema {
+  location: Location;
+  topics: Pick<Topic, "id" | "name" | "isActive">[];
+  name: string;
+  description: string;
+  admin: Pick<User, "id" | "name">;
+  _count: Pick<_Count, "members">;
+  network: Pick<Network, "id" | "name">;
+}
+
+interface Network extends BaseSchema {
+  name: string;
+  organization?: string | null;
+  organizationUrl?: string | null;
+  groupsCount: number;
+  user: Pick<User, "id" | "name">;
+}
+
+interface Category extends BaseSchema {
+  name: string;
+  slug: string;
+  topics:Topic[],
+  _count: Pick<_Count, "events" | "groups">;
+}
 
 
-  export type LoginResponse = {
-    accessToken:string;
-    refreshToken:string;
-  }
+export type  DiscoverCategory = Pick<Category,"name"|"slug"|"topics"|"id">
 
 
-  export type _Count = {
-    groups: number;
-    members: number;
-  };
-
-  export type User = {
-    id: string;
-    name: string;
-    profilePhoto: string;
-  };
-  
-
-  export type Location = {
-    id: string;
-    lat: number;
-    lon: number;
-    city: string;
-    state: string;
-    country: string;
-    createdAt: string;
-    updatedAt: string;
-    timezone: string;
-    _count: Pick<_Count, "groups">;
-  };
-
-  export type Topic = {
-    id: string;
-    name: string;
-    user: Pick<User, "id" | "name">;
-    isActive: boolean;
-    _count: Pick<_Count, "groups">;
-    createdAt: string;
-    updatedAt: string;
-  };
-
-  export type Network = {
-    id: string;
-    name: string;
-    organization?: string | null;
-    organizationUrl?: string | null;
-    groupsCount: number;
-    user: Pick<User, "id" | "name">;
-    createdAt: string;
-    updatedAt: string;
-  };
-  
-
-  export type Group = {
-    id: string;
-    location: Location;
-    topics: Pick<Topic, "id" | "name" | "isActive">[];
-    name: string;
-    description: string;
-    admin: Pick<User, "id" | "name">;
-    _count: Pick<_Count, "members">;
-    createdAt: string;
-    updatedAt: string;
-    network: Pick<Network, "id" | "name">;
-  };
-
+export type {
+  ApiMetaData,
+  ApiResponse,
+  Category,
+  Group,
+  Location,
+  Network,
+  Topic,
+  User,
+  _Count,
+};
