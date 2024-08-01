@@ -25,37 +25,40 @@ export default component$(() => {
   const topicSig = useFetchTopicDetails();
   const relatedTopics = useFetchRelatedTopics();
   return (
-    <div class="container mx-auto px-4 py-12">
-      <h2 class="text-3xl font-bold opacity-70">{topicSig.value?.name}</h2>
-      <p>
-        Meet other local people interested in {topicSig.value?.name}: share
-        experiences, inspire and encourage each other! Join a{" "}
-        {topicSig.value?.name} group.
-      </p>
-      <div class="mt-6 flex h-12 items-center gap-6">
-        <Counts
-          label="Members"
-          count={topicSig.value?._count.followedByUsers ?? 0}
-        />
-        <Separator orientation="vertical" />
-        <Counts label="Groups" count={topicSig.value?._count.groups ?? 0} />
-        <Separator orientation="vertical" />
-        <Counts label="Events" count={topicSig.value?._count.events ?? 0} />
-        <Separator orientation="vertical" />
-      </div>
-      <div class="mt-6">
-        <Button size={"sm"}>Join {topicSig.value?.name} groups</Button>
-      </div>
-      <div class="mt-6">
-        <div>Related Topics</div>
-        <div class="mt-3 flex flex-wrap gap-6">
-          {relatedTopics.value?.map((topic) => (
-            <Link key={topic.id} href={`/topics/${topic.slug}`}>
-              <Badge class="px-4 py-2" look={"outline"}>
-                {topic.name}
-              </Badge>
-            </Link>
-          ))}
+    <div class="mx-auto w-full max-w-2xl px-4 py-12">
+      <div class="grid grid-cols-1 items-center gap-6">
+        <div class="grid grid-cols-1 items-center gap-4">
+          <h2 class="text-center text-3xl font-bold opacity-70">
+            {topicSig.value?.name}
+          </h2>
+          <p class="sm:text-center">
+            Meet other local people interested in {topicSig.value?.name}: share
+            experiences, inspire and encourage each other! Join a{" "}
+            {topicSig.value?.name} group.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-6  md:grid-cols-3">
+          <Counts
+            label="Members"
+            count={topicSig.value?._count.followedByUsers ?? 0}
+          />
+          <Counts label="Groups" count={topicSig.value?._count.groups ?? 0} />
+          <Counts label="Events" count={topicSig.value?._count.events ?? 0} />
+        </div>
+        <div>
+          <Button size={"sm"}>Join {topicSig.value?.name} groups</Button>
+        </div>
+        <div>
+          <div class="font-medium">Related Topics</div>
+          <div class="mt-3 flex flex-wrap gap-6">
+            {relatedTopics.value?.map((topic) => (
+              <Link key={topic.id} href={`/topics/${topic.slug}`}>
+                <Badge class="px-4 py-2" look={"outline"}>
+                  {topic.name}
+                </Badge>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>
