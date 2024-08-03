@@ -3,7 +3,7 @@ import { Link, routeLoader$ } from "@builder.io/qwik-city";
 import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse, Topic } from "~/lib/types";
 import { Counts } from "./counts";
-import { Separator } from "~/components/ui/separator/separator";
+
 import { Button } from "~/components/ui/button/button";
 import { Badge } from "~/components/ui/badge/badge";
 
