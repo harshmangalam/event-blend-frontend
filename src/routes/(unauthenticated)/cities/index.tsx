@@ -1,13 +1,15 @@
 import { component$ } from "@builder.io/qwik";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
-import { Card } from "~/components/ui/card/card";
+import { LuUsers2 } from "@qwikest/icons/lucide";
+import { Badge } from "~/components/ui/badge/badge";
+import { Separator } from "~/components/ui/separator/separator";
 import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse } from "~/lib/types";
 
 export const useDiscoverLocations = routeLoader$(async () => {
   const resp = await fetchBackend
     .get("/locations/discover-cities")
-    .json<ApiResponse<{ locations: { [country: string]: string[] } }>>();
+    .json<ApiResponse<{ locations: { [country: string]: any[] } }>>();
   return resp.data?.locations;
 });
 
@@ -15,21 +17,34 @@ export default component$(() => {
   const locationsSig = useDiscoverLocations();
   const countries = locationsSig.value ?? {};
   return (
-    <div class="container mx-auto  px-4 py-12">
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+    <div class="container mx-auto px-4 py-12">
+      <h2 class="text-2xl font-bold">Popular cities</h2>
+      <Separator class="mt-6" />
+      <div class="mt-6 grid grid-cols-1 gap-6">
         {Object.keys(countries).map((country) => (
-          <Card.Root key={country} class="w-full bg-muted shadow-none">
-            <Card.Header>
-              <Card.Title class="font-semibold">{country}</Card.Title>
-            </Card.Header>
-            <Card.Content class="flex flex-col gap-2">
-              {countries[country].map((city) => (
-                <Link class={"hover:underline"} key={city} href="">
-                  {city}
-                </Link>
+          <div key={country}>
+            <div>
+              <h3 class="text-xl font-bold">{country}</h3>
+            </div>
+
+            <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+              {countries[country].map((location) => (
+                <div key={location.city} class="flex items-center gap-1">
+                  <Link
+                    class="text-primary hover:underline"
+                    href={`/location/${location.city}`}
+                  >
+                    {location.city}
+                  </Link>
+                  <Badge look={"outline"}>
+                    <LuUsers2 class="mr-1 h-3.5 w-3.5" />
+                    {location._count.groups}
+                  </Badge>
+                </div>
               ))}
-            </Card.Content>
-          </Card.Root>
+            </div>
+            <Separator class="mt-6" />
+          </div>
         ))}
       </div>
     </div>
