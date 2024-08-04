@@ -11,7 +11,7 @@ interface ApiMetaData {
   pageSize: number;
 }
 
-interface ApiResponse<T={}> {
+interface ApiResponse<T = {}> {
   data?: T;
   message: string;
   success: boolean;
@@ -22,7 +22,7 @@ interface _Count {
   members: number;
   events: number;
   topics: number;
-  followedByUsers:number;
+  followedByUsers: number;
 }
 interface Location extends BaseSchema {
   lat: number;
@@ -45,8 +45,8 @@ interface Topic extends BaseSchema {
   user: Pick<User, "id" | "name">;
   isActive: boolean;
   categoryId: string;
-  slug:string;
-  _count: Pick<_Count, "groups"|"events"|"followedByUsers">;
+  slug: string;
+  _count: Pick<_Count, "groups" | "events" | "followedByUsers">;
 }
 
 interface Group extends BaseSchema {
@@ -55,7 +55,7 @@ interface Group extends BaseSchema {
   name: string;
   description: string;
   admin: Pick<User, "id" | "name">;
-  poster?:string | null;
+  poster?: string | null;
   _count: Pick<_Count, "members">;
   network?: Pick<Network, "id" | "name">;
 }
@@ -71,13 +71,9 @@ interface Network extends BaseSchema {
 interface Category extends BaseSchema {
   name: string;
   slug: string;
-  topics:Topic[],
+  topics: Topic[];
   _count: Pick<_Count, "events" | "groups">;
 }
-
-
-export type  DiscoverCategory = Pick<Category,"name"|"slug"|"topics"|"id">
-
 
 export type {
   ApiMetaData,
@@ -90,3 +86,10 @@ export type {
   User,
   _Count,
 };
+
+export type DiscoverCategory = Pick<
+  Category,
+  "name" | "slug" | "topics" | "id"
+>;
+
+export type PopularCategory = Pick<Category, "id" | "slug" | "name" | "_count">;
