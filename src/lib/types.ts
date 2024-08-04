@@ -55,8 +55,9 @@ interface Group extends BaseSchema {
   name: string;
   description: string;
   admin: Pick<User, "id" | "name">;
+  poster?:string | null;
   _count: Pick<_Count, "members">;
-  network: Pick<Network, "id" | "name">;
+  network?: Pick<Network, "id" | "name">;
 }
 
 interface Network extends BaseSchema {

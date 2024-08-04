@@ -5,6 +5,7 @@ import { Link } from "@builder.io/qwik-city";
 import { LuUsers, LuMapPin, LuUser2, LuCalendar } from "@qwikest/icons/lucide";
 import { formatDistance } from "date-fns";
 import { type Group } from "~/lib/types";
+import { DEFAULT_POSTER } from "~/lib/constatnts";
 
 export const IconWithText = component$(({ text }: { text: string }) => {
   return (
@@ -17,9 +18,14 @@ export const IconWithText = component$(({ text }: { text: string }) => {
 export const GroupCard = component$(({ group }: { group: Group }) => {
   const { _count, admin, createdAt, id, location, name, topics } = group;
   return (
-    <Link href={`/groups/${id}`}>
-      <Card.Root class="max-w-md">
-        <div class="mb-4 grid h-40 w-full place-items-center rounded-t bg-muted"></div>
+    <Card.Root class="w-full max-w-md">
+      <Link href={`/groups/${id}`} class="block h-full">
+        <img
+          width={300}
+          height={160}
+          src={group.poster ?? DEFAULT_POSTER}
+          class="mb-4 grid h-48 w-full place-items-center rounded-t bg-muted"
+        ></img>
         <Card.Content>
           <div class="flex justify-between gap-4">
             <h3 class="flex-1 text-xl font-semibold">{name}</h3>
@@ -54,7 +60,7 @@ export const GroupCard = component$(({ group }: { group: Group }) => {
             ))}
           </div>
         </Card.Content>
-      </Card.Root>
-    </Link>
+      </Link>
+    </Card.Root>
   );
 });
