@@ -23,6 +23,7 @@ interface _Count {
   events: number;
   topics: number;
   followedByUsers: number;
+  attendees: number;
 }
 interface Location extends BaseSchema {
   lat: number;
@@ -54,7 +55,7 @@ interface Group extends BaseSchema {
   topics: Pick<Topic, "id" | "name" | "isActive">[];
   name: string;
   description: string;
-  admin: Pick<User, "id" | "name">;
+  admin: Pick<User, "id" | "name" | "profilePhoto">;
   poster?: string | null;
   _count: Pick<_Count, "members">;
   network?: Pick<Network, "id" | "name">;
@@ -75,6 +76,20 @@ interface Category extends BaseSchema {
   _count: Pick<_Count, "events" | "groups">;
 }
 
+interface Event extends BaseSchema {
+  name: string;
+  group: Pick<Group, "name" | "admin">;
+  poster?: string;
+  location: Pick<Location, "city" | "state" | "country">;
+  details?: string;
+  address: string;
+  eventType: "InPerson" | "Online";
+  category: Pick<Category, "name">;
+  topics: Pick<Topic, "name" | "id">[];
+  user: Pick<User, "id" | "name">;
+  _count: Pick<_Count, "attendees">;
+}
+
 export type {
   ApiMetaData,
   ApiResponse,
@@ -84,6 +99,7 @@ export type {
   Network,
   Topic,
   User,
+  Event,
   _Count,
 };
 

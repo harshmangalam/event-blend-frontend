@@ -7,9 +7,11 @@ import type {
   ApiResponse,
   Location,
   PopularCategory,
+  Event,
 } from "~/lib/types";
 import { PopularGroups } from "./popular-groups";
 import { PopularCategories } from "./popular-categories";
+import { PopularEvents } from "./popular-events";
 
 export const useGetPopularCities = routeLoader$(async () => {
   const locations = await fetchBackend
@@ -40,9 +42,19 @@ export const useGetPopularCategories = routeLoader$(async () => {
 
   return resp.data?.categories;
 });
+export const useGetPopularEvents = routeLoader$(async () => {
+  const resp = await fetchBackend
+    .get("/events/popular-events")
+    .fetchError((err) => console.log(err))
+    .internalError((err) => console.log(err))
+    .json<ApiResponse<{ events: Event[] }>>();
+
+  return resp.data?.events;
+});
 export default component$(() => {
   return (
     <div class="container mx-auto grid grid-cols-1 gap-16 px-4 py-12">
+      <PopularEvents />
       <PopularCategories />
       <PopularCities />
       <PopularGroups />
