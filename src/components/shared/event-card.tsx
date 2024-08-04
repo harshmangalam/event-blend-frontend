@@ -2,7 +2,13 @@ import { component$, Slot } from "@builder.io/qwik";
 import { Card } from "~/components/ui/card/card";
 import { Badge } from "~/components/ui/badge/badge";
 import { Link } from "@builder.io/qwik-city";
-import { LuUsers, LuMapPin, LuCalendar, LuTag } from "@qwikest/icons/lucide";
+import {
+  LuUsers,
+  LuMapPin,
+  LuCalendar,
+  LuTag,
+  LuUser2,
+} from "@qwikest/icons/lucide";
 import { formatDistance } from "date-fns";
 import type { Event } from "~/lib/types";
 import { Avatar } from "../ui/avatar/avatar";
@@ -47,12 +53,7 @@ export const EventCard = component$(({ event }: { event: Event }) => {
         </Card.Header>
         <Card.Content>
           <IconWithText text={group.admin.name}>
-            <Avatar.Root class="h-6 w-6">
-              <Avatar.Image src={group.admin.profilePhoto} alt="@mhevery" />
-              <Avatar.Fallback>
-                {group.admin.name.toUpperCase().slice(0, 2)}
-              </Avatar.Fallback>
-            </Avatar.Root>
+            <LuUser2 class="h-4 w-4" />
           </IconWithText>
           <IconWithText text={`${_count.attendees} Attendees`}>
             <LuUsers class="h-4 w-4" />
