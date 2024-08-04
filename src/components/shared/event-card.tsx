@@ -11,7 +11,6 @@ import {
 } from "@qwikest/icons/lucide";
 import { formatDistance } from "date-fns";
 import type { Event } from "~/lib/types";
-import { Avatar } from "../ui/avatar/avatar";
 
 export const IconWithText = component$(({ text }: { text: string }) => {
   return (
