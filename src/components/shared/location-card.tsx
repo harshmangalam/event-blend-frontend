@@ -9,8 +9,8 @@ export const LocationCard = component$(
     const { id, city, _count } = location;
     return (
       <Link href={`/cities/${id}`}>
-        <Card.Root class="max-w-md">
-          <Card.Content class="m-0 flex flex-col items-center gap-3 p-4">
+        <Card.Root class="border-none shadow-none">
+          <Card.Content class="flex flex-col items-center gap-3 p-0">
             <div class="grid h-36 w-36 place-items-center rounded-full bg-muted">
               <LuBuilding2 class="h-16 w-16 text-muted-foreground" />
             </div>

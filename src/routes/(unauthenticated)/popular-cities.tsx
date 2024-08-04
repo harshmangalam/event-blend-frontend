@@ -13,7 +13,7 @@ export const PopularCities = component$(() => {
         </Link>
       </div>
 
-      <div class="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
+      <div class="mt-8 flex flex-wrap gap-8 lg:justify-between">
         {popularCities.value?.map((location) => (
           <LocationCard location={location} key={location.id} />
         ))}
