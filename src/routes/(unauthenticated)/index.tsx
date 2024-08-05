@@ -12,6 +12,7 @@ import type {
 import { PopularGroups } from "./popular-groups";
 import { PopularCategories } from "./popular-categories";
 import { PopularEvents } from "./popular-events";
+import { Hero } from "./hero";
 
 export const useGetPopularCities = routeLoader$(async () => {
   const locations = await fetchBackend
@@ -53,7 +54,8 @@ export const useGetPopularEvents = routeLoader$(async () => {
 });
 export default component$(() => {
   return (
-    <div class="container mx-auto grid grid-cols-1 gap-16 px-4 py-12">
+    <div class="container mx-auto grid max-w-6xl grid-cols-1 gap-16 px-4">
+      <Hero />
       <PopularEvents />
       <PopularCategories />
       <PopularCities />
