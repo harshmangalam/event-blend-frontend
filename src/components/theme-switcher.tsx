@@ -4,7 +4,8 @@ import { LuSun, LuMoon } from "@qwikest/icons/lucide";
 
 type Theme = "light" | "dark";
 export const ThemeSwitcher = component$(() => {
-  const themeSig = useSignal<Theme>("light");
+  const themeSig = useSignal<Theme | null>(null);
+
   const applyLightMode = $(() => {
     document.documentElement.classList.remove("dark");
     document.documentElement.classList.add("light");
@@ -22,21 +23,23 @@ export const ThemeSwitcher = component$(() => {
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async () => {
     const theme = (localStorage.getItem("theme") ?? "dark") as Theme;
-    if (theme === "dark") {
-      await applyDarkMode();
-    }
-    if (theme === "light") {
-      await applyLightMode();
-    }
+    themeSig.value = theme;
+  });
+
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(async ({ track }) => {
+    track(() => themeSig.value);
+    if (themeSig.value === "dark") applyDarkMode();
+    if (themeSig.value === "light") applyLightMode();
   });
 
   const handleToggleTheme = $(async () => {
-    if (document.documentElement.classList.contains("dark")) {
-      await applyLightMode();
-    }
-    if (document.documentElement.classList.contains("light")) {
-      applyDarkMode();
-    }
+    themeSig.value =
+      themeSig.value === "dark"
+        ? "light"
+        : themeSig.value === "light"
+          ? "dark"
+          : null;
   });
 
   return (
