@@ -3,6 +3,7 @@ import { buttonVariants } from "../ui/button/button";
 import { Link } from "@builder.io/qwik-city";
 import { cn } from "@qwik-ui/utils";
 import { SITE_NAME } from "~/lib/constatnts";
+import { ThemeSwitcher } from "../theme-switcher";
 
 export const Navbar = component$(() => {
   return (
@@ -20,10 +21,11 @@ export const Navbar = component$(() => {
           </Link>
           <Link
             href="/signup"
-            class={cn(buttonVariants({ size: "md", look: "primary" }))}
+            class={cn(buttonVariants({ size: "md", look: "outline" }))}
           >
             Sign up
           </Link>
+          <ThemeSwitcher />
         </div>
       </nav>
     </header>
