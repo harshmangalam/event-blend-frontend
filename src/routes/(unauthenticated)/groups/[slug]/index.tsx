@@ -1,6 +1,11 @@
 import { component$ } from "@builder.io/qwik";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
-import { LuMapPin, LuUser2, LuUsers } from "@qwikest/icons/lucide";
+import {
+  LuCalendarCheck,
+  LuMapPin,
+  LuUser2,
+  LuUsers,
+} from "@qwikest/icons/lucide";
 import { Badge } from "~/components/ui/badge/badge";
 import { Button } from "~/components/ui/button/button";
 import { Separator } from "~/components/ui/separator/separator";
@@ -8,6 +13,7 @@ import { DEFAULT_POSTER } from "~/lib/constatnts";
 import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse, Group } from "~/lib/types";
 import { GroupTabs } from "./group-tabs";
+import { GroupsActions } from "./group-actions";
 
 export const useGetGroupBySlug = routeLoader$(async ({ params }) => {
   const group = await fetchBackend
@@ -23,8 +29,8 @@ export default component$(() => {
   return (
     <div>
       <section class="bg-background">
-        <div class="grid grid-cols-1 gap-6">
-          <div>
+        <div class="mx-auto flex max-w-5xl flex-col gap-6 md:flex-row">
+          <div class="max-w-md">
             <img
               alt={groupSig.value?.name}
               fetchPriority="high"
@@ -36,7 +42,7 @@ export default component$(() => {
               src={groupSig.value?.poster ?? DEFAULT_POSTER}
             />
           </div>
-          <div class="px-4">
+          <div class="col-span-3 flex-1 px-4">
             <h2 class="text-3xl font-extrabold">{groupSig.value?.name}</h2>
             <div class="mt-6 flex flex-col gap-2">
               <div class="flex items-center gap-3 text-muted-foreground">
@@ -59,6 +65,10 @@ export default component$(() => {
                   </Link>
                 </div>
               </div>
+              <div class="flex items-center gap-3 text-muted-foreground">
+                <LuCalendarCheck class="mr-1 h-5 w-5" />
+                <span>{groupSig.value?._count.members} events</span>
+              </div>
             </div>
             <div class="mt-6 flex flex-wrap gap-3">
               {groupSig.value?.topics.map((topic) => (
@@ -69,14 +79,17 @@ export default component$(() => {
                 </Link>
               ))}
             </div>
-            <div class="mt-6">
-              <Button look={"primary"}>Join this group</Button>
+            <div class="mt-6 flex items-center gap-4">
+              <Button class="w-full" look={"primary"}>
+                Join this group
+              </Button>
+              <GroupsActions />
             </div>
           </div>
         </div>
       </section>
       <Separator class="mt-6" />
-      <section>
+      <section class="bg-muted">
         <GroupTabs />
       </section>
     </div>

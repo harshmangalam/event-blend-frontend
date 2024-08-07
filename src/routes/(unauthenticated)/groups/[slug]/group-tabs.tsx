@@ -24,18 +24,5 @@ export const GroupTabs = component$(() => {
       slug: "discussions",
     },
   ];
-  return (
-    <Tabs.Root class="w-full">
-      <Tabs.List class="w-full justify-start rounded-none px-4">
-        {tabs.map((tab) => (
-          <Tabs.Tab class="rounded-none" key={tab.slug}>
-            {tab.name}
-          </Tabs.Tab>
-        ))}
-      </Tabs.List>
-      {tabs.map((tab) => (
-        <Tabs.Panel key={tab.slug}>Panel {tab.name}</Tabs.Panel>
-      ))}
-    </Tabs.Root>
-  );
+  return <div class="bg-background"></div>;
 });
