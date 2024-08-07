@@ -7,6 +7,7 @@ import { Separator } from "~/components/ui/separator/separator";
 import { DEFAULT_POSTER } from "~/lib/constatnts";
 import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse, Group } from "~/lib/types";
+import { GroupTabs } from "./group-tabs";
 
 export const useGetGroupBySlug = routeLoader$(async ({ params }) => {
   const group = await fetchBackend
@@ -74,8 +75,10 @@ export default component$(() => {
           </div>
         </div>
       </section>
-      <Separator class="my-6" />
-      <section></section>
+      <Separator class="mt-6" />
+      <section>
+        <GroupTabs />
+      </section>
     </div>
   );
 });
