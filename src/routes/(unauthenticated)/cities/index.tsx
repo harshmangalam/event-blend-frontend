@@ -17,7 +17,7 @@ export default component$(() => {
   const locationsSig = useDiscoverLocations();
   const countries = locationsSig.value ?? {};
   return (
-    <div class="container mx-auto px-4 py-12">
+    <div>
       <h2 class="text-2xl font-bold">Popular cities</h2>
       <Separator class="mt-6" />
       <div class="mt-6 grid grid-cols-1 gap-6">

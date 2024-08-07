@@ -98,4 +98,5 @@ export default {
       });
     }),
   ],
+  darkMode: "media",
 };

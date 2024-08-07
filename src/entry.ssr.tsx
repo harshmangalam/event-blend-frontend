@@ -25,7 +25,6 @@ export default function (opts: RenderToStreamOptions) {
     containerAttributes: {
       lang: "en-us",
       ...opts.containerAttributes,
-      class: "dark",
     },
     serverData: {
       ...opts.serverData,

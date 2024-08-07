@@ -6,7 +6,7 @@ export default component$(() => {
   return (
     <div class="flex h-full min-h-screen flex-col justify-between bg-background">
       <Navbar />
-      <main class="flex-1">
+      <main class="container mx-auto w-full flex-1 px-4 py-12">
         <Slot />
       </main>
       <Footer />

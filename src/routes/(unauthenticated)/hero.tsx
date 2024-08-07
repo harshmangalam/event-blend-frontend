@@ -6,8 +6,8 @@ import { SITE_NAME } from "~/lib/constatnts";
 
 export const Hero = component$(() => {
   return (
-    <div class="mb-2 sm:mb-6">
-      <div class="relative mb-6 mt-5 w-full sm:mb-16 sm:mt-24 lg:mb-24">
+    <div>
+      <div class="relative w-full">
         <div class="flex flex-col items-center sm:flex-row">
           <div class="mb-6 flex w-full flex-col space-y-6 sm:mb-0 sm:mr-6 lg:w-7/12">
             <h1 class="text-3xl font-extrabold lg:text-4xl">

@@ -25,7 +25,7 @@ export default component$(() => {
   const topicSig = useFetchTopicDetails();
   const relatedTopics = useFetchRelatedTopics();
   return (
-    <div class="mx-auto w-full max-w-2xl px-4 py-12">
+    <div class="mx-auto w-full max-w-2xl">
       <div class="grid grid-cols-1 items-center gap-6">
         <div class="grid grid-cols-1 items-center gap-4">
           <h2 class="text-center text-3xl font-bold opacity-70">
