@@ -53,7 +53,7 @@
         },
         {
           "file": ".prettierignore",
-          "hash": "18026352017748956344"
+          "hash": "3888515838325320844"
         },
         {
           "file": ".prettierrc.js",
@@ -138,27 +138,39 @@
         },
         {
           "file": "src/components/footer/index.tsx",
-          "hash": "10635967251084723539"
+          "hash": "239932382280467022"
         },
         {
           "file": "src/components/navigations/navbar.tsx",
-          "hash": "6512470063157770651"
+          "hash": "10123143075847768432"
         },
         {
           "file": "src/components/router-head/router-head.tsx",
           "hash": "13869225469366272939"
         },
         {
+          "file": "src/components/shared/category-card.tsx",
+          "hash": "2616095197961523010"
+        },
+        {
+          "file": "src/components/shared/event-card.tsx",
+          "hash": "10364439817403473418"
+        },
+        {
           "file": "src/components/shared/group-card.tsx",
-          "hash": "2251286573355120472"
+          "hash": "6819138589656361366"
+        },
+        {
+          "file": "src/components/shared/group-flat-card.tsx",
+          "hash": "2067730809331384503"
         },
         {
           "file": "src/components/shared/location-card.tsx",
-          "hash": "11712739796102334255"
+          "hash": "88545811950161653"
         },
         {
-          "file": "src/components/shared/topics-combobox.tsx",
-          "hash": "3744074264730183230"
+          "file": "src/components/theme-switcher.tsx",
+          "hash": "6424072623736200044"
         },
         {
           "file": "src/components/ui/alert/alert.tsx",
@@ -218,7 +230,11 @@
         },
         {
           "file": "src/lib/constatnts.ts",
-          "hash": "11785761485279808649"
+          "hash": "4440780426031757872"
+        },
+        {
+          "file": "src/lib/data.ts",
+          "hash": "10466892815665132520"
         },
         {
           "file": "src/lib/fetch-backend.ts",
@@ -226,7 +242,7 @@
         },
         {
           "file": "src/lib/types.ts",
-          "hash": "5905804477917852154"
+          "hash": "667253232506817107"
         },
         {
           "file": "src/root.tsx",
@@ -249,24 +265,56 @@
           "hash": "3244421341483603138"
         },
         {
+          "file": "src/routes/(unauthenticated)/cities/index.tsx",
+          "hash": "1392070544486430329"
+        },
+        {
+          "file": "src/routes/(unauthenticated)/groups/[slug]/index.tsx",
+          "hash": "12986433599410653247"
+        },
+        {
           "file": "src/routes/(unauthenticated)/groups/index.tsx",
-          "hash": "12448509818333266675"
+          "hash": "4869324851574571617"
+        },
+        {
+          "file": "src/routes/(unauthenticated)/hero.tsx",
+          "hash": "15129591799757710204"
         },
         {
           "file": "src/routes/(unauthenticated)/index.tsx",
-          "hash": "15789441038157427346"
+          "hash": "428589019848175610"
         },
         {
           "file": "src/routes/(unauthenticated)/layout.tsx",
-          "hash": "1695081928717090219"
+          "hash": "523385591893636599"
+        },
+        {
+          "file": "src/routes/(unauthenticated)/popular-categories.tsx",
+          "hash": "14995449886021958018"
         },
         {
           "file": "src/routes/(unauthenticated)/popular-cities.tsx",
-          "hash": "12171511984626533585"
+          "hash": "9333863339179033139"
+        },
+        {
+          "file": "src/routes/(unauthenticated)/popular-events.tsx",
+          "hash": "13996206620126852460"
         },
         {
           "file": "src/routes/(unauthenticated)/popular-groups.tsx",
           "hash": "10688283362816590004"
+        },
+        {
+          "file": "src/routes/(unauthenticated)/topics/[slug]/counts.tsx",
+          "hash": "12909359729575942002"
+        },
+        {
+          "file": "src/routes/(unauthenticated)/topics/[slug]/index.tsx",
+          "hash": "7528453518600952245"
+        },
+        {
+          "file": "src/routes/(unauthenticated)/topics/index.tsx",
+          "hash": "11923258219133189395"
         },
         {
           "file": "src/routes/layout.tsx",
@@ -282,7 +330,7 @@
         },
         {
           "file": "tsconfig.json",
-          "hash": "6896372378635884482"
+          "hash": "7045600783084040305"
         },
         {
           "file": "vite.config.ts",
