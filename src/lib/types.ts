@@ -44,7 +44,6 @@ interface User extends BaseSchema {
 interface Topic extends BaseSchema {
   name: string;
   user: Pick<User, "id" | "name">;
-  isActive: boolean;
   categoryId: string;
   slug: string;
   _count: Pick<_Count, "groups" | "events" | "followedByUsers">;
@@ -52,8 +51,9 @@ interface Topic extends BaseSchema {
 
 interface Group extends BaseSchema {
   location: Location;
-  topics: Pick<Topic, "id" | "name" | "isActive">[];
+  topics: Pick<Topic, "id" | "name" | "slug">[];
   name: string;
+  slug: string;
   description: string;
   admin: Pick<User, "id" | "name" | "profilePhoto">;
   poster?: string | null;
