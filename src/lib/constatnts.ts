@@ -19,14 +19,6 @@ const GROUP_DETAILS_TABS = [
     name: "Members",
     slug: "members",
   },
-  {
-    name: "Photos",
-    slug: "photos",
-  },
-  {
-    name: "Discussions",
-    slug: "discussions",
-  },
 ];
 export {
   ACCESS_TOKEN_EXP,
@@ -35,4 +27,5 @@ export {
   SITE_NAME,
   DEFAULT_POSTER,
   GROUP_DETAILS_TABS,
+  SITE_SHORT_NAME,
 };
