@@ -4,7 +4,8 @@ import { DEFAULT_POSTER } from "~/lib/constatnts";
 import type { Group } from "~/lib/types";
 import { Button } from "../ui/button/button";
 import { LuShare2, LuTag, LuUsers } from "@qwikest/icons/lucide";
-import { Link } from "@builder.io/qwik-city";
+import { Link, useNavigate } from "@builder.io/qwik-city";
+import { Badge } from "../ui/badge/badge";
 
 export const IconWithText = component$(
   ({ text }: { text: string | number }) => {
@@ -18,6 +19,7 @@ export const IconWithText = component$(
 );
 
 export const GroupFlatCard = component$(({ group }: { group: Group }) => {
+  const navigate = useNavigate();
   return (
     <Card.Root class="w-full rounded-md border-none shadow-none">
       <Link href={`/groups/${group.slug}`}>
@@ -48,9 +50,27 @@ export const GroupFlatCard = component$(({ group }: { group: Group }) => {
                     <LuTag class="h-4 w-4" />
                   </IconWithText>
                 </div>
-                <Button stoppropagation:click size={"sm"} look={"ghost"}>
+                <Button
+                  preventdefault:click
+                  stoppropagation:click
+                  size={"sm"}
+                  look={"ghost"}
+                >
                   <LuShare2 class="h-4 w-4" />
                 </Button>
+              </div>
+              <div class="mt-4 flex flex-wrap gap-3">
+                {group.topics.map((topic) => (
+                  <Badge
+                    stoppropagation:click
+                    preventdefault:click
+                    key={topic.id}
+                    onClick$={() => navigate(`/topics/${topic.slug}`)}
+                    look={"outline"}
+                  >
+                    {topic.name}
+                  </Badge>
+                ))}
               </div>
             </div>
           </div>
