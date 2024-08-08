@@ -72,7 +72,7 @@ export default component$(() => {
             </div>
             <div class="mt-6 flex flex-wrap gap-3">
               {groupSig.value?.topics.map((topic) => (
-                <Link key={topic.id} href={`/topics/${topic}`}>
+                <Link key={topic.id} href={`/topics/${topic.slug}`}>
                   <Badge look={"outline"} class="py-2">
                     {topic.name}
                   </Badge>
