@@ -54,7 +54,7 @@ export const useGetPopularEvents = routeLoader$(async () => {
 });
 export default component$(() => {
   return (
-    <div class="grid w-full grid-cols-1 gap-16">
+    <div class="container mx-auto grid w-full grid-cols-1 gap-16 px-4">
       <Hero />
       <PopularEvents />
       <PopularCategories />
