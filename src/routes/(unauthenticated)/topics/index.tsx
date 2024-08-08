@@ -14,8 +14,8 @@ export const useFetchCategories = routeLoader$(async () => {
 export default component$(() => {
   const categoriesSig = useFetchCategories();
   return (
-    <div>
-      <h2 class="text-2xl font-bold">Popular topics</h2>
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold">Discover topics</h2>
       <Separator class="mt-6" />
       <div class="mt-6 grid grid-cols-1 gap-6">
         {categoriesSig.value?.map((category) => (
