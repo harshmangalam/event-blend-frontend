@@ -1,6 +1,5 @@
 import { component$ } from "@builder.io/qwik";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
-import { Badge } from "~/components/ui/badge/badge";
 import { Separator } from "~/components/ui/separator/separator";
 import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse } from "~/lib/types";
@@ -35,10 +34,6 @@ export default component$(() => {
                   >
                     {location.city}
                   </Link>
-                  <Badge look={"outline"}>
-                    {location._count.groups}
-                    <span class="ml-1 font-normal"> groups</span>
-                  </Badge>
                 </div>
               ))}
             </div>
