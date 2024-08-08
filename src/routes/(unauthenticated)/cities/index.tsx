@@ -1,6 +1,5 @@
 import { component$ } from "@builder.io/qwik";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
-import { LuUsers2 } from "@qwikest/icons/lucide";
 import { Badge } from "~/components/ui/badge/badge";
 import { Separator } from "~/components/ui/separator/separator";
 import { fetchBackend } from "~/lib/fetch-backend";
@@ -17,7 +16,7 @@ export default component$(() => {
   const locationsSig = useDiscoverLocations();
   const countries = locationsSig.value ?? {};
   return (
-    <div>
+    <div class="container mx-auto px-4">
       <h2 class="text-2xl font-bold">Popular cities</h2>
       <Separator class="mt-6" />
       <div class="mt-6 grid grid-cols-1 gap-6">
@@ -37,8 +36,8 @@ export default component$(() => {
                     {location.city}
                   </Link>
                   <Badge look={"outline"}>
-                    <LuUsers2 class="mr-1 h-3.5 w-3.5" />
                     {location._count.groups}
+                    <span class="ml-1 font-normal"> groups</span>
                   </Badge>
                 </div>
               ))}
