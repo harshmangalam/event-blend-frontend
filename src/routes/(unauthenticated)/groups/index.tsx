@@ -16,7 +16,7 @@ export const useDiscoverGroups = routeLoader$(async () => {
 export default component$(() => {
   const groupsSig = useDiscoverGroups();
   return (
-    <section>
+    <div class="container mx-auto px-4">
       <h2 class="text-xl font-semibold">Discover Groups</h2>
       <div class="mt-8 grid grid-cols-1 gap-4">
         {groupsSig.value?.map((group) => (
@@ -26,6 +26,6 @@ export default component$(() => {
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 });

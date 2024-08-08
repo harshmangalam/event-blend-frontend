@@ -3,7 +3,7 @@ import { Card } from "~/components/ui/card/card";
 import { DEFAULT_POSTER } from "~/lib/constatnts";
 import type { Group } from "~/lib/types";
 import { Button } from "../ui/button/button";
-import { LuShare2, LuTag, LuUsers } from "@qwikest/icons/lucide";
+import { LuShare2, LuTag, LuUser2, LuUsers } from "@qwikest/icons/lucide";
 import { Link, useNavigate } from "@builder.io/qwik-city";
 import { Badge } from "../ui/badge/badge";
 
@@ -24,12 +24,12 @@ export const GroupFlatCard = component$(({ group }: { group: Group }) => {
     <Card.Root class="w-full rounded-md border-none shadow-none">
       <Link href={`/groups/${group.slug}`}>
         <Card.Content class="p-0">
-          <div class="flex gap-8">
+          <div class="flex flex-col gap-8 sm:flex-row">
             <Card.Image
               src={group.poster ?? DEFAULT_POSTER}
-              class="aspect-video h-24 w-auto flex-none rounded-md object-cover"
-              width={160}
-              height={80}
+              class="aspect-video h-auto w-auto flex-none rounded-md object-cover sm:h-24"
+              width={300}
+              height={300}
             />
             <div class="flex flex-1 flex-col gap-4">
               <div>
@@ -38,13 +38,16 @@ export const GroupFlatCard = component$(({ group }: { group: Group }) => {
                   {group.location.city}, {group.location.country}
                 </h4>
               </div>
-              <p class="line-clamp-2 text-muted-foreground">
+              <p class="line-clamp-2 text-sm text-muted-foreground">
                 {group.description}
               </p>
               <div class="flex items-center justify-between gap-4">
                 <div class="flex flex-wrap items-center gap-4">
+                  <IconWithText text={`${group.admin.name}`}>
+                    <LuUser2 class="h-4 w-4" />
+                  </IconWithText>
                   <IconWithText text={`${group._count.members} Members`}>
-                    <LuUsers class="mr-1 h-4 w-4" />
+                    <LuUsers class="h-4 w-4" />
                   </IconWithText>
                   <IconWithText text={group.category.name}>
                     <LuTag class="h-4 w-4" />
