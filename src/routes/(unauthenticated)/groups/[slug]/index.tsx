@@ -29,16 +29,16 @@ export default component$(() => {
   return (
     <div>
       <section class="bg-background">
-        <div class="mx-auto flex max-w-5xl flex-col gap-6 md:flex-row">
-          <div class="max-w-md">
+        <div class="mx-auto flex flex-col gap-6 md:container md:flex-row md:px-4">
+          <div class="w-full md:max-w-sm xl:max-w-md">
             <img
               alt={groupSig.value?.name}
               fetchPriority="high"
               loading="eager"
-              width={800}
-              height={100}
+              width={600}
+              height={400}
               decoding="async"
-              class="aspect-video w-full flex-none object-cover  object-center md:rounded-lg"
+              class="aspect-video h-auto w-full flex-none object-cover object-center md:rounded-lg"
               src={groupSig.value?.poster ?? DEFAULT_POSTER}
             />
           </div>
