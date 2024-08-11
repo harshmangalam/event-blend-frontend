@@ -90,7 +90,7 @@ export default component$(() => {
       </section>
       <Separator class="mt-6" />
       <GroupTabs />
-      <div class="bg-muted">
+      <div class="bg-background">
         <div class="container mx-auto max-w-5xl px-4">
           <Slot />
         </div>

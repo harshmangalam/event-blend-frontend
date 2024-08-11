@@ -31,18 +31,17 @@ export const GroupFlatCard = component$(({ group }: { group: Group }) => {
               width={300}
               height={300}
             />
-            <div class="flex flex-1 flex-col gap-4">
-              <div>
-                <h3 class="text-xl font-bold">{group.name}</h3>
-                <h4 class="text-sm font-semibold uppercase text-muted-foreground">
-                  {group.location.city}, {group.location.country}
-                </h4>
-              </div>
-              <p class="line-clamp-2 text-sm text-muted-foreground">
+            <div class="flex-1">
+              <h3 class="text-xl font-bold">{group.name}</h3>
+              <h4 class="text-sm font-semibold uppercase text-muted-foreground">
+                {group.location.city}, {group.location.country}
+              </h4>
+
+              <p class="mt-2 line-clamp-2 text-sm text-muted-foreground">
                 {group.description}
               </p>
-              <div class="flex items-center justify-between gap-4">
-                <div class="flex flex-wrap items-center gap-4">
+              <div class="flex items-center justify-between gap-3">
+                <div class="flex flex-wrap gap-3">
                   <IconWithText text={`${group.admin.name}`}>
                     <LuUser2 class="h-4 w-4" />
                   </IconWithText>
@@ -62,7 +61,7 @@ export const GroupFlatCard = component$(({ group }: { group: Group }) => {
                   <LuShare2 class="h-4 w-4" />
                 </Button>
               </div>
-              <div class="mt-4 flex flex-wrap gap-3">
+              <div class="mt-3 flex flex-wrap gap-3">
                 {group.topics.map((topic) => (
                   <Badge
                     stoppropagation:click
