@@ -1,11 +1,12 @@
 import { component$ } from "@builder.io/qwik";
-import { Link, routeLoader$ } from "@builder.io/qwik-city";
+import { Link, routeLoader$, server$ } from "@builder.io/qwik-city";
 import { fetchBackend } from "~/lib/fetch-backend";
-import type { ApiResponse, Topic } from "~/lib/types";
+import type { ApiResponse, Group, Topic } from "~/lib/types";
 import { Counts } from "./counts";
 
 import { Button } from "~/components/ui/button/button";
 import { Badge } from "~/components/ui/badge/badge";
+import { NearbyGroups } from "./near-by-groups";
 
 export const useFetchTopicDetails = routeLoader$(async ({ params }) => {
   const resp = await fetchBackend
@@ -19,6 +20,17 @@ export const useFetchRelatedTopics = routeLoader$(async ({ params }) => {
     .get(`/topics/slug/${params.slug}/related-topics`)
     .json<ApiResponse<{ topics: Pick<Topic, "id" | "slug" | "name">[] }>>();
   return resp.data?.topics;
+});
+
+export const fetchNearbyGroups = server$(async function (
+  lat?: number,
+  lon?: number,
+) {
+  if (lat === undefined || lon === undefined) return [];
+  const resp = await fetchBackend
+    .get(`/groups/near-by?slug=${this.params.slug}&lat=${lat}&lon=${lon}`)
+    .json<ApiResponse<{ groups: Group[] }>>();
+  return resp.data?.groups ?? [];
 });
 
 export default component$(() => {
@@ -60,6 +72,8 @@ export default component$(() => {
             ))}
           </div>
         </div>
+
+        <NearbyGroups name={topicSig.value?.name} />
       </div>
     </div>
   );
