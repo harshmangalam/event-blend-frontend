@@ -50,7 +50,7 @@ export default component$(() => {
         </div>
         <div>
           <div class="font-medium">Related Topics</div>
-          <div class="mt-3 flex flex-wrap gap-6">
+          <div class="mt-3 flex flex-wrap gap-4">
             {relatedTopics.value?.map((topic) => (
               <Link key={topic.id} href={`/topics/${topic.slug}`}>
                 <Badge class="px-4 py-2" look={"outline"}>
