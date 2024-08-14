@@ -7,17 +7,18 @@ import { Counts } from "./counts";
 import { Button } from "~/components/ui/button/button";
 import { Badge } from "~/components/ui/badge/badge";
 import { NearbyGroups } from "./near-by-groups";
+import { LargestGroups } from "./largest-groups";
 
 export const useFetchTopicDetails = routeLoader$(async ({ params }) => {
   const resp = await fetchBackend
-    .get(`/topics/slug/${params.slug}`)
+    .get(`/topics/${params.slug}`)
     .json<ApiResponse<{ topic: Topic }>>();
   return resp.data?.topic;
 });
 
 export const useFetchRelatedTopics = routeLoader$(async ({ params }) => {
   const resp = await fetchBackend
-    .get(`/topics/slug/${params.slug}/related-topics`)
+    .get(`/topics/${params.slug}/related-topics`)
     .json<ApiResponse<{ topics: Pick<Topic, "id" | "slug" | "name">[] }>>();
   return resp.data?.topics;
 });
@@ -28,11 +29,16 @@ export const fetchNearbyGroups = server$(async function (
 ) {
   if (lat === undefined || lon === undefined) return [];
   const resp = await fetchBackend
-    .get(`/groups/near-by?slug=${this.params.slug}&lat=${lat}&lon=${lon}`)
+    .get(`/topics/${this.params.slug}/near-by?lat=${lat}&lon=${lon}`)
     .json<ApiResponse<{ groups: Group[] }>>();
   return resp.data?.groups ?? [];
 });
-
+export const useFetchLargestGroups = routeLoader$(async ({ params }) => {
+  const resp = await fetchBackend
+    .get(`/topics/${params.slug}/largest-groups`)
+    .json<ApiResponse<{ groups: Group[] }>>();
+  return resp.data?.groups;
+});
 export default component$(() => {
   const topicSig = useFetchTopicDetails();
   const relatedTopics = useFetchRelatedTopics();
@@ -74,6 +80,7 @@ export default component$(() => {
         </div>
 
         <NearbyGroups name={topicSig.value?.name} />
+        <LargestGroups name={topicSig.value?.name} />
       </div>
     </div>
   );
