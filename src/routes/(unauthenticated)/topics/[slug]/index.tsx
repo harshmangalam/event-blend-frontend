@@ -8,6 +8,7 @@ import { Button } from "~/components/ui/button/button";
 import { Badge } from "~/components/ui/badge/badge";
 import { NearbyGroups } from "./near-by-groups";
 import { LargestGroups } from "./largest-groups";
+import { NewestGroups } from "./newest-groups";
 
 export const useFetchTopicDetails = routeLoader$(async ({ params }) => {
   const resp = await fetchBackend
@@ -39,11 +40,19 @@ export const useFetchLargestGroups = routeLoader$(async ({ params }) => {
     .json<ApiResponse<{ groups: Group[] }>>();
   return resp.data?.groups;
 });
+
+export const useFetchNewestGroups = routeLoader$(async ({ params }) => {
+  const resp = await fetchBackend
+    .get(`/topics/${params.slug}/newest-groups`)
+    .json<ApiResponse<{ groups: Group[] }>>();
+  return resp.data?.groups ?? [];
+});
+
 export default component$(() => {
   const topicSig = useFetchTopicDetails();
   const relatedTopics = useFetchRelatedTopics();
   return (
-    <div class="mx-auto w-full max-w-2xl">
+    <div class="mx-auto w-full max-w-3xl">
       <div class="grid grid-cols-1 items-center gap-6">
         <div class="grid grid-cols-1 items-center gap-4">
           <h2 class="text-center text-3xl font-bold opacity-70">
@@ -81,6 +90,7 @@ export default component$(() => {
 
         <NearbyGroups name={topicSig.value?.name} />
         <LargestGroups name={topicSig.value?.name} />
+        <NewestGroups name={topicSig.value?.name} />
       </div>
     </div>
   );
