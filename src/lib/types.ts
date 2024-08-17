@@ -46,6 +46,7 @@ interface Topic extends BaseSchema {
   user: Pick<User, "id" | "name">;
   categoryId: string;
   slug: string;
+  groups: Group[];
   _count: Pick<_Count, "groups" | "events" | "followedByUsers">;
 }
 
@@ -73,6 +74,7 @@ interface Network extends BaseSchema {
 interface Category extends BaseSchema {
   name: string;
   slug: string;
+  description?: string;
   topics: Topic[];
   _count: Pick<_Count, "events" | "groups">;
 }
