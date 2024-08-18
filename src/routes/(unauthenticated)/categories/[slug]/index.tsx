@@ -3,10 +3,11 @@ import { Link, routeLoader$ } from "@builder.io/qwik-city";
 import { cn } from "@qwik-ui/utils";
 import { buttonVariants } from "~/components/ui/button/button";
 import { fetchBackend } from "~/lib/fetch-backend";
-import type { ApiResponse, Category, Topic } from "~/lib/types";
+import type { ApiResponse, Category, Topic, Event } from "~/lib/types";
 import { TrendingTopics } from "./trending-topics";
 import { Topics } from "./topics";
 import { Separator } from "~/components/ui/separator/separator";
+import { Events } from "./events";
 
 export const useGetCategoryBySlug = routeLoader$(async ({ params }) => {
   const resp = await fetchBackend
@@ -27,6 +28,13 @@ export const useGetCategoryTopics = routeLoader$(async ({ params }) => {
     .get(`/categories/${params.slug}/topics`)
     .json<ApiResponse<{ topics: Topic[] }>>();
   return resp.data?.topics;
+});
+
+export const useGetCategoryEvents = routeLoader$(async ({ params }) => {
+  const resp = await fetchBackend
+    .get(`/categories/${params.slug}/events`)
+    .json<ApiResponse<{ events: Event[] }>>();
+  return resp.data?.events;
 });
 export default component$(() => {
   const categorySig = useGetCategoryBySlug();
@@ -50,10 +58,11 @@ export default component$(() => {
           <TrendingTopics />
         </div>
       </div>
-      <Separator class="mb-6" />
+      <Separator />
 
-      <div class="mx-auto max-w-4xl px-4">
+      <div class="mx-auto max-w-4xl px-4 py-12">
         <Topics name={categorySig.value?.name} />
+        <Events name={categorySig.value?.name} />
       </div>
     </div>
   );

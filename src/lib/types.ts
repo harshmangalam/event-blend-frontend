@@ -81,7 +81,7 @@ interface Category extends BaseSchema {
 
 interface Event extends BaseSchema {
   name: string;
-  group: Pick<Group, "name" | "admin">;
+  group: Group;
   poster?: string;
   location: Pick<Location, "city" | "state" | "country">;
   details?: string;
