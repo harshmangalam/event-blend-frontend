@@ -6,11 +6,11 @@ import { SITE_NAME } from "~/lib/constatnts";
 
 export const Hero = component$(() => {
   return (
-    <div>
+    <div class="py-12">
       <div class="relative w-full">
         <div class="flex flex-col items-center sm:flex-row">
           <div class="mb-6 flex w-full flex-col space-y-6 sm:mb-0 sm:mr-6 lg:w-7/12">
-            <h1 class="text-3xl font-extrabold lg:text-4xl">
+            <h1 class="text-[42px] font-extrabold leading-[3.25rem]">
               The Open Source Platform for Organizing and Attending Events
             </h1>
             <p>
@@ -24,7 +24,7 @@ export const Hero = component$(() => {
                 class={cn(buttonVariants({ size: "md", look: "primary" }))}
                 href="/signup"
               >
-                Join {SITE_NAME}
+                Join Now
               </Link>
             </div>
           </div>

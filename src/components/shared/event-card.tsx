@@ -40,10 +40,10 @@ export const EventCard = component$(({ event }: { event: Event }) => {
             src={poster}
             width={300}
             height={160}
-            class="aspect-video"
+            class="mb-4 grid h-48 w-full place-items-center rounded-t bg-muted"
           ></Card.Image>
         )}
-        <Card.Header class="pb-0">
+        <Card.Header class="py-0">
           <Card.Title class="text-lg font-bold">{name}</Card.Title>
           <Card.Description>
             <span class="opacity-70">Hosted by: </span>
@@ -51,9 +51,6 @@ export const EventCard = component$(({ event }: { event: Event }) => {
           </Card.Description>
         </Card.Header>
         <Card.Content>
-          <IconWithText text={group.admin.name}>
-            <LuUser2 class="h-4 w-4" />
-          </IconWithText>
           <IconWithText text={`${_count.attendees} Attendees`}>
             <LuUsers class="h-4 w-4" />
           </IconWithText>
@@ -70,15 +67,8 @@ export const EventCard = component$(({ event }: { event: Event }) => {
             <LuCalendar class="h-4 w-4" />
           </IconWithText>
 
-          <IconWithText text={category.name}>
-            <LuTag class="h-4 w-4" />
-          </IconWithText>
-          <div class="mt-4 flex flex-wrap gap-3">
-            {topics.map((topic) => (
-              <Badge key={topic.id} look={"outline"}>
-                {topic.name}
-              </Badge>
-            ))}
+          <div class="mt-3">
+            <Badge look={"primary"}>{category.name}</Badge>
           </div>
         </Card.Content>
       </Link>
