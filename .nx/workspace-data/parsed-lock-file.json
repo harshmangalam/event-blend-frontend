@@ -612,6 +612,15 @@
         "hash": "sha512-eIQ4QTrOWyL3LWEe/bu6Taqzq2HQvHcyTMaOrI95P2/LmJE7AsfPfgJGuFLPVqBUE1BC1rik3VIhU+s9u72arA=="
       }
     },
+    "npm:@modular-forms/qwik": {
+      "type": "npm",
+      "name": "npm:@modular-forms/qwik",
+      "data": {
+        "version": "0.26.1",
+        "packageName": "@modular-forms/qwik",
+        "hash": "sha512-8/ANrC719G09NAOrC6PYkNIhjfMDHaoYr0rm8KWvOUvISGUSV8uKz/T6111Wv9e8vHjIooqGVBtEL5ec+nHIZw=="
+      }
+    },
     "npm:@napi-rs/wasm-runtime": {
       "type": "npm",
       "name": "npm:@napi-rs/wasm-runtime",
@@ -1924,6 +1933,15 @@
         "version": "4.3.5",
         "packageName": "debug",
         "hash": "sha512-pt0bNEmneDIvdL1Xsd9oDQ/wrQRkXDT4AUWlNZNPKvW5x/jyO9VFXkJUP07vQ2upmw5PlaITaPKc31jK13V+jg=="
+      }
+    },
+    "npm:decode-formdata": {
+      "type": "npm",
+      "name": "npm:decode-formdata",
+      "data": {
+        "version": "0.8.0",
+        "packageName": "decode-formdata",
+        "hash": "sha512-iUzDgnWsw5ToSkFY7VPFA5Gfph6ROoOxOB7Ybna4miUSzLZ4KaSJk6IAB2AdW6+C9vCVWhjjNA4gjT6wF3eZHQ=="
       }
     },
     "npm:decode-named-character-reference": {
@@ -5337,6 +5355,15 @@
         "hash": "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw=="
       }
     },
+    "npm:valibot": {
+      "type": "npm",
+      "name": "npm:valibot",
+      "data": {
+        "version": "0.39.0",
+        "packageName": "valibot",
+        "hash": "sha512-d+vE8SDRNy9zKg6No5MHz2tdz8H6CW8X3OdqYdmlhnoqQmEoM6Hu0hJUrZv3tPSVrzZkIIMCtdCQtMzcM6NCWw=="
+      }
+    },
     "npm:vfile-message": {
       "type": "npm",
       "name": "npm:vfile-message",
@@ -5945,6 +5972,26 @@
     {
       "source": "npm:@mdx-js/mdx",
       "target": "npm:vfile",
+      "type": "static"
+    },
+    {
+      "source": "npm:@modular-forms/qwik",
+      "target": "npm:@builder.io/qwik",
+      "type": "static"
+    },
+    {
+      "source": "npm:@modular-forms/qwik",
+      "target": "npm:@builder.io/qwik-city",
+      "type": "static"
+    },
+    {
+      "source": "npm:@modular-forms/qwik",
+      "target": "npm:decode-formdata",
+      "type": "static"
+    },
+    {
+      "source": "npm:@modular-forms/qwik",
+      "target": "npm:valibot",
       "type": "static"
     },
     {
@@ -11080,6 +11127,11 @@
     {
       "source": "npm:uri-js",
       "target": "npm:punycode",
+      "type": "static"
+    },
+    {
+      "source": "npm:valibot",
+      "target": "npm:typescript",
       "type": "static"
     },
     {
