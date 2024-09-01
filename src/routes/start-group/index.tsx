@@ -12,6 +12,7 @@ import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
 import { Button } from "~/components/ui/button/button";
 import { Textarea } from "~/components/ui/textarea/textarea";
+import { Topics } from "./topics";
 
 const GroupSchema = v.object({
   location: v.pipe(v.string(), v.nonEmpty("Please enter your group location.")),
@@ -25,7 +26,6 @@ const GroupSchema = v.object({
     v.nonEmpty("Please enter your group description."),
     v.minLength(50, "Please write at least 50 characters"),
   ),
-  topics: v.array(v.string()),
 });
 
 type GroupForm = v.InferInput<typeof GroupSchema>;
@@ -34,7 +34,6 @@ export const useFormLoader = routeLoader$<InitialValues<GroupForm>>(() => ({
   location: "",
   name: "",
   description: "",
-  topics: [],
 }));
 
 export const useFormAction = formAction$<GroupForm>((values) => {
@@ -50,7 +49,6 @@ export default component$(() => {
   });
   return (
     <div>
-      <Progress value={30} class="rounded-none" />
       <div class="container mx-auto w-full px-4  py-12">
         <Form>
           <Field name="location">
@@ -78,6 +76,7 @@ export default component$(() => {
               </div>
             )}
           </Field>
+          <Topics />
           <div class="mt-4">
             <Button type="submit">Continue</Button>
           </div>
