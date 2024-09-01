@@ -29,6 +29,7 @@
   "devDependencies": {
     "@builder.io/qwik": "^1.7.1",
     "@builder.io/qwik-city": "^1.7.1",
+    "@modular-forms/qwik": "^0.26.1",
     "@qwik-ui/headless": "^0.5.0",
     "@qwik-ui/styled": "^0.1.0",
     "@qwik-ui/utils": "^0.2.1",
@@ -55,8 +56,8 @@
   },
   "nx": {},
   "dependencies": {
-    "@modular-forms/qwik": "^0.26.1",
     "date-fns": "^3.6.0",
+    "valibot": "^0.39.0",
     "wretch": "^2.9.0"
   }
 }
