@@ -1,5 +1,4 @@
 import { component$ } from "@builder.io/qwik";
-import { Progress } from "~/components/ui/progress/progress";
 import * as v from "valibot";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import {

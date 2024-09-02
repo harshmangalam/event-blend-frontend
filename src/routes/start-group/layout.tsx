@@ -4,14 +4,12 @@ import { GroupProgressStatus } from "./group-progress-status";
 
 export default component$(() => {
   return (
-    <div class="flex h-full min-h-screen flex-col justify-between bg-background">
-      <header>
-        <Navbar />
-        <GroupProgressStatus />
-      </header>
-      <main class="w-full flex-1">
+    <>
+      <Navbar />
+      <GroupProgressStatus />
+      <main class="mx-auto w-full max-w-xl  px-4  py-12">
         <Slot />
       </main>
-    </div>
+    </>
   );
 });
