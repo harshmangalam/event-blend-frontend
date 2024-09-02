@@ -20,8 +20,6 @@ type LocationForm = v.InferInput<typeof LocationSchema>;
 
 export const useFormLoader = routeLoader$<InitialValues<LocationForm>>(() => ({
   location: "",
-  name: "",
-  description: "",
 }));
 
 export const useFormAction = formAction$<LocationForm>((values) => {
