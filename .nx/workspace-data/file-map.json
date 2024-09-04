@@ -213,6 +213,10 @@
           "hash": "5248844582827909674"
         },
         {
+          "file": "src/components/ui/input/search-input.tsx",
+          "hash": "15642017703636377892"
+        },
+        {
           "file": "src/components/ui/label/label.tsx",
           "hash": "12436589004438559187"
         },
@@ -227,6 +231,10 @@
         {
           "file": "src/components/ui/tabs/tabs.tsx",
           "hash": "12605426777979019219"
+        },
+        {
+          "file": "src/components/ui/textarea/textarea.tsx",
+          "hash": "4046968421712696848"
         },
         {
           "file": "src/entry.dev.tsx",
@@ -405,16 +413,40 @@
           "hash": "7756631822665481529"
         },
         {
+          "file": "src/routes/start-group/basic-info/index.tsx",
+          "hash": "18441236859939019613"
+        },
+        {
+          "file": "src/routes/start-group/category/index.tsx",
+          "hash": "1792505395311098095"
+        },
+        {
+          "file": "src/routes/start-group/group-progress-status.tsx",
+          "hash": "6980531549192040246"
+        },
+        {
           "file": "src/routes/start-group/index.tsx",
-          "hash": "11151771359695179391"
+          "hash": "10115750977255736831"
         },
         {
           "file": "src/routes/start-group/layout.tsx",
-          "hash": "13584080567663117060"
+          "hash": "10422619123951544836"
+        },
+        {
+          "file": "src/routes/start-group/location/index.tsx",
+          "hash": "9274419871415716922"
         },
         {
           "file": "src/routes/start-group/navbar.tsx",
-          "hash": "9902963889927202519"
+          "hash": "10610878676674895073"
+        },
+        {
+          "file": "src/routes/start-group/tip-banner.tsx",
+          "hash": "12575976548918729010"
+        },
+        {
+          "file": "src/routes/start-group/topics.tsx",
+          "hash": "5455936650300161746"
         },
         {
           "file": "tailwind.config.js",

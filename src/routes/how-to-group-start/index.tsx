@@ -1,10 +1,13 @@
 import { component$ } from "@builder.io/qwik";
 import { ImageCarousel } from "./image-carousel";
 import { SITE_NAME } from "~/lib/constatnts";
-import { Form } from "@builder.io/qwik-city";
-import { Button } from "~/components/ui/button/button";
 import { TextCarousel } from "./text-carousel";
+import { routeAction$ } from "@builder.io/qwik-city";
+import { StartGroupForm } from "./start-group-form";
 
+export const useStartGroup = routeAction$(async (_, { redirect }) => {
+  throw redirect(302, "/start-group");
+});
 export default component$(() => {
   return (
     <div class="py-12">
@@ -22,11 +25,7 @@ export default component$(() => {
               interests. Start a group today.
             </p>
             <div>
-              <Form>
-                <Button type="submit" look={"primary"}>
-                  Start a group
-                </Button>
-              </Form>
+              <StartGroupForm />
             </div>
           </div>
           <div class="col-span-5">
