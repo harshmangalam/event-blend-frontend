@@ -26,8 +26,8 @@ devDependencies:
     specifier: ^0.26.1
     version: 0.26.1(@builder.io/qwik-city@1.8.0)(@builder.io/qwik@1.8.0)(typescript@5.4.5)
   '@qwik-ui/headless':
-    specifier: ^0.5.0
-    version: 0.5.0(@builder.io/qwik@1.8.0)
+    specifier: ^0.5.2
+    version: 0.5.2(@builder.io/qwik@1.8.0)
   '@qwik-ui/styled':
     specifier: ^0.1.0
     version: 0.1.0(@builder.io/qwik@1.8.0)
@@ -912,11 +912,11 @@ packages:
     dev: true
     optional: true
 
-  /@qwik-ui/headless@0.5.0(@builder.io/qwik@1.8.0):
-    resolution: {integrity: sha512-hplG9Dw5VR+k4N70TjchrCG2Sw/U4mNBLmed6EEgjkxg/zQrDaEfpw/2IzXSBqr2k98QFrKehJjvetLszmkPDQ==}
+  /@qwik-ui/headless@0.5.2(@builder.io/qwik@1.8.0):
+    resolution: {integrity: sha512-22DXPmRTT5RmpMinCdbpJs6bk2EQQfk6mIgJhBgsEgWC2m8HxbuVbG7XrcM/wU79VIT5wn43LVBUcSsne4Km9A==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      '@builder.io/qwik': ^1.5.5
+      '@builder.io/qwik': 1.7.2
     dependencies:
       '@builder.io/qwik': 1.8.0(@types/node@20.14.11)
       '@floating-ui/core': 1.6.4

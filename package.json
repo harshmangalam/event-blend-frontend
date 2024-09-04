@@ -30,7 +30,7 @@
     "@builder.io/qwik": "^1.8.0",
     "@builder.io/qwik-city": "^1.8.0",
     "@modular-forms/qwik": "^0.26.1",
-    "@qwik-ui/headless": "^0.5.0",
+    "@qwik-ui/headless": "^0.5.2",
     "@qwik-ui/styled": "^0.1.0",
     "@qwik-ui/utils": "^0.2.1",
     "@qwikest/icons": "^0.0.13",
