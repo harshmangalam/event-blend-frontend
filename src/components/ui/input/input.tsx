@@ -36,7 +36,7 @@ export const Input = component$<InputProps>(
           name={name}
         />
         {error && (
-          <div id={`${inputId}-error`} class="text-destructive mt-1 text-sm">
+          <div id={`${inputId}-error`} class="mt-1 text-sm text-alert">
             {error}
           </div>
         )}
