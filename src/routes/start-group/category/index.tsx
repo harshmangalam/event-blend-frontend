@@ -1,68 +1,79 @@
-import { component$ } from "@builder.io/qwik";
-import * as v from "valibot";
-import { routeLoader$ } from "@builder.io/qwik-city";
-import {
-  formAction$,
-  useForm,
-  valiForm$,
-  type InitialValues,
-} from "@modular-forms/qwik";
-import { Input } from "~/components/ui/input/input";
-import { Label } from "~/components/ui/label/label";
+import { $, component$, useSignal } from "@builder.io/qwik";
+import { routeLoader$, server$, useNavigate } from "@builder.io/qwik-city";
 import { Button } from "~/components/ui/button/button";
-import { LuSearch } from "@qwikest/icons/lucide";
 
-const CategorySchema = v.object({
-  category: v.pipe(
-    v.string(),
-    v.nonEmpty("Please select your group category."),
-  ),
+import { Select } from "~/components/ui/select/select";
+import { fetchBackend } from "~/lib/fetch-backend";
+import type { ApiResponse, Category, Group } from "~/lib/types";
+import { LuCheck } from "@qwikest/icons/lucide";
+
+type CategoryOption = Pick<Category, "id" | "name">;
+type PendingGroupType = Pick<Group, "id" | "name">;
+export const useGetPendingGroup = routeLoader$(async ({ redirect }) => {
+  const resp = await fetchBackend
+    .get("/groups/pending-groups")
+    .json<ApiResponse<{ groups: PendingGroupType[] }>>();
+
+  if (!resp.data?.groups.length) throw redirect(302, "/");
+  return resp.data.groups[0];
+});
+export const useGetCategories = routeLoader$(async () => {
+  const resp = await fetchBackend
+    .get("/categories/categories-options")
+    .json<ApiResponse<CategoryOption[]>>();
+
+  return resp.data;
 });
 
-type LocationForm = v.InferInput<typeof CategorySchema>;
-
-export const useFormLoader = routeLoader$<InitialValues<LocationForm>>(() => ({
-  category: "",
-}));
-
-export const useFormAction = formAction$<LocationForm>((values) => {
-  // Runs on server
-  console.log(values);
-}, valiForm$(CategorySchema));
+export const updateCategory = server$(async function (
+  groupId: string,
+  categoryId: string,
+) {
+  await fetchBackend
+    .url(`/groups/${groupId}/category`)
+    .patch({
+      categoryId,
+    })
+    .json();
+});
 
 export default component$(() => {
-  const [, { Form, Field }] = useForm<LocationForm>({
-    loader: useFormLoader(),
-    validate: valiForm$(CategorySchema),
-    action: useFormAction(),
+  const categoriesSig = useGetCategories();
+  const groupSig = useGetPendingGroup();
+  const selectedSig = useSignal<string>("");
+  const nav = useNavigate();
+
+  const handleSubmit = $(async () => {
+    try {
+      await updateCategory(groupSig.value.id, selectedSig.value);
+      nav("/start-group/location");
+    } catch (error) {
+      console.log(error);
+    }
   });
   return (
-    <Form>
-      <Field name="category">
-        {(field, props) => (
-          <div class="grid w-full items-center gap-3">
-            <Label class="text-lg font-bold" for={props.name}>
-              Group category
-            </Label>
-            <div class="relative">
-              <Input
-                {...props}
-                error={field.error}
-                class="w-full pl-12 text-base"
-                placeholder="Search categories"
-              />
-              <div class="absolute left-4 top-1/2 -translate-y-1/2">
-                <LuSearch class="h-5 w-5 text-muted-foreground" />
-              </div>
-            </div>
-          </div>
-        )}
-      </Field>
+    <div>
+      <Select.Root bind:value={selectedSig}>
+        <Select.Label> Group category</Select.Label>
+        <Select.Trigger name="category" class="h-12">
+          <Select.DisplayValue placeholder="Select an option" />
+        </Select.Trigger>
+        <Select.Popover gutter={8} class="w-full">
+          {categoriesSig.value?.map((category) => (
+            <Select.Item key={category.id}>
+              <Select.ItemLabel>{category.name}</Select.ItemLabel>
+              <Select.ItemIndicator>
+                <LuCheck class="h-4 w-4" />
+              </Select.ItemIndicator>
+            </Select.Item>
+          ))}
+        </Select.Popover>
+      </Select.Root>
       <div class="mt-8">
-        <Button class="px-12" type="submit">
+        <Button class="px-12" onClick$={handleSubmit}>
           Next
         </Button>
       </div>
-    </Form>
+    </div>
   );
 });

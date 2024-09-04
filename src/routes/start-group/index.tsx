@@ -11,10 +11,8 @@ import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
 import { Button } from "~/components/ui/button/button";
 import { Textarea } from "~/components/ui/textarea/textarea";
-import { Topics } from "./topics";
 
-const GroupSchema = v.object({
-  location: v.pipe(v.string(), v.nonEmpty("Please enter your group location.")),
+const LocationSchema = v.object({
   name: v.pipe(
     v.string(),
     v.maxLength(50),
@@ -27,60 +25,47 @@ const GroupSchema = v.object({
   ),
 });
 
-type GroupForm = v.InferInput<typeof GroupSchema>;
+type LocationForm = v.InferInput<typeof LocationSchema>;
 
-export const useFormLoader = routeLoader$<InitialValues<GroupForm>>(() => ({
-  location: "",
+export const useFormLoader = routeLoader$<InitialValues<LocationForm>>(() => ({
   name: "",
   description: "",
 }));
 
-export const useFormAction = formAction$<GroupForm>((values) => {
+export const useFormAction = formAction$<LocationForm>((values) => {
   // Runs on server
   console.log(values);
-}, valiForm$(GroupSchema));
+}, valiForm$(LocationSchema));
 
 export default component$(() => {
-  const [, { Form, Field }] = useForm<GroupForm>({
+  const [, { Form, Field }] = useForm<LocationForm>({
     loader: useFormLoader(),
-    validate: valiForm$(GroupSchema),
+    validate: valiForm$(LocationSchema),
     action: useFormAction(),
   });
   return (
-    <div>
-      <div class="container mx-auto w-full px-4  py-12">
-        <Form>
-          <Field name="location">
-            {(field, props) => (
-              <div class="grid w-full max-w-sm items-center gap-1.5">
-                <Label for={props.name}>Location</Label>
-                <Input {...props} error={field.error} />
-              </div>
-            )}
-          </Field>
-
-          <Field name="name">
-            {(field, props) => (
-              <div class="grid w-full max-w-sm items-center gap-1.5">
-                <Label for={props.name}>Name</Label>
-                <Input {...props} error={field.error} />
-              </div>
-            )}
-          </Field>
-          <Field name="description">
-            {(field, props) => (
-              <div class="grid w-full max-w-sm items-center gap-1.5">
-                <Label for={props.name}>Description</Label>
-                <Textarea {...props} error={field.error} />
-              </div>
-            )}
-          </Field>
-          <Topics />
-          <div class="mt-4">
-            <Button type="submit">Continue</Button>
-          </div>
-        </Form>
+    <Form>
+      <div class="grid grid-cols-1 gap-3">
+        <Field name="name">
+          {(field, props) => (
+            <div class="grid w-full items-center gap-1.5">
+              <Label for={props.name}>Name</Label>
+              <Input {...props} error={field.error} />
+            </div>
+          )}
+        </Field>
+        <Field name="description">
+          {(field, props) => (
+            <div class="grid w-full items-center gap-1.5">
+              <Label for={props.name}>Description</Label>
+              <Textarea rows={10} {...props} error={field.error} />
+            </div>
+          )}
+        </Field>
       </div>
-    </div>
+      <div class="mt-4">
+        <Button type="submit">Continue</Button>
+      </div>
+    </Form>
   );
 });
