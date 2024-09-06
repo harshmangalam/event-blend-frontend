@@ -14,7 +14,7 @@ import { Textarea } from "~/components/ui/textarea/textarea";
 import { fetchBackend } from "~/lib/fetch-backend";
 import { REDIRECT_STATUS_CODE } from "~/lib/constatnts";
 
-const LocationSchema = v.object({
+const BasicInfoSchema = v.object({
   name: v.pipe(
     v.string(),
     v.maxLength(50),
@@ -25,25 +25,32 @@ const LocationSchema = v.object({
     v.nonEmpty("Please enter your group description."),
   ),
 });
-type LocationForm = v.InferInput<typeof LocationSchema>;
+type BasicInfoForm = v.InferInput<typeof BasicInfoSchema>;
 
-export const useFormLoader = routeLoader$<InitialValues<LocationForm>>(() => ({
+export const useFormLoader = routeLoader$<InitialValues<BasicInfoForm>>(() => ({
   name: "",
   description: "",
 }));
 
-export const useFormAction = formAction$<LocationForm>(
-  async (values, { redirect }) => {
-    await fetchBackend.url("/groups/").post(values).json();
+export const useFormAction = formAction$<BasicInfoForm>(
+  async (values, { redirect, cookie, error }) => {
+    const accessToken = cookie.get("accessToken");
+    if (!accessToken?.value)
+      throw error(401, "Unauthenticated, Please login again!");
+    await fetchBackend
+      .url("/groups")
+      .headers({ Authorization: `Bearer ${accessToken.value}` })
+      .post(values)
+      .json();
     throw redirect(REDIRECT_STATUS_CODE, "/start-group/category");
   },
-  valiForm$(LocationSchema),
+  valiForm$(BasicInfoSchema),
 );
 
 export default component$(() => {
-  const [, { Form, Field }] = useForm<LocationForm>({
+  const [, { Form, Field }] = useForm<BasicInfoForm>({
     loader: useFormLoader(),
-    validate: valiForm$(LocationSchema),
+    validate: valiForm$(BasicInfoSchema),
     action: useFormAction(),
   });
   return (

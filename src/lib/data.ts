@@ -11,6 +11,7 @@ import {
   LuCamera,
   LuWine,
   LuBriefcase,
+  LuImage,
 } from "@qwikest/icons/lucide";
 
 type CategoryIcon = { [key: string]: any };
@@ -30,4 +31,5 @@ const categoriesIcon: CategoryIcon = {
   business: LuBriefcase,
 };
 
-export const getCategoriesIcon = (slug: string) => categoriesIcon[slug];
+export const getCategoriesIcon = (slug: string) =>
+  categoriesIcon[slug] ?? LuImage;
