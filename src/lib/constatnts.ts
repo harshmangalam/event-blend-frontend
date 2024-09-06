@@ -20,6 +20,7 @@ const GROUP_DETAILS_TABS = [
     slug: "members",
   },
 ];
+const REDIRECT_STATUS_CODE = 302;
 export {
   ACCESS_TOKEN_EXP,
   BASE_URI,
@@ -28,4 +29,5 @@ export {
   DEFAULT_POSTER,
   GROUP_DETAILS_TABS,
   SITE_SHORT_NAME,
+  REDIRECT_STATUS_CODE,
 };

@@ -11,6 +11,8 @@ import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
 import { Button } from "~/components/ui/button/button";
 import { Textarea } from "~/components/ui/textarea/textarea";
+import { fetchBackend } from "~/lib/fetch-backend";
+import { REDIRECT_STATUS_CODE } from "~/lib/constatnts";
 
 const LocationSchema = v.object({
   name: v.pipe(
@@ -21,10 +23,8 @@ const LocationSchema = v.object({
   description: v.pipe(
     v.string(),
     v.nonEmpty("Please enter your group description."),
-    v.minLength(50, "Please write at least 50 characters"),
   ),
 });
-
 type LocationForm = v.InferInput<typeof LocationSchema>;
 
 export const useFormLoader = routeLoader$<InitialValues<LocationForm>>(() => ({
@@ -32,10 +32,13 @@ export const useFormLoader = routeLoader$<InitialValues<LocationForm>>(() => ({
   description: "",
 }));
 
-export const useFormAction = formAction$<LocationForm>((values) => {
-  // Runs on server
-  console.log(values);
-}, valiForm$(LocationSchema));
+export const useFormAction = formAction$<LocationForm>(
+  async (values, { redirect }) => {
+    await fetchBackend.url("/groups/").post(values).json();
+    throw redirect(REDIRECT_STATUS_CODE, "/start-group/category");
+  },
+  valiForm$(LocationSchema),
+);
 
 export default component$(() => {
   const [, { Form, Field }] = useForm<LocationForm>({
