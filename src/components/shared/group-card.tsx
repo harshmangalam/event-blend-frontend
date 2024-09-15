@@ -2,14 +2,8 @@ import { component$, Slot } from "@builder.io/qwik";
 import { Card } from "~/components/ui/card/card";
 import { Badge } from "~/components/ui/badge/badge";
 import { Link } from "@builder.io/qwik-city";
-import {
-  LuUsers,
-  LuMapPin,
-  LuUser2,
-  LuCalendar,
-  LuTag,
-} from "@qwikest/icons/lucide";
-import { formatDistance } from "date-fns";
+import { LuMapPin } from "@qwikest/icons/lucide";
+
 import { type Group } from "~/lib/types";
 import { DEFAULT_POSTER } from "~/lib/constatnts";
 
@@ -24,8 +18,7 @@ export const IconWithText = component$(
   },
 );
 export const GroupCard = component$(({ group }: { group: Group }) => {
-  const { _count, admin, createdAt, id, location, name, topics, category } =
-    group;
+  const { id, location, name, category } = group;
   return (
     <Card.Root class="w-full max-w-md">
       <Link href={`/groups/${id}`} class="block h-full">
