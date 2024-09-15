@@ -1,4 +1,6 @@
 const BASE_URI = "http://localhost:3001/api";
+const ACCESS_TOKEN_KEY = "accessToken";
+const REFRESH_TOKEN_KEY = "accessToken";
 const ACCESS_TOKEN_EXP = 24 * 60 * 60; //  1 day
 const REFRESH_TOKEN_EXP = 30 * 86400; // 30 days
 const SITE_SHORT_NAME = "EB";
@@ -30,4 +32,6 @@ export {
   GROUP_DETAILS_TABS,
   SITE_SHORT_NAME,
   REDIRECT_STATUS_CODE,
+  ACCESS_TOKEN_KEY,
+  REFRESH_TOKEN_KEY,
 };
