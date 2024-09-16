@@ -29,7 +29,9 @@ export const Topics = component$(
 
     useTask$(({ track }) => {
       track(() => topicsSig.value);
-      selectedTopics.value = topicsSig.value.map((t) => t.id);
+      selectedTopics.value = topicsSig.value
+        .filter((t) => t.selected)
+        .map((t) => t.id);
     });
 
     return (

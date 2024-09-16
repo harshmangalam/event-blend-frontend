@@ -135,7 +135,7 @@ export default component$(() => {
                 </div>
               )}
             </Field>
-            {JSON.stringify(selectedTopics.value)}
+
             <Topics selectedTopics={selectedTopics} />
           </div>
         </Card.Content>
