@@ -1,4 +1,4 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useSignal } from "@builder.io/qwik";
 import * as v from "valibot";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import {
@@ -76,7 +76,7 @@ export const useGetTopicsOptions = routeLoader$(async () => {
 
 export default component$(() => {
   const categoriesSig = useGetCategoriesOptions();
-
+  const selectedTopics = useSignal<string[]>([]);
   const [, { Form, Field }] = useForm<BasicInfoForm>({
     loader: useFormLoader(),
     validate: valiForm$(BasicInfoSchema),
@@ -135,7 +135,8 @@ export default component$(() => {
                 </div>
               )}
             </Field>
-            <Topics />
+            {JSON.stringify(selectedTopics.value)}
+            <Topics selectedTopics={selectedTopics} />
           </div>
         </Card.Content>
         <Card.Footer>
