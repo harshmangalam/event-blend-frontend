@@ -2,13 +2,7 @@ import { component$, Slot } from "@builder.io/qwik";
 import { Card } from "~/components/ui/card/card";
 import { Badge } from "~/components/ui/badge/badge";
 import { Link } from "@builder.io/qwik-city";
-import {
-  LuUsers,
-  LuMapPin,
-  LuCalendar,
-  LuTag,
-  LuUser2,
-} from "@qwikest/icons/lucide";
+import { LuUsers, LuMapPin, LuCalendar } from "@qwikest/icons/lucide";
 import { formatDistance } from "date-fns";
 import type { Event } from "~/lib/types";
 
@@ -21,17 +15,8 @@ export const IconWithText = component$(({ text }: { text: string }) => {
   );
 });
 export const EventCard = component$(({ event }: { event: Event }) => {
-  const {
-    _count,
-    id,
-    location,
-    name,
-    topics,
-    poster,
-    group,
-    createdAt,
-    category,
-  } = event;
+  const { _count, id, location, name, poster, group, createdAt, category } =
+    event;
   return (
     <Card.Root class="w-full max-w-md">
       <Link href={`/groups/${id}`} class="block h-full">
