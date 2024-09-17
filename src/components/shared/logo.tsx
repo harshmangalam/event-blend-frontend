@@ -1,0 +1,9 @@
+import { component$ } from "@builder.io/qwik";
+import { Link } from "@builder.io/qwik-city";
+import { SITE_NAME } from "~/lib/constatnts";
+
+export const Logo = component$(() => (
+  <Link href="/">
+    <h1 class="text-2xl font-bold ">{SITE_NAME}</h1>
+  </Link>
+));
