@@ -1,12 +1,6 @@
 import { component$, useSignal } from "@builder.io/qwik";
-import * as v from "valibot";
-import { routeLoader$ } from "@builder.io/qwik-city";
-import {
-  formAction$,
-  useForm,
-  valiForm$,
-  type InitialValues,
-} from "@modular-forms/qwik";
+import { Form, routeAction$, routeLoader$, zod$ } from "@builder.io/qwik-city";
+
 import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
 import { Button } from "~/components/ui/button/button";
@@ -15,47 +9,33 @@ import { fetchBackend } from "~/lib/fetch-backend";
 import { REDIRECT_STATUS_CODE } from "~/lib/constatnts";
 import type { ApiResponse, Category, Topic } from "~/lib/types";
 import { Card } from "~/components/ui/card/card";
-import { LuPlus } from "@qwikest/icons/lucide";
 import { Topics } from "./topics";
+import { Location } from "./location";
+import { LuPlus } from "@qwikest/icons/lucide";
 
-const BasicInfoSchema = v.object({
-  name: v.pipe(
-    v.string(),
-    v.maxLength(50),
-    v.nonEmpty("Please enter your group name."),
-  ),
-  description: v.pipe(
-    v.string(),
-    v.nonEmpty("Please enter your group description."),
-  ),
-  categoryId: v.pipe(
-    v.string(),
-    v.nonEmpty("Please select your group category."),
-  ),
-  poster: v.optional(v.string()),
-});
-type BasicInfoForm = v.InferInput<typeof BasicInfoSchema>;
-
-export const useFormLoader = routeLoader$<InitialValues<BasicInfoForm>>(() => ({
-  name: "",
-  description: "",
-  categoryId: "",
-  poster: "",
-}));
-
-export const useFormAction = formAction$<BasicInfoForm>(
-  async (values, { redirect, cookie, error }) => {
+export const useFormAction = routeAction$(
+  async (values, { redirect, cookie }) => {
     const accessToken = cookie.get("accessToken");
-    if (!accessToken?.value)
-      throw error(401, "Unauthenticated, Please login again!");
+    if (!accessToken?.value) throw redirect(REDIRECT_STATUS_CODE, "/login");
     await fetchBackend
       .url("/groups")
       .headers({ Authorization: `Bearer ${accessToken.value}` })
-      .post(values)
+      .post({
+        ...values,
+        topics: values.topics.split(","),
+        location: values.location.split(","),
+      })
       .json();
-    throw redirect(REDIRECT_STATUS_CODE, "/start-group/category");
+    throw redirect(REDIRECT_STATUS_CODE, "/");
   },
-  valiForm$(BasicInfoSchema),
+  zod$((z) => ({
+    name: z.string().min(1),
+    description: z.string().min(1),
+    categoryId: z.string().cuid2(),
+    poster: z.string().min(1),
+    topics: z.string().min(1),
+    location: z.string().min(1),
+  })),
 );
 
 export const useGetCategoriesOptions = routeLoader$(async () => {
@@ -76,14 +56,12 @@ export const useGetTopicsOptions = routeLoader$(async () => {
 
 export default component$(() => {
   const categoriesSig = useGetCategoriesOptions();
-  const selectedTopics = useSignal<string[]>([]);
-  const [, { Form, Field }] = useForm<BasicInfoForm>({
-    loader: useFormLoader(),
-    validate: valiForm$(BasicInfoSchema),
-    action: useFormAction(),
-  });
+  const selectedTopicsSig = useSignal<string[]>([]);
+  const selectedLocationSig = useSignal("");
+
+  const actionSig = useFormAction();
   return (
-    <Form>
+    <Form action={actionSig}>
       <Card.Root>
         <Card.Header>
           <Card.Title class="text-xl font-bold">Create New Group</Card.Title>
@@ -93,50 +71,81 @@ export default component$(() => {
         </Card.Header>
         <Card.Content>
           <div class="grid grid-cols-1 gap-3">
-            <Field name="name">
-              {(field, props) => (
-                <div class="grid w-full items-center gap-1.5">
-                  <Label for={props.name}>Group name</Label>
-                  <Input {...props} error={field.error} />
-                </div>
-              )}
-            </Field>
-            <Field name="description">
-              {(field, props) => (
-                <div class="grid w-full items-center gap-1.5">
-                  <Label for={props.name}>Group description</Label>
-                  <Textarea rows={10} {...props} error={field.error} />
-                </div>
-              )}
-            </Field>
-            <Field name="categoryId">
-              {(field, props) => (
-                <div class="grid w-full items-center gap-1.5">
-                  <Label for={props.name}>Choose group category</Label>
-                  <select {...props} class="rounded-md border px-4 py-3">
-                    <option value={""}>Select</option>
-                    {categoriesSig.value?.map((c) => (
-                      <option value={c.id} key={c.id}>
-                        {c.name}
-                      </option>
-                    ))}
-                  </select>
-                  {field.error && (
-                    <p class="mt-1 text-sm text-alert">{field.error}</p>
-                  )}
-                </div>
-              )}
-            </Field>
-            <Field name="poster">
-              {(field, props) => (
-                <div class="grid w-full items-center gap-1.5">
-                  <Label for={props.name}>Group poster url</Label>
-                  <Input {...props} error={field.error} />
-                </div>
-              )}
-            </Field>
+            <div class="grid w-full items-center gap-1.5">
+              <Label for={"name"}>Group name</Label>
+              <Input
+                name="name"
+                id="name"
+                error={actionSig.value?.fieldErrors.name}
+              />
+            </div>
 
-            <Topics selectedTopics={selectedTopics} />
+            <div class="grid w-full items-center gap-1.5">
+              <Label for={"description"}>Group description</Label>
+              <Textarea
+                id="description"
+                rows={10}
+                name="description"
+                error={actionSig.value?.fieldErrors.description}
+              />
+            </div>
+
+            <div class="grid w-full items-center gap-1.5">
+              <Label for={"categoryId"}>Choose group category</Label>
+              <select
+                id="categoryId"
+                name="categoryId"
+                class="rounded-md border px-4 py-3"
+              >
+                <option value={""}>Select</option>
+                {categoriesSig.value?.map((c) => (
+                  <option value={c.id} key={c.id}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+              {actionSig.value?.fieldErrors.categoryId && (
+                <p class="mt-1 text-sm text-alert">
+                  {actionSig.value.fieldErrors.categoryId}
+                </p>
+              )}
+            </div>
+
+            <div class="grid w-full items-center gap-1.5">
+              <Label for={"poster"}>Group poster url</Label>
+              <Input
+                id="poster"
+                name="poster"
+                error={actionSig.value?.fieldErrors.poster}
+              />
+            </div>
+
+            <div>
+              <Topics selectedTopicsSig={selectedTopicsSig} />
+              <input
+                type="text"
+                name="topics"
+                value={selectedTopicsSig.value}
+              />
+              {actionSig.value?.fieldErrors.topics && (
+                <p class="mt-1 text-sm text-alert">
+                  {actionSig.value.fieldErrors.topics}
+                </p>
+              )}
+            </div>
+            <div>
+              <Location selectedLocationSig={selectedLocationSig} />
+              <input
+                type="text"
+                name="location"
+                value={selectedLocationSig.value}
+              />
+              {actionSig.value?.fieldErrors.location && (
+                <p class="mt-1 text-sm text-alert">
+                  {actionSig.value.fieldErrors.location}
+                </p>
+              )}
+            </div>
           </div>
         </Card.Content>
         <Card.Footer>

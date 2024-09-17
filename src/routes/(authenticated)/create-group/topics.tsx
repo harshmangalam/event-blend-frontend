@@ -11,7 +11,7 @@ import { Badge } from "~/components/ui/badge/badge";
 import { type ChooseTopicType, useGetTopicsOptions } from ".";
 
 export const Topics = component$(
-  ({ selectedTopics }: { selectedTopics: Signal<string[]> }) => {
+  ({ selectedTopicsSig }: { selectedTopicsSig: Signal<string[]> }) => {
     const topicsOptionsSig = useGetTopicsOptions();
     const topicsSig = useSignal<any[]>(
       topicsOptionsSig.value.map((t) => ({ ...t, selected: false })),
@@ -29,7 +29,7 @@ export const Topics = component$(
 
     useTask$(({ track }) => {
       track(() => topicsSig.value);
-      selectedTopics.value = topicsSig.value
+      selectedTopicsSig.value = topicsSig.value
         .filter((t) => t.selected)
         .map((t) => t.id);
     });

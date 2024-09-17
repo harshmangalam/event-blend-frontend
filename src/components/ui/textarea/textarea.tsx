@@ -30,6 +30,7 @@ export const Textarea = component$<TextareaProps>(
             props.class,
           )}
           id={textareaId}
+          name={name}
         />
         {error && (
           <div id={`${textareaId}-error`} class="mt-1 text-sm text-alert">
