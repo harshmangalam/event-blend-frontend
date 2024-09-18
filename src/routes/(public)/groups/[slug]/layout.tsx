@@ -28,7 +28,7 @@ export default component$(() => {
   const groupSig = useGetGroupBySlug();
   return (
     <div>
-      <section class="bg-background">
+      <section class="bg-background py-12">
         <div class="mx-auto flex flex-col gap-6 md:container md:max-w-5xl md:flex-row md:px-4">
           <div class="w-full md:max-w-sm xl:max-w-xl">
             <img
