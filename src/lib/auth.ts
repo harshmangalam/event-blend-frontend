@@ -30,9 +30,10 @@ export function AuthQrl() {
     }
   };
 
-  const useUser = routeLoader$(async (event) => {
-    return event.sharedMap.get("user") as AuthUser | null;
+  const useSession = routeLoader$(async (event) => {
+    const user = event.sharedMap.get("user") as AuthUser | null;
+    return { user };
   });
 
-  return { onRequest, useUser };
+  return { onRequest, useSession };
 }

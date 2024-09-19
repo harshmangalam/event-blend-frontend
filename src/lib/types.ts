@@ -120,4 +120,5 @@ export type AuthUser = {
   email: string;
   status: "Online" | "Offline" | "Banned";
   role: "Admin" | "User";
+  profilePhoto: string | null;
 };
