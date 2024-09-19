@@ -113,3 +113,11 @@ export type DiscoverCategory = Pick<
 >;
 
 export type PopularCategory = Pick<Category, "id" | "slug" | "name" | "_count">;
+
+export type AuthUser = {
+  id: string;
+  name: string;
+  email: string;
+  status: "Online" | "Offline" | "Banned";
+  role: "Admin" | "User";
+};
