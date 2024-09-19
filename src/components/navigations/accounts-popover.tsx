@@ -5,6 +5,7 @@ import type { AuthUser } from "~/lib/types";
 import { LogoutForm } from "./logout-form";
 
 export const AccountsPopover = component$(({ user }: { user: AuthUser }) => {
+  console.log("acc", user);
   const links = [
     {
       name: "Your events",
@@ -33,24 +34,22 @@ export const AccountsPopover = component$(({ user }: { user: AuthUser }) => {
         </Avatar.Root>
       </Popover.Trigger>
       <Popover.Panel class="mt-4 w-48">
-        <ul class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2">
           {links.map((link) => (
-            <>
-              <li key={link.name} class="w-full">
-                <Link
-                  class="text-sm opacity-80 hover:text-primary hover:opacity-100"
-                  href={link.href}
-                >
-                  {link.name}
-                </Link>
-              </li>
+            <div key={link.name} class="flex flex-col gap-2">
+              <Link
+                class="text-sm opacity-80 hover:text-primary hover:opacity-100"
+                href={link.href}
+              >
+                {link.name}
+              </Link>
+
               {link.divider && <Separator />}
-            </>
+            </div>
           ))}
-          <li>
-            <LogoutForm />
-          </li>
-        </ul>
+
+          <LogoutForm />
+        </div>
       </Popover.Panel>
     </Popover.Root>
   );

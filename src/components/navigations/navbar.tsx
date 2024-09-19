@@ -9,6 +9,7 @@ import { useSession } from "~/routes/plugin@auth";
 
 export const Navbar = component$(() => {
   const sessionSig = useSession();
+  console.log("nav", sessionSig.value);
   return (
     <header class="sticky top-0 z-50 flex h-16 items-center border-b border-muted bg-background">
       <nav class="container mx-auto flex flex-1 items-center justify-between gap-4 px-4">

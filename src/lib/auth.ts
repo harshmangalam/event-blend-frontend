@@ -34,7 +34,7 @@ export function AuthQrl() {
   };
 
   const useSession = routeLoader$(async (event) => {
-    const user = event.sharedMap.get("user") as AuthUser | null;
+    const user = event.sharedMap.get("user") as AuthUser | null | undefined;
     return { user };
   });
 
@@ -46,8 +46,8 @@ export function AuthQrl() {
     event.cookie.delete("refreshToken");
 
     // remove sharedmap data related to accessToken and user
-    event.sharedMap.delete("user");
-    event.sharedMap.delete("accessToken");
+    event.sharedMap.set("user", null);
+    event.sharedMap.set("accessToken", null);
 
     // redirect to home page
     throw event.redirect(REDIRECT_STATUS_CODE, "/");
