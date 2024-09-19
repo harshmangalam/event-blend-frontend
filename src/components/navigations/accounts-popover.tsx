@@ -1,7 +1,8 @@
 import { component$ } from "@builder.io/qwik";
-import { Form, Link } from "@builder.io/qwik-city";
-import { Avatar, Button, Popover, Separator } from "~/components/ui";
+import { Link } from "@builder.io/qwik-city";
+import { Avatar, Popover, Separator } from "~/components/ui";
 import type { AuthUser } from "~/lib/types";
+import { LogoutForm } from "./logout-form";
 
 export const AccountsPopover = component$(({ user }: { user: AuthUser }) => {
   const links = [
@@ -47,14 +48,7 @@ export const AccountsPopover = component$(({ user }: { user: AuthUser }) => {
             </>
           ))}
           <li>
-            <Form>
-              <button
-                class="text-sm opacity-80 hover:text-primary hover:opacity-100"
-                type="submit"
-              >
-                Log out
-              </button>
-            </Form>
+            <LogoutForm />
           </li>
         </ul>
       </Popover.Panel>
