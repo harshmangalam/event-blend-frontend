@@ -1,16 +1,16 @@
 {
   "version": "6.0",
-  "nxVersion": "19.5.1",
+  "nxVersion": "19.7.4",
   "deps": {
     "date-fns": "^3.6.0",
     "valibot": "^0.39.0",
     "wretch": "^2.9.0",
-    "@builder.io/qwik": "^1.7.1",
-    "@builder.io/qwik-city": "^1.7.1",
+    "@builder.io/qwik": "^1.9.0",
+    "@builder.io/qwik-city": "^1.9.0",
     "@modular-forms/qwik": "^0.26.1",
-    "@qwik-ui/headless": "^0.5.0",
-    "@qwik-ui/styled": "^0.1.0",
-    "@qwik-ui/utils": "^0.2.1",
+    "@qwik-ui/headless": "^0.6.0",
+    "@qwik-ui/styled": "^0.2.0",
+    "@qwik-ui/utils": "^0.3.1",
     "@qwikest/icons": "^0.0.13",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.12.7",
@@ -20,11 +20,11 @@
     "class-variance-authority": "^0.7.0",
     "eslint": "^8.57.0",
     "eslint-plugin-qwik": "^1.7.1",
-    "nx": "^19.5.1",
+    "nx": "^19.7.4",
     "postcss": "^8.4.31",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.4",
-    "qwik-ui": "^0.1.1",
+    "qwik-ui": "^0.1.3",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.4.5",
@@ -79,7 +79,7 @@
         },
         {
           "file": "package.json",
-          "hash": "1551250473400410336",
+          "hash": "2617306763614728403",
           "deps": [
             "npm:@builder.io/qwik",
             "npm:@builder.io/qwik-city",
@@ -114,7 +114,7 @@
         },
         {
           "file": "pnpm-lock.yaml",
-          "hash": "7983854924628287438"
+          "hash": "12718663775171658588"
         },
         {
           "file": "postcss.config.cjs",
@@ -123,6 +123,10 @@
         {
           "file": "public/favicon.svg",
           "hash": "446107399934622830"
+        },
+        {
+          "file": "public/hero.png",
+          "hash": "6868213289734461436"
         },
         {
           "file": "public/manifest.json",
@@ -142,7 +146,7 @@
         },
         {
           "file": "src/components/footer/index.tsx",
-          "hash": "239932382280467022"
+          "hash": "419162616179576586"
         },
         {
           "file": "src/components/nav-link.tsx",
@@ -150,7 +154,7 @@
         },
         {
           "file": "src/components/navigations/navbar.tsx",
-          "hash": "10123143075847768432"
+          "hash": "8218584723759366880"
         },
         {
           "file": "src/components/router-head/router-head.tsx",
@@ -162,11 +166,11 @@
         },
         {
           "file": "src/components/shared/event-card.tsx",
-          "hash": "4391693374339512410"
+          "hash": "18086431113042690613"
         },
         {
           "file": "src/components/shared/group-card.tsx",
-          "hash": "13619819146373734602"
+          "hash": "14582386983178718224"
         },
         {
           "file": "src/components/shared/group-flat-card.tsx",
@@ -177,8 +181,16 @@
           "hash": "88545811950161653"
         },
         {
+          "file": "src/components/shared/logo.tsx",
+          "hash": "245899616093259702"
+        },
+        {
           "file": "src/components/theme-switcher.tsx",
           "hash": "6424072623736200044"
+        },
+        {
+          "file": "src/components/ui/accordion/accordion.tsx",
+          "hash": "3402494231854835416"
         },
         {
           "file": "src/components/ui/alert/alert.tsx",
@@ -191,6 +203,10 @@
         {
           "file": "src/components/ui/badge/badge.tsx",
           "hash": "2688489573138208967"
+        },
+        {
+          "file": "src/components/ui/breadcrumb/breadcrumb.tsx",
+          "hash": "898189622941631595"
         },
         {
           "file": "src/components/ui/button/button.tsx",
@@ -209,24 +225,48 @@
           "hash": "1386689858368289549"
         },
         {
+          "file": "src/components/ui/index.ts",
+          "hash": "14481045058002228954"
+        },
+        {
           "file": "src/components/ui/input/input.tsx",
-          "hash": "5248844582827909674"
+          "hash": "11592005842229563454"
         },
         {
           "file": "src/components/ui/input/search-input.tsx",
-          "hash": "15642017703636377892"
+          "hash": "17770672557517298648"
         },
         {
           "file": "src/components/ui/label/label.tsx",
           "hash": "12436589004438559187"
         },
         {
+          "file": "src/components/ui/modal/modal.tsx",
+          "hash": "6733626292083403072"
+        },
+        {
+          "file": "src/components/ui/popover/popover.tsx",
+          "hash": "12388215603346665627"
+        },
+        {
           "file": "src/components/ui/progress/progress.tsx",
           "hash": "5643870144464673402"
         },
         {
+          "file": "src/components/ui/radio-group/radio-group.tsx",
+          "hash": "10127728080379674556"
+        },
+        {
+          "file": "src/components/ui/select/select.tsx",
+          "hash": "11446517225623950602"
+        },
+        {
           "file": "src/components/ui/separator/separator.tsx",
           "hash": "16048755266257626029"
+        },
+        {
+          "file": "src/components/ui/skeleton/skeleton.tsx",
+          "hash": "10187548839998290728"
         },
         {
           "file": "src/components/ui/tabs/tabs.tsx",
@@ -234,7 +274,7 @@
         },
         {
           "file": "src/components/ui/textarea/textarea.tsx",
-          "hash": "4046968421712696848"
+          "hash": "10635831485709824993"
         },
         {
           "file": "src/entry.dev.tsx",
@@ -250,15 +290,19 @@
         },
         {
           "file": "src/global.css",
-          "hash": "14221340038390401754"
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/lib/auth.ts",
+          "hash": "331057573817255570"
         },
         {
           "file": "src/lib/constatnts.ts",
-          "hash": "10407320267299045620"
+          "hash": "7292138632114888732"
         },
         {
           "file": "src/lib/data.ts",
-          "hash": "10466892815665132520"
+          "hash": "11629659745544599938"
         },
         {
           "file": "src/lib/fetch-backend.ts",
@@ -266,15 +310,19 @@
         },
         {
           "file": "src/lib/types.ts",
-          "hash": "15421220756722375456"
+          "hash": "10590737597362057320"
         },
         {
           "file": "src/root.tsx",
           "hash": "2032960384381040240"
         },
         {
+          "file": "src/routes/(auth)/header.tsx",
+          "hash": "2920541806171769463"
+        },
+        {
           "file": "src/routes/(auth)/layout.tsx",
-          "hash": "15044115529873395648"
+          "hash": "5768432476529054621"
         },
         {
           "file": "src/routes/(auth)/login/index.tsx",
@@ -285,172 +333,184 @@
           "hash": "16736664452507557457"
         },
         {
-          "file": "src/routes/(unauthenticated)/categories/[slug]/event-card.tsx",
+          "file": "src/routes/(authenticated)/create-group/category.tsx",
+          "hash": "14436968603851097653"
+        },
+        {
+          "file": "src/routes/(authenticated)/create-group/index.tsx",
+          "hash": "1145808342473100363"
+        },
+        {
+          "file": "src/routes/(authenticated)/create-group/layout.tsx",
+          "hash": "4957197041603630705"
+        },
+        {
+          "file": "src/routes/(authenticated)/create-group/location.tsx",
+          "hash": "11508204443650592832"
+        },
+        {
+          "file": "src/routes/(authenticated)/create-group/navbar.tsx",
+          "hash": "10744026261043425048"
+        },
+        {
+          "file": "src/routes/(authenticated)/create-group/topics.tsx",
+          "hash": "7522967416884318300"
+        },
+        {
+          "file": "src/routes/(authenticated)/layout.tsx",
+          "hash": "7424530404661561249"
+        },
+        {
+          "file": "src/routes/(public)/categories/[slug]/event-card.tsx",
           "hash": "7696276568132952566"
         },
         {
-          "file": "src/routes/(unauthenticated)/categories/[slug]/events.tsx",
+          "file": "src/routes/(public)/categories/[slug]/events.tsx",
           "hash": "12382836821942814292"
         },
         {
-          "file": "src/routes/(unauthenticated)/categories/[slug]/index.tsx",
+          "file": "src/routes/(public)/categories/[slug]/index.tsx",
           "hash": "2080176423039866404"
         },
         {
-          "file": "src/routes/(unauthenticated)/categories/[slug]/topic-card.tsx",
+          "file": "src/routes/(public)/categories/[slug]/topic-card.tsx",
           "hash": "14715257189751002731"
         },
         {
-          "file": "src/routes/(unauthenticated)/categories/[slug]/topics.tsx",
+          "file": "src/routes/(public)/categories/[slug]/topics.tsx",
           "hash": "16565567118070746532"
         },
         {
-          "file": "src/routes/(unauthenticated)/categories/[slug]/trending-topics.tsx",
+          "file": "src/routes/(public)/categories/[slug]/trending-topics.tsx",
           "hash": "73382089768598639"
         },
         {
-          "file": "src/routes/(unauthenticated)/cities/[city]/index.tsx",
+          "file": "src/routes/(public)/cities/[city]/index.tsx",
           "hash": "3244421341483603138"
         },
         {
-          "file": "src/routes/(unauthenticated)/cities/index.tsx",
+          "file": "src/routes/(public)/cities/index.tsx",
           "hash": "15875743773012932162"
         },
         {
-          "file": "src/routes/(unauthenticated)/groups/[slug]/events/index.tsx",
+          "file": "src/routes/(public)/groups/[slug]/events/index.tsx",
           "hash": "15655464692138581859"
         },
         {
-          "file": "src/routes/(unauthenticated)/groups/[slug]/group-actions.tsx",
+          "file": "src/routes/(public)/groups/[slug]/group-actions.tsx",
           "hash": "9795461287417029808"
         },
         {
-          "file": "src/routes/(unauthenticated)/groups/[slug]/group-tabs.tsx",
+          "file": "src/routes/(public)/groups/[slug]/group-tabs.tsx",
           "hash": "7515130371007394049"
         },
         {
-          "file": "src/routes/(unauthenticated)/groups/[slug]/index.tsx",
+          "file": "src/routes/(public)/groups/[slug]/index.tsx",
           "hash": "14635622222648377840"
         },
         {
-          "file": "src/routes/(unauthenticated)/groups/[slug]/layout.tsx",
-          "hash": "6976000985548740916"
+          "file": "src/routes/(public)/groups/[slug]/layout.tsx",
+          "hash": "8476851129612647685"
         },
         {
-          "file": "src/routes/(unauthenticated)/groups/[slug]/members/index.tsx",
+          "file": "src/routes/(public)/groups/[slug]/members/index.tsx",
           "hash": "574283251907280005"
         },
         {
-          "file": "src/routes/(unauthenticated)/groups/index.tsx",
+          "file": "src/routes/(public)/groups/index.tsx",
           "hash": "5033755961151877407"
         },
         {
-          "file": "src/routes/(unauthenticated)/hero.tsx",
-          "hash": "14426541993175696983"
+          "file": "src/routes/(public)/hero.tsx",
+          "hash": "1289265010758821689"
         },
         {
-          "file": "src/routes/(unauthenticated)/index.tsx",
+          "file": "src/routes/(public)/index.tsx",
           "hash": "17991504812686307102"
         },
         {
-          "file": "src/routes/(unauthenticated)/layout.tsx",
+          "file": "src/routes/(public)/layout.tsx",
           "hash": "17095759620476599174"
         },
         {
-          "file": "src/routes/(unauthenticated)/popular-categories.tsx",
+          "file": "src/routes/(public)/popular-categories.tsx",
           "hash": "7203629173732779271"
         },
         {
-          "file": "src/routes/(unauthenticated)/popular-cities.tsx",
+          "file": "src/routes/(public)/popular-cities.tsx",
           "hash": "9333863339179033139"
         },
         {
-          "file": "src/routes/(unauthenticated)/popular-events.tsx",
+          "file": "src/routes/(public)/popular-events.tsx",
           "hash": "13996206620126852460"
         },
         {
-          "file": "src/routes/(unauthenticated)/popular-groups.tsx",
+          "file": "src/routes/(public)/popular-groups.tsx",
           "hash": "10688283362816590004"
         },
         {
-          "file": "src/routes/(unauthenticated)/topics/[slug]/count-group-card.tsx",
+          "file": "src/routes/(public)/topics/[slug]/count-group-card.tsx",
           "hash": "5238551435638610980"
         },
         {
-          "file": "src/routes/(unauthenticated)/topics/[slug]/counts.tsx",
+          "file": "src/routes/(public)/topics/[slug]/counts.tsx",
           "hash": "12909359729575942002"
         },
         {
-          "file": "src/routes/(unauthenticated)/topics/[slug]/group-card.tsx",
+          "file": "src/routes/(public)/topics/[slug]/group-card.tsx",
           "hash": "12552589841124644105"
         },
         {
-          "file": "src/routes/(unauthenticated)/topics/[slug]/index.tsx",
+          "file": "src/routes/(public)/topics/[slug]/index.tsx",
           "hash": "3472161699887305788"
         },
         {
-          "file": "src/routes/(unauthenticated)/topics/[slug]/largest-groups.tsx",
+          "file": "src/routes/(public)/topics/[slug]/largest-groups.tsx",
           "hash": "5514204005761714455"
         },
         {
-          "file": "src/routes/(unauthenticated)/topics/[slug]/near-by-groups.tsx",
+          "file": "src/routes/(public)/topics/[slug]/near-by-groups.tsx",
           "hash": "6820284511827813048"
         },
         {
-          "file": "src/routes/(unauthenticated)/topics/[slug]/newest-groups.tsx",
+          "file": "src/routes/(public)/topics/[slug]/newest-groups.tsx",
           "hash": "12817307252173149664"
         },
         {
-          "file": "src/routes/(unauthenticated)/topics/index.tsx",
+          "file": "src/routes/(public)/topics/index.tsx",
           "hash": "2983633194869723558"
+        },
+        {
+          "file": "src/routes/how-to-group-start/image-carousel.tsx",
+          "hash": "6359107422284579849"
+        },
+        {
+          "file": "src/routes/how-to-group-start/index.tsx",
+          "hash": "9512824167014283736"
+        },
+        {
+          "file": "src/routes/how-to-group-start/start-group-form.tsx",
+          "hash": "16687020614206460143"
+        },
+        {
+          "file": "src/routes/how-to-group-start/text-carousel.tsx",
+          "hash": "8676923112018403134"
         },
         {
           "file": "src/routes/layout.tsx",
           "hash": "7424530404661561249"
         },
         {
+          "file": "src/routes/plugin@auth.ts",
+          "hash": "14413773557182495"
+        },
+        {
           "file": "src/routes/service-worker.ts",
           "hash": "7756631822665481529"
         },
         {
-          "file": "src/routes/start-group/basic-info/index.tsx",
-          "hash": "18441236859939019613"
-        },
-        {
-          "file": "src/routes/start-group/category/index.tsx",
-          "hash": "1792505395311098095"
-        },
-        {
-          "file": "src/routes/start-group/group-progress-status.tsx",
-          "hash": "6980531549192040246"
-        },
-        {
-          "file": "src/routes/start-group/index.tsx",
-          "hash": "10115750977255736831"
-        },
-        {
-          "file": "src/routes/start-group/layout.tsx",
-          "hash": "10422619123951544836"
-        },
-        {
-          "file": "src/routes/start-group/location/index.tsx",
-          "hash": "9274419871415716922"
-        },
-        {
-          "file": "src/routes/start-group/navbar.tsx",
-          "hash": "10610878676674895073"
-        },
-        {
-          "file": "src/routes/start-group/tip-banner.tsx",
-          "hash": "12575976548918729010"
-        },
-        {
-          "file": "src/routes/start-group/topics.tsx",
-          "hash": "5455936650300161746"
-        },
-        {
           "file": "tailwind.config.js",
-          "hash": "18340035634599436185"
+          "hash": "3244421341483603138"
         },
         {
           "file": "tsconfig.json",

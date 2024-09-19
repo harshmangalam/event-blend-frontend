@@ -31,7 +31,7 @@ export function AuthQrl() {
   };
 
   const useUser = routeLoader$(async (event) => {
-    return event.sharedMap.get("user");
+    return event.sharedMap.get("user") as AuthUser | null;
   });
 
   return { onRequest, useUser };
