@@ -31,8 +31,6 @@
     "@builder.io/qwik-city": "^1.9.0",
     "@modular-forms/qwik": "^0.26.1",
     "@qwik-ui/headless": "^0.6.0",
-    "@qwik-ui/styled": "^0.2.0",
-    "@qwik-ui/utils": "^0.3.1",
     "@qwikest/icons": "^0.0.13",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.12.7",
