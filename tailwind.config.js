@@ -1,7 +1,21 @@
+import { join } from "path";
 import plugin from "tailwindcss/plugin";
+
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
+
+module.exports = {
+  content: [join(__dirname, "src/**/*.{js,ts,jsx,tsx,mdx}")],
+  plugins: [
+    require("tailwindcss-animate"),
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".press": {
+          transform: "var(--transform-press)",
+        },
+      });
+    }),
+  ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -88,14 +102,4 @@ export default {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    plugin(function ({ addUtilities }) {
-      addUtilities({
-        ".press": {
-          transform: "var(--transform-press)",
-        },
-      });
-    }),
-  ],
 };
