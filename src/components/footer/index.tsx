@@ -2,8 +2,8 @@ import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import { cn } from "@qwik-ui/utils";
 import { SITE_NAME } from "~/lib/constatnts";
-import { buttonVariants } from "../ui/button/button";
-import { Separator } from "../ui/separator/separator";
+import { buttonVariants } from "~/components/ui/button/button";
+import { Separator } from "~/components/ui/separator/separator";
 
 export const Footer = component$(() => {
   const navigations = [
