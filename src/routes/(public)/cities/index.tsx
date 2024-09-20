@@ -5,7 +5,7 @@ import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse } from "~/lib/types";
 
 export const useDiscoverLocations = routeLoader$(async () => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get("/locations/discover-cities")
     .json<ApiResponse<{ locations: { [country: string]: any[] } }>>();
   return resp.data?.locations;

@@ -5,7 +5,7 @@ import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse, DiscoverCategory } from "~/lib/types";
 
 export const useFetchCategories = routeLoader$(async () => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get("/categories/discover-categories")
     .json<ApiResponse<{ categories: DiscoverCategory[] }>>();
   return resp.data?.categories;

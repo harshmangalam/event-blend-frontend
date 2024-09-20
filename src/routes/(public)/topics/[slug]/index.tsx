@@ -11,14 +11,14 @@ import { LargestGroups } from "./largest-groups";
 import { NewestGroups } from "./newest-groups";
 
 export const useFetchTopicDetails = routeLoader$(async ({ params }) => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get(`/topics/${params.slug}`)
     .json<ApiResponse<{ topic: Topic }>>();
   return resp.data?.topic;
 });
 
 export const useFetchRelatedTopics = routeLoader$(async ({ params }) => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get(`/topics/${params.slug}/related-topics`)
     .json<ApiResponse<{ topics: Pick<Topic, "id" | "slug" | "name">[] }>>();
   return resp.data?.topics;
@@ -29,20 +29,20 @@ export const fetchNearbyGroups = server$(async function (
   lon?: number,
 ) {
   if (lat === undefined || lon === undefined) return [];
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get(`/topics/${this.params.slug}/near-by?lat=${lat}&lon=${lon}`)
     .json<ApiResponse<{ groups: Group[] }>>();
   return resp.data?.groups ?? [];
 });
 export const useFetchLargestGroups = routeLoader$(async ({ params }) => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get(`/topics/${params.slug}/largest-groups`)
     .json<ApiResponse<{ groups: Group[] }>>();
   return resp.data?.groups;
 });
 
 export const useFetchNewestGroups = routeLoader$(async ({ params }) => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get(`/topics/${params.slug}/newest-groups`)
     .json<ApiResponse<{ groups: Group[] }>>();
   return resp.data?.groups ?? [];

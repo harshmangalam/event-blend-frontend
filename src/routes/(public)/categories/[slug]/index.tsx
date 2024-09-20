@@ -10,28 +10,28 @@ import { Separator } from "~/components/ui/separator/separator";
 import { Events } from "./events";
 
 export const useGetCategoryBySlug = routeLoader$(async ({ params }) => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get(`/categories/${params.slug}`)
     .json<ApiResponse<{ category: Category }>>();
   return resp.data?.category;
 });
 
 export const useGetCategoryTrendingTopics = routeLoader$(async ({ params }) => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get(`/categories/${params.slug}/trending-topics`)
     .json<ApiResponse<{ topics: Topic[] }>>();
   return resp.data?.topics;
 });
 
 export const useGetCategoryTopics = routeLoader$(async ({ params }) => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get(`/categories/${params.slug}/topics`)
     .json<ApiResponse<{ topics: Topic[] }>>();
   return resp.data?.topics;
 });
 
 export const useGetCategoryEvents = routeLoader$(async ({ params }) => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get(`/categories/${params.slug}/events`)
     .json<ApiResponse<{ events: Event[] }>>();
   return resp.data?.events;

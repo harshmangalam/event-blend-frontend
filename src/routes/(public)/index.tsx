@@ -15,7 +15,7 @@ import { PopularEvents } from "./popular-events";
 import { Hero } from "./hero";
 
 export const useGetPopularCities = routeLoader$(async () => {
-  const locations = await fetchBackend
+  const locations = await fetchBackend()
     .get("/locations/popular-cities")
     .fetchError((err) => console.log(err))
     .internalError((err) => console.log(err))
@@ -26,7 +26,7 @@ export const useGetPopularCities = routeLoader$(async () => {
   return locations.data?.locations;
 });
 export const useGetPopularGroups = routeLoader$(async () => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get("/groups/popular-groups")
     .fetchError((err) => console.log(err))
     .internalError((err) => console.log(err))
@@ -35,7 +35,7 @@ export const useGetPopularGroups = routeLoader$(async () => {
   return resp.data?.groups;
 });
 export const useGetPopularCategories = routeLoader$(async () => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get("/categories/popular-categories")
     .fetchError((err) => console.log(err))
     .internalError((err) => console.log(err))
@@ -44,7 +44,7 @@ export const useGetPopularCategories = routeLoader$(async () => {
   return resp.data?.categories;
 });
 export const useGetPopularEvents = routeLoader$(async () => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get("/events/popular-events")
     .fetchError((err) => console.log(err))
     .internalError((err) => console.log(err))

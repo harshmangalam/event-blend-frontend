@@ -12,7 +12,7 @@ import { LuAlertTriangle } from "@qwikest/icons/lucide";
 
 export const useSignup = routeAction$(
   async (values, { redirect, fail }) => {
-    const resp: any = await fetchBackend
+    const resp: any = await fetchBackend()
       .url("/auth/signup")
       .post({ ...values, isAdult: true })
       .badRequest((err) => fail(err.status, err.json))

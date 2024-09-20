@@ -16,7 +16,7 @@ import { GroupsActions } from "./group-actions";
 import { GroupTabs } from "./group-tabs";
 
 export const useGetGroupBySlug = routeLoader$(async ({ params }) => {
-  const group = await fetchBackend
+  const group = await fetchBackend()
     .get(`/groups/${params.slug}`)
     .fetchError((err) => console.log(err))
     .internalError((err) => console.log(err))

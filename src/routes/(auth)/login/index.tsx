@@ -12,7 +12,7 @@ import { ACCESS_TOKEN_EXP, REFRESH_TOKEN_EXP } from "~/lib/constatnts";
 
 export const useLogin = routeAction$(
   async (values, { fail, redirect, cookie }) => {
-    const resp = await fetchBackend
+    const resp = await fetchBackend()
       .url("/auth/login")
       .post({ ...values, isAdult: true })
       .badRequest((err) => fail(err.status, err.json))

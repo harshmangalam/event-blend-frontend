@@ -4,7 +4,7 @@ import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse, Group } from "~/lib/types";
 
 export const useGetGroupDescriptionBySlug = routeLoader$(async ({ params }) => {
-  const group = await fetchBackend
+  const group = await fetchBackend()
     .get(`/groups/${params.slug}/details`)
     .fetchError((err) => console.log(err))
     .internalError((err) => console.log(err))

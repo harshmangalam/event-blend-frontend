@@ -12,7 +12,7 @@ import { isServer } from "@builder.io/qwik/build";
 export const Auth$ = /*#__PURE__*/ implicit$FirstArg(AuthQrl);
 
 async function getCurrentUser(accessToken: string) {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .headers({ Authorization: `Bearer ${accessToken}` })
     .get("/auth/me")
     .json<ApiResponse<{ user: AuthUser }>>();
@@ -42,11 +42,8 @@ export function AuthQrl() {
     // logout from server
     const accessToken = event.sharedMap.get("accessToken");
     if (!accessToken) throw event.redirect(REDIRECT_STATUS_CODE, "/login");
-    const resp = await fetchBackend
+    const resp = await fetchBackend(event)
       .url("/auth/logout")
-      .headers({
-        Authorization: `Bearer ${accessToken}`,
-      })
       .post()
       .json<ApiResponse>();
 

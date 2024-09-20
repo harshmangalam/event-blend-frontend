@@ -17,7 +17,7 @@ export const useFormAction = routeAction$(
   async (values, { redirect, cookie }) => {
     const accessToken = cookie.get("accessToken");
     if (!accessToken?.value) throw redirect(REDIRECT_STATUS_CODE, "/login");
-    await fetchBackend
+    await fetchBackend()
       .url("/groups")
       .headers({ Authorization: `Bearer ${accessToken.value}` })
       .post({
@@ -48,7 +48,7 @@ export const useGetCategoriesOptions = routeLoader$(async () => {
 export type ChooseTopicType = Pick<Topic, "id" | "name">;
 
 export const useGetTopicsOptions = routeLoader$(async () => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get(`/topics/topics-options`)
     .json<ApiResponse<{ topics: Pick<Category, "id" | "name">[] }>>();
   return resp.data?.topics ?? [];
