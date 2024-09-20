@@ -1,17 +1,24 @@
 import { component$, useSignal } from "@builder.io/qwik";
-import { Form, routeAction$, routeLoader$, zod$ } from "@builder.io/qwik-city";
+import {
+  Form,
+  routeAction$,
+  routeLoader$,
+  server$,
+  zod$,
+} from "@builder.io/qwik-city";
 
 import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
 import { Button } from "~/components/ui/button/button";
 import { Textarea } from "~/components/ui/textarea/textarea";
 import { fetchBackend } from "~/lib/fetch-backend";
-import { REDIRECT_STATUS_CODE } from "~/lib/constatnts";
+import { GEOAPIFY_API_KEY, REDIRECT_STATUS_CODE } from "~/lib/constatnts";
 import type { ApiResponse, Category, Topic } from "~/lib/types";
 import { Card } from "~/components/ui/card/card";
 import { Topics } from "./topics";
 import { Location } from "./location";
 import { LuPlus } from "@qwikest/icons/lucide";
+import { autocompleteLocation, type GeoapifyLocation } from "~/lib/geoapify";
 
 export const useFormAction = routeAction$(
   async (values, { redirect, cookie }) => {
@@ -54,10 +61,18 @@ export const useGetTopicsOptions = routeLoader$(async () => {
   return resp.data?.topics ? resp.data?.topics : [];
 });
 
+export const fetchLocations = server$(async function (text: string) {
+  const locations = await autocompleteLocation(
+    text,
+    this.env.get(GEOAPIFY_API_KEY),
+  );
+  return locations;
+});
+
 export default component$(() => {
   const categoriesSig = useGetCategoriesOptions();
   const selectedTopicsSig = useSignal<string[]>([]);
-  const selectedLocationSig = useSignal("");
+  const selectedLocationSig = useSignal<GeoapifyLocation>();
 
   const actionSig = useFormAction();
   return (
@@ -123,7 +138,7 @@ export default component$(() => {
             <div>
               <Topics selectedTopicsSig={selectedTopicsSig} />
               <input
-                type="text"
+                type="hidden"
                 name="topics"
                 value={selectedTopicsSig.value}
               />
@@ -136,9 +151,9 @@ export default component$(() => {
             <div>
               <Location selectedLocationSig={selectedLocationSig} />
               <input
-                type="text"
+                type="hidden"
                 name="location"
-                value={selectedLocationSig.value}
+                value={`${selectedLocationSig.value?.lat},${selectedLocationSig.value?.lon}`}
               />
               {actionSig.value?.fieldErrors.location && (
                 <p class="mt-1 text-sm text-alert">
@@ -149,7 +164,7 @@ export default component$(() => {
           </div>
         </Card.Content>
         <Card.Footer>
-          <Button type="submit">
+          <Button type="submit" disabled={actionSig.isRunning}>
             <LuPlus class="mr-2 h-4 w-4" />
             Create
           </Button>
