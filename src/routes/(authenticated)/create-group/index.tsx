@@ -39,10 +39,10 @@ export const useFormAction = routeAction$(
 );
 
 export const useGetCategoriesOptions = routeLoader$(async () => {
-  const resp = await fetchBackend
+  const resp = await fetchBackend()
     .get(`/categories/categories-options`)
     .json<ApiResponse<{ categories: Pick<Category, "id" | "name">[] }>>();
-  return resp.data?.categories;
+  return resp.data?.categories ? resp.data?.categories : [];
 });
 
 export type ChooseTopicType = Pick<Topic, "id" | "name">;
@@ -51,7 +51,7 @@ export const useGetTopicsOptions = routeLoader$(async () => {
   const resp = await fetchBackend()
     .get(`/topics/topics-options`)
     .json<ApiResponse<{ topics: Pick<Category, "id" | "name">[] }>>();
-  return resp.data?.topics ?? [];
+  return resp.data?.topics ? resp.data?.topics : [];
 });
 
 export default component$(() => {
@@ -61,7 +61,7 @@ export default component$(() => {
 
   const actionSig = useFormAction();
   return (
-    <Form action={actionSig}>
+    <Form action={actionSig} class="w-full max-w-xl">
       <Card.Root>
         <Card.Header>
           <Card.Title class="text-xl font-bold">Create New Group</Card.Title>
@@ -98,7 +98,7 @@ export default component$(() => {
                 class="rounded-md border px-4 py-3"
               >
                 <option value={""}>Select</option>
-                {categoriesSig.value?.map((c) => (
+                {categoriesSig.value.map((c) => (
                   <option value={c.id} key={c.id}>
                     {c.name}
                   </option>
