@@ -1,11 +1,12 @@
 import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import { Avatar, Popover, Separator } from "~/components/ui";
-import type { AuthUser } from "~/lib/types";
 import { LogoutForm } from "./logout-form";
+import { useSession } from "~/routes/plugin@auth";
 
-export const AccountsPopover = component$(({ user }: { user: AuthUser }) => {
-  console.log("acc", user);
+export const AccountsPopover = component$(() => {
+  const sessionSig = useSession();
+  console.log("sessionSig", sessionSig.value);
   const links = [
     {
       name: "Your events",
@@ -18,7 +19,7 @@ export const AccountsPopover = component$(({ user }: { user: AuthUser }) => {
     },
     {
       name: "View profile",
-      href: `/members/${user.id}`,
+      href: `/members/${sessionSig.value.user?.id}`,
     },
     {
       name: "Settings",
@@ -29,8 +30,11 @@ export const AccountsPopover = component$(({ user }: { user: AuthUser }) => {
     <Popover.Root>
       <Popover.Trigger>
         <Avatar.Root class="h-10 w-10">
-          <Avatar.Image src={user.profilePhoto ?? ""} alt={user.name} />
-          <Avatar.Fallback>{user.name}</Avatar.Fallback>
+          <Avatar.Image
+            src={sessionSig.value.user?.profilePhoto ?? ""}
+            alt={sessionSig.value.user?.name}
+          />
+          <Avatar.Fallback>{sessionSig.value.user?.name}</Avatar.Fallback>
         </Avatar.Root>
       </Popover.Trigger>
       <Popover.Panel class="mt-4 w-48">

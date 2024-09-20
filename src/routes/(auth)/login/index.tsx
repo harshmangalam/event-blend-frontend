@@ -6,7 +6,7 @@ import { Card } from "~/components/ui/card/card";
 import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
 import { fetchBackend } from "~/lib/fetch-backend";
-import { type LoginResponse, type ApiResponse } from "~/lib/types";
+import { type ApiResponse } from "~/lib/types";
 import { LuAlertTriangle } from "@qwikest/icons/lucide";
 import { ACCESS_TOKEN_EXP, REFRESH_TOKEN_EXP } from "~/lib/constatnts";
 
@@ -18,7 +18,7 @@ export const useLogin = routeAction$(
       .badRequest((err) => fail(err.status, err.json))
       .internalError((err) => fail(err.status, err.json))
       .fetchError((err) => fail(500, err.json))
-      .json<ApiResponse<LoginResponse>>();
+      .json<ApiResponse<any>>();
 
     if (!resp.success) {
       return { error: resp };
@@ -38,13 +38,9 @@ export const useLogin = routeAction$(
     throw redirect(302, "/");
   },
   zod$((z) => ({
-    email: z
-      .string({
-        message: "Email is required",
-      })
-      .email({
-        message: "Email has invalid format",
-      }),
+    email: z.string({ required_error: "Email is required" }).email({
+      message: "Email has invalid format",
+    }),
     password: z.string().min(6, "Password has to be at least 6 characters"),
   })),
 );

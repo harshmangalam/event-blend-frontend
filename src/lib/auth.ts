@@ -39,18 +39,31 @@ export function AuthQrl() {
   });
 
   const useLogout = globalAction$(async (_, event) => {
-    // delete access token from cookie
-    event.cookie.delete("accessToken");
+    // logout from server
+    const accessToken = event.sharedMap.get("accessToken");
+    if (!accessToken) throw event.redirect(REDIRECT_STATUS_CODE, "/login");
+    const resp = await fetchBackend
+      .url("/auth/logout")
+      .headers({
+        Authorization: `Bearer ${accessToken}`,
+      })
+      .post()
+      .json<ApiResponse>();
 
-    // delete refresh token from cookie
-    event.cookie.delete("refreshToken");
+    if (resp.success) {
+      // delete access token from cookie
+      event.cookie.delete("accessToken");
 
-    // remove sharedmap data related to accessToken and user
-    event.sharedMap.set("user", null);
-    event.sharedMap.set("accessToken", null);
+      // delete refresh token from cookie
+      event.cookie.delete("refreshToken");
 
-    // redirect to home page
-    throw event.redirect(REDIRECT_STATUS_CODE, "/");
+      // remove sharedmap data related to accessToken and user
+      event.sharedMap.delete("user");
+      event.sharedMap.delete("accessToken");
+
+      // redirect to home page
+      throw event.redirect(REDIRECT_STATUS_CODE, "/");
+    }
   });
 
   return { onRequest, useSession, useLogout };
