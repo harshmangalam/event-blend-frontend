@@ -24,8 +24,8 @@ export const useCreateEvent = routeAction$(
 export const useFetchGroupsOptions = routeLoader$(async (event) => {
   const resp = await fetchBackend(event)
     .get("/groups/groups-options")
-    .json<ApiResponse<{ topics: GroupOptions[] }>>();
-  return resp.data?.topics || [];
+    .json<ApiResponse<{ groups: GroupOptions[] }>>();
+  return resp.data?.groups || [];
 });
 
 export default component$(() => {
