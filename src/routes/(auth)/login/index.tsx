@@ -8,7 +8,11 @@ import { Label } from "~/components/ui/label/label";
 import { fetchBackend } from "~/lib/fetch-backend";
 import { type ApiResponse } from "~/lib/types";
 import { LuAlertTriangle } from "@qwikest/icons/lucide";
-import { ACCESS_TOKEN_EXP, REFRESH_TOKEN_EXP } from "~/lib/constatnts";
+import {
+  ACCESS_TOKEN_EXP,
+  REDIRECT_STATUS_CODE,
+  REFRESH_TOKEN_EXP,
+} from "~/lib/constatnts";
 
 export const useLogin = routeAction$(
   async (values, { fail, redirect, cookie }) => {
@@ -35,7 +39,7 @@ export const useLogin = routeAction$(
         maxAge: REFRESH_TOKEN_EXP,
       });
     }
-    throw redirect(302, "/");
+    throw redirect(REDIRECT_STATUS_CODE, "/");
   },
   zod$((z) => ({
     email: z.string({ required_error: "Email is required" }).email({
