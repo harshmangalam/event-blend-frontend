@@ -77,7 +77,7 @@ interface Category extends BaseSchema {
   slug: string;
   description?: string;
   topics: Topic[];
-  _count: Pick<_Count, "events" | "groups">;
+  _count?: Pick<_Count, "events" | "groups">;
 }
 
 interface Event extends BaseSchema {

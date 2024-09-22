@@ -1,16 +1,25 @@
-import { component$ } from "@builder.io/qwik";
+import { $, component$, useSignal } from "@builder.io/qwik";
 import {
   Form,
   routeAction$,
   routeLoader$,
+  server$,
   z,
   zod$,
 } from "@builder.io/qwik-city";
 import { LuPlus } from "@qwikest/icons/lucide";
 import { Button, Card, Input, Label, Textarea } from "~/components/ui";
 import { fetchBackend } from "~/lib/fetch-backend";
-import type { ApiResponse, GroupOptions } from "~/lib/types";
+import type {
+  ApiResponse,
+  Category,
+  GroupOptions,
+  TopicOption,
+} from "~/lib/types";
 import { SelctGroups } from "./select-groups";
+import { Location } from "../location";
+import type { GeoapifyLocation } from "~/lib/geoapify";
+import { Topics } from "../topics";
 
 export const useCreateEvent = routeAction$(
   () => {},
@@ -18,6 +27,11 @@ export const useCreateEvent = routeAction$(
     name: z.string().min(5).max(100),
     details: z.string().min(20).max(1000),
     groupId: z.string().cuid2(),
+    poster: z.string().url(),
+    location: z.string().min(1),
+    topics: z.string().min(1),
+    address: z.string().min(1),
+    categoryId: z.string().cuid2(),
   }),
 );
 
@@ -28,8 +42,33 @@ export const useFetchGroupsOptions = routeLoader$(async (event) => {
   return resp.data?.groups || [];
 });
 
+export const fetchTopicsOptions = server$(async (categoryId?: string) => {
+  if (!categoryId) return [];
+  const resp = await fetchBackend()
+    .get(`/topics/topics-options?categoryId=${categoryId}`)
+    .json<ApiResponse<{ topics: TopicOption[] }>>();
+  return resp.data?.topics || [];
+});
+export const fetchGroupCategory = server$(async (groupId: string) => {
+  const resp = await fetchBackend()
+    .get(`/groups/${groupId}/category`)
+    .json<ApiResponse<{ category: Category }>>();
+  return resp.data?.category || null;
+});
+
 export default component$(() => {
   const createEventSig = useCreateEvent();
+  const selectedLocationSig = useSignal<GeoapifyLocation | null>(null);
+  const topicsOptionsSig = useSignal<TopicOption[]>([]);
+  const selectedTopicsSig = useSignal<string[]>([]);
+  const categorySig = useSignal<Category | null>(null);
+
+  const handleFetchTopics = $(async (e: Event) => {
+    const value = (e.target as HTMLSelectElement).value;
+    categorySig.value = await fetchGroupCategory(value);
+    topicsOptionsSig.value = await fetchTopicsOptions(categorySig.value?.id);
+  });
+
   return (
     <Form action={createEventSig} class="w-full max-w-xl">
       <Card.Root>
@@ -61,13 +100,81 @@ export default component$(() => {
               />
             </div>
             <div class="grid w-full items-center gap-1.5">
-              <Label for={"name"}>Event details</Label>
-              <SelctGroups />
+              <Label for={"name"}>Select group</Label>
+              <SelctGroups onSelect={handleFetchTopics} />
               {createEventSig.value?.fieldErrors?.groupId && (
                 <p class="mt-1 text-sm text-alert">
                   {createEventSig.value.fieldErrors.groupId}
                 </p>
               )}
+            </div>
+            {categorySig.value && (
+              <div class="grid w-full items-center gap-1.5">
+                <Label for={"name"}>Event category</Label>
+                <Input
+                  readOnly
+                  type="text"
+                  name="categoryId"
+                  id="categoryId"
+                  value={categorySig.value.name}
+                />
+                {createEventSig.value?.fieldErrors?.groupId && (
+                  <p class="mt-1 text-sm text-alert">
+                    {createEventSig.value.fieldErrors.categoryId}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {topicsOptionsSig.value.length ? (
+              <>
+                <Topics
+                  selectedTopicsSig={selectedTopicsSig}
+                  topicsOptionsSig={topicsOptionsSig}
+                />
+                <input
+                  type="hidden"
+                  name="topics"
+                  value={selectedTopicsSig.value}
+                />
+                {createEventSig.value?.fieldErrors?.topics && (
+                  <p class="mt-1 text-sm text-alert">
+                    {createEventSig.value.fieldErrors.topics}
+                  </p>
+                )}
+              </>
+            ) : null}
+
+            <div class="grid w-full items-center gap-1.5">
+              <Label for={"poster"}>Group poster url</Label>
+              <Input
+                id="poster"
+                name="poster"
+                error={createEventSig.value?.fieldErrors?.poster}
+              />
+            </div>
+
+            <div>
+              <Location selectedLocationSig={selectedLocationSig} />
+              <input
+                type="hidden"
+                name="location"
+                value={`${selectedLocationSig.value?.lat},${selectedLocationSig.value?.lon}`}
+              />
+              {createEventSig.value?.fieldErrors?.location && (
+                <p class="mt-1 text-sm text-alert">
+                  {createEventSig.value.fieldErrors.location}
+                </p>
+              )}
+            </div>
+            <div class="grid w-full items-center gap-1.5">
+              <Label for={"address"}>Add address</Label>
+              <Textarea
+                id="address"
+                name="address"
+                rows={10}
+                error={createEventSig.value?.fieldErrors?.address}
+              />
             </div>
           </div>
         </Card.Content>

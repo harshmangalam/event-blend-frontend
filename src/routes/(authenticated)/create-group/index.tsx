@@ -15,8 +15,8 @@ import { fetchBackend } from "~/lib/fetch-backend";
 import { GEOAPIFY_API_KEY, REDIRECT_STATUS_CODE } from "~/lib/constatnts";
 import type { ApiResponse, Category, Topic, TopicOption } from "~/lib/types";
 import { Card } from "~/components/ui/card/card";
-import { Topics } from "./topics";
-import { Location } from "./location";
+import { Topics } from "../topics";
+import { Location } from "../location";
 import { LuPlus } from "@qwikest/icons/lucide";
 import { autocompleteLocation, type GeoapifyLocation } from "~/lib/geoapify";
 

@@ -3,7 +3,7 @@ import { LuCheck, LuPlus } from "@qwikest/icons/lucide";
 import { Badge } from "~/components/ui";
 import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
-import { fetchLocations } from ".";
+import { fetchLocations } from "./create-group";
 import { type GeoapifyLocation } from "~/lib/geoapify";
 
 export const Location = component$(
