@@ -72,7 +72,7 @@ export const fetchLocations = server$(async function (text: string) {
 export default component$(() => {
   const categoriesSig = useGetCategoriesOptions();
   const selectedTopicsSig = useSignal<string[]>([]);
-  const selectedLocationSig = useSignal<GeoapifyLocation>();
+  const selectedLocationSig = useSignal<GeoapifyLocation | null>(null);
   const topicsOptionsSig = useSignal<TopicOption[]>([]);
   const actionSig = useFormAction();
 

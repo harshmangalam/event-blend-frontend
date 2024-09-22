@@ -10,12 +10,14 @@ export const Location = component$(
   ({
     selectedLocationSig,
   }: {
-    selectedLocationSig: Signal<GeoapifyLocation | undefined>;
+    selectedLocationSig: Signal<GeoapifyLocation | null>;
   }) => {
     const locationsSig = useSignal<GeoapifyLocation[]>([]);
 
-    const handleAdd = $((loc: GeoapifyLocation) => {
-      selectedLocationSig.value = loc;
+    const handleLocation = $((loc: GeoapifyLocation) => {
+      if (selectedLocationSig.value?.place_id === loc.place_id)
+        selectedLocationSig.value = null;
+      else selectedLocationSig.value = loc;
     });
 
     const handleSearchLocations = $(async (e: InputEvent) => {
@@ -33,7 +35,7 @@ export const Location = component$(
               <li key={loc.place_id}>
                 <Badge
                   class="cursor-pointer px-4 py-2"
-                  onClick$={() => handleAdd(loc)}
+                  onClick$={() => handleLocation(loc)}
                   look={
                     selectedLocationSig.value?.place_id === loc.place_id
                       ? "primary"
