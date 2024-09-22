@@ -6,7 +6,6 @@ import { useSession } from "~/routes/plugin@auth";
 
 export const AccountsPopover = component$(() => {
   const sessionSig = useSession();
-  console.log("sessionSig", sessionSig.value);
   const links = [
     {
       name: "Your events",

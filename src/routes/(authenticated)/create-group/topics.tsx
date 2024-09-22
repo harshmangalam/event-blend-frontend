@@ -8,14 +8,24 @@ import {
 
 import { LuMinus, LuPlus } from "@qwikest/icons/lucide";
 import { Badge } from "~/components/ui/badge/badge";
-import { type ChooseTopicType, useGetTopicsOptions } from ".";
+import { type ChooseTopicType } from ".";
+import type { TopicOption } from "~/lib/types";
+
+type TopicOptionWithSelect = {
+  [K in keyof TopicOption]: TopicOption[K];
+} & {
+  selected: boolean; // Add new property
+};
 
 export const Topics = component$(
-  ({ selectedTopicsSig }: { selectedTopicsSig: Signal<string[]> }) => {
-    const topicsOptionsSig = useGetTopicsOptions();
-    const topicsSig = useSignal<any[]>(
-      topicsOptionsSig.value.map((t) => ({ ...t, selected: false })),
-    );
+  ({
+    selectedTopicsSig,
+    topicsOptionsSig,
+  }: {
+    selectedTopicsSig: Signal<string[]>;
+    topicsOptionsSig: Signal<TopicOption[]>;
+  }) => {
+    const topicsSig = useSignal<TopicOptionWithSelect[]>([]);
 
     const handleUpdate = $(
       (topic: ChooseTopicType, action: "ADD" | "REMOVE") => {
@@ -24,14 +34,19 @@ export const Topics = component$(
             return { ...t, selected: action === "ADD" ? true : false };
           else return t;
         });
+
+        selectedTopicsSig.value = topicsSig.value
+          .filter((t) => t.selected)
+          .map((t) => t.id);
       },
     );
 
     useTask$(({ track }) => {
-      track(() => topicsSig.value);
-      selectedTopicsSig.value = topicsSig.value
-        .filter((t) => t.selected)
-        .map((t) => t.id);
+      track(() => topicsOptionsSig.value);
+      topicsSig.value = topicsOptionsSig.value.map((t) => ({
+        ...t,
+        selected: false,
+      }));
     });
 
     return (
@@ -40,7 +55,7 @@ export const Topics = component$(
           <div class="font-medium"> Choose topics</div>
         </div>
 
-        <div class="mt-4 h-60 overflow-y-auto">
+        <div class="mt-4 h-32 overflow-y-auto">
           <ul class="flex flex-wrap gap-2">
             {topicsSig.value.map((topic) => (
               <li key={topic.id}>

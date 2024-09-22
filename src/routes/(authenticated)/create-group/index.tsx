@@ -1,4 +1,4 @@
-import { component$, useSignal } from "@builder.io/qwik";
+import { $, component$, useSignal } from "@builder.io/qwik";
 import {
   Form,
   routeAction$,
@@ -13,7 +13,7 @@ import { Button } from "~/components/ui/button/button";
 import { Textarea } from "~/components/ui/textarea/textarea";
 import { fetchBackend } from "~/lib/fetch-backend";
 import { GEOAPIFY_API_KEY, REDIRECT_STATUS_CODE } from "~/lib/constatnts";
-import type { ApiResponse, Category, Topic } from "~/lib/types";
+import type { ApiResponse, Category, Topic, TopicOption } from "~/lib/types";
 import { Card } from "~/components/ui/card/card";
 import { Topics } from "./topics";
 import { Location } from "./location";
@@ -49,16 +49,16 @@ export const useGetCategoriesOptions = routeLoader$(async () => {
   const resp = await fetchBackend()
     .get(`/categories/categories-options`)
     .json<ApiResponse<{ categories: Pick<Category, "id" | "name">[] }>>();
-  return resp.data?.categories ? resp.data?.categories : [];
+  return resp.data?.categories || [];
 });
 
 export type ChooseTopicType = Pick<Topic, "id" | "name">;
 
-export const useGetTopicsOptions = routeLoader$(async () => {
+export const fetchTopicsOptions = server$(async (categoryId: string) => {
   const resp = await fetchBackend()
-    .get(`/topics/topics-options`)
-    .json<ApiResponse<{ topics: Pick<Category, "id" | "name">[] }>>();
-  return resp.data?.topics ? resp.data?.topics : [];
+    .get(`/topics/topics-options?categoryId=${categoryId}`)
+    .json<ApiResponse<{ topics: TopicOption[] }>>();
+  return resp.data?.topics || [];
 });
 
 export const fetchLocations = server$(async function (text: string) {
@@ -73,8 +73,14 @@ export default component$(() => {
   const categoriesSig = useGetCategoriesOptions();
   const selectedTopicsSig = useSignal<string[]>([]);
   const selectedLocationSig = useSignal<GeoapifyLocation>();
-
+  const topicsOptionsSig = useSignal<TopicOption[]>([]);
   const actionSig = useFormAction();
+
+  const handleFetchTopics = $(async (e: Event) => {
+    const value = (e.target as HTMLSelectElement).value;
+    const topics = await fetchTopicsOptions(value);
+    topicsOptionsSig.value = topics;
+  });
   return (
     <Form action={actionSig} class="w-full max-w-xl">
       <Card.Root>
@@ -111,6 +117,7 @@ export default component$(() => {
                 id="categoryId"
                 name="categoryId"
                 class="rounded-md border px-4 py-3"
+                onChange$={handleFetchTopics}
               >
                 <option value={""}>Select</option>
                 {categoriesSig.value.map((c) => (
@@ -126,17 +133,13 @@ export default component$(() => {
               )}
             </div>
 
-            <div class="grid w-full items-center gap-1.5">
-              <Label for={"poster"}>Group poster url</Label>
-              <Input
-                id="poster"
-                name="poster"
-                error={actionSig.value?.fieldErrors.poster}
-              />
-            </div>
-
             <div>
-              <Topics selectedTopicsSig={selectedTopicsSig} />
+              {topicsOptionsSig.value.length ? (
+                <Topics
+                  selectedTopicsSig={selectedTopicsSig}
+                  topicsOptionsSig={topicsOptionsSig}
+                />
+              ) : null}
               <input
                 type="hidden"
                 name="topics"
@@ -148,6 +151,16 @@ export default component$(() => {
                 </p>
               )}
             </div>
+
+            <div class="grid w-full items-center gap-1.5">
+              <Label for={"poster"}>Group poster url</Label>
+              <Input
+                id="poster"
+                name="poster"
+                error={actionSig.value?.fieldErrors.poster}
+              />
+            </div>
+
             <div>
               <Location selectedLocationSig={selectedLocationSig} />
               <input

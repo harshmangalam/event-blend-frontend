@@ -122,3 +122,5 @@ export type AuthUser = {
   role: "Admin" | "User";
   profilePhoto: string | null;
 };
+
+export type TopicOption = Pick<Topic, "id" | "name">;
