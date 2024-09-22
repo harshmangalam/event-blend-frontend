@@ -20,7 +20,7 @@ import { SelctGroups } from "./select-groups";
 import { Location } from "../location";
 import type { GeoapifyLocation } from "~/lib/geoapify";
 import { Topics } from "../topics";
-import { SelctEventTypes } from "./select-event-types";
+import { SelctEventType } from "./select-event-type";
 
 export const useCreateEvent = routeAction$(
   () => {},
@@ -149,7 +149,7 @@ export default component$(() => {
 
             <div class="grid w-full items-center gap-1.5">
               <Label for={"name"}>Select event type</Label>
-              <SelctEventTypes />
+              <SelctEventType />
               {createEventSig.value?.fieldErrors?.eventType && (
                 <p class="mt-1 text-sm text-alert">
                   {createEventSig.value.fieldErrors.eventType}

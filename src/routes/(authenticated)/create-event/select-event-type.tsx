@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 
-export const SelctEventTypes = component$(() => {
+export const SelctEventType = component$(() => {
   const eventTypes = ["Online", "InPerson"];
   return (
     <select
