@@ -20,6 +20,7 @@ import { SelctGroups } from "./select-groups";
 import { Location } from "../location";
 import type { GeoapifyLocation } from "~/lib/geoapify";
 import { Topics } from "../topics";
+import { SelctEventTypes } from "./select-event-types";
 
 export const useCreateEvent = routeAction$(
   () => {},
@@ -32,6 +33,7 @@ export const useCreateEvent = routeAction$(
     topics: z.string().min(1),
     address: z.string().min(1),
     categoryId: z.string().cuid2(),
+    eventType: z.string().min(1),
   }),
 );
 
@@ -144,6 +146,16 @@ export default component$(() => {
                 )}
               </>
             ) : null}
+
+            <div class="grid w-full items-center gap-1.5">
+              <Label for={"name"}>Select event type</Label>
+              <SelctEventTypes />
+              {createEventSig.value?.fieldErrors?.eventType && (
+                <p class="mt-1 text-sm text-alert">
+                  {createEventSig.value.fieldErrors.eventType}
+                </p>
+              )}
+            </div>
 
             <div class="grid w-full items-center gap-1.5">
               <Label for={"poster"}>Group poster url</Label>
