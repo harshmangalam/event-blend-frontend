@@ -22,6 +22,8 @@ export const NavLink = component$(({ activeClass, ...props }: NavLinkProps) => {
       (locationPathname.charAt(endSlashPosition) === "/" ||
         locationPathname.charAt(startSlashPosition) === "/"));
 
+  console.log("locationPathname", locationPathname);
+  console.log("toPathname", toPathname);
   return (
     <Link
       {...props}
