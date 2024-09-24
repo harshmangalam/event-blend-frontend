@@ -84,13 +84,13 @@ interface Event extends BaseSchema {
   name: string;
   group: Group;
   poster?: string;
-  location: Pick<Location, "city" | "state" | "country">;
+  location: Location;
   details?: string;
   address: string;
   eventType: "InPerson" | "Online";
-  category: Pick<Category, "name">;
-  topics: Pick<Topic, "name" | "id">[];
-  user: Pick<User, "id" | "name">;
+  category: Category;
+  topics: Topic[];
+  user: User;
   _count: Pick<_Count, "attendees">;
 }
 
