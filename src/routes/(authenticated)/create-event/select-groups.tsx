@@ -6,8 +6,8 @@ export const SelctGroups = component$(
     const groupsSig = useFetchGroupsOptions();
     return (
       <select
-        id="categoryId"
-        name="categoryId"
+        id="groupId"
+        name="groupId"
         class="rounded-md border px-4 py-3"
         onChange$={onSelect}
       >

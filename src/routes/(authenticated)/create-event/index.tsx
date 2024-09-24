@@ -21,19 +21,40 @@ import { Location } from "../location";
 import type { GeoapifyLocation } from "~/lib/geoapify";
 import { Topics } from "../topics";
 import { SelctEventType } from "./select-event-type";
+import { EeventDates } from "./event-dates";
+import { REDIRECT_STATUS_CODE } from "~/lib/constatnts";
 
 export const useCreateEvent = routeAction$(
-  () => {},
+  async (values, event) => {
+    const resp = await fetchBackend(event)
+      .url("/events")
+      .post({
+        ...values,
+        location: values.location.split(","),
+        topics: values.topics.split(","),
+        dates: [{ startDate: values.startDate, endDate: values.endDate }],
+      })
+      .json<ApiResponse>();
+
+    if (resp.error) {
+      return { error: resp.error };
+    }
+    if (resp.success) {
+      throw event.redirect(REDIRECT_STATUS_CODE, "/");
+    }
+  },
   zod$({
-    name: z.string().min(5).max(100),
-    details: z.string().min(20).max(1000),
-    groupId: z.string().cuid2(),
-    poster: z.string().url(),
-    location: z.string().min(1),
-    topics: z.string().min(1),
-    address: z.string().min(1),
-    categoryId: z.string().cuid2(),
-    eventType: z.string().min(1),
+    name: z.string(),
+    details: z.string(),
+    groupId: z.string(),
+    poster: z.string(),
+    location: z.string(),
+    topics: z.string(),
+    address: z.string(),
+    categoryId: z.string(),
+    eventType: z.string(),
+    startDate: z.string(),
+    endDate: z.string(),
   }),
 );
 
@@ -83,6 +104,7 @@ export default component$(() => {
           </Card.Description>
         </Card.Header>
         <Card.Content>
+          <div>{createEventSig.value?.error}</div>
           <div class="grid grid-cols-1 gap-3">
             <div class="grid w-full items-center gap-1.5">
               <Label for={"name"}>Event name</Label>
@@ -112,15 +134,20 @@ export default component$(() => {
             </div>
             {categorySig.value && (
               <div class="grid w-full items-center gap-1.5">
-                <Label for={"name"}>Event category</Label>
+                <Label for={"categoryId"}>Event category</Label>
                 <Input
+                  disabled
                   readOnly
+                  type="text"
+                  value={categorySig.value.name}
+                />
+                <input
                   type="text"
                   name="categoryId"
                   id="categoryId"
-                  value={categorySig.value.name}
+                  value={categorySig.value.id}
                 />
-                {createEventSig.value?.fieldErrors?.groupId && (
+                {createEventSig.value?.fieldErrors?.categoryId && (
                   <p class="mt-1 text-sm text-alert">
                     {createEventSig.value.fieldErrors.categoryId}
                   </p>
@@ -158,7 +185,7 @@ export default component$(() => {
             </div>
 
             <div class="grid w-full items-center gap-1.5">
-              <Label for={"poster"}>Group poster url</Label>
+              <Label for={"poster"}>Poster url</Label>
               <Input
                 id="poster"
                 name="poster"
@@ -187,6 +214,9 @@ export default component$(() => {
                 rows={10}
                 error={createEventSig.value?.fieldErrors?.address}
               />
+            </div>
+            <div class="grid w-full items-center gap-1.5">
+              <EeventDates />
             </div>
           </div>
         </Card.Content>

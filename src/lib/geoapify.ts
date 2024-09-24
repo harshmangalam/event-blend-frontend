@@ -19,5 +19,5 @@ export async function autocompleteLocation(text: string, apiKey?: string) {
     .fetchError((err) => console.log(err))
     .json<{ results: GeoapifyLocation[] }>();
 
-  return resp.results.filter((r) => r.city || r.name);
+  return resp.results;
 }
