@@ -1,3 +1,5 @@
+import { EventDateSchema } from "./models";
+
 interface BaseSchema {
   id: string;
   createdAt: string;
@@ -92,6 +94,7 @@ interface Event extends BaseSchema {
   topics: Topic[];
   user: User;
   _count: Pick<_Count, "attendees">;
+  dates: EventDateSchema[];
 }
 
 export type {
@@ -125,8 +128,3 @@ export type AuthUser = {
 
 export type TopicOption = Pick<Topic, "id" | "name">;
 export type GroupOptions = Pick<Group, "id" | "name">;
-
-export enum Source {
-  EVENTS = "EVENTS",
-  GROUPS = "GROUPS",
-}

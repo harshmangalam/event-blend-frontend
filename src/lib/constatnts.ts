@@ -25,6 +25,22 @@ const GROUP_DETAILS_TABS = [
 const REDIRECT_STATUS_CODE = 302;
 
 const GEOAPIFY_API_KEY = "GEOAPIFY_API_KEY";
+
+enum Source {
+  Events = "EVENTS",
+  Groups = "GROUPS",
+}
+
+const SOURCE_TABS = [
+  {
+    name: "Events",
+    slug: Source.Events,
+  },
+  {
+    name: "Groups",
+    slug: Source.Groups,
+  },
+];
 export {
   ACCESS_TOKEN_EXP,
   BASE_URI,
@@ -37,4 +53,6 @@ export {
   ACCESS_TOKEN_KEY,
   REFRESH_TOKEN_KEY,
   GEOAPIFY_API_KEY,
+  SOURCE_TABS,
+  Source,
 };
