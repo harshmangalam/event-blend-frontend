@@ -18,7 +18,7 @@ export const IconWithText = component$(
   },
 );
 
-export const GroupFlatCard = component$(({ group }: { group: Group }) => {
+export const FlatGroupCard = component$(({ group }: { group: Group }) => {
   const navigate = useNavigate();
   return (
     <Card.Root class="w-full rounded-md border-none shadow-none">
