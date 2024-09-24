@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
-import { GroupFlatCard } from "~/components/shared/group-flat-card";
+import { FlatGroupCard } from "~/components/shared/flat-group-card";
 import { Separator } from "~/components/ui/separator/separator";
 import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse, Group } from "~/lib/types";
@@ -21,7 +21,7 @@ export default component$(() => {
       <div class="mt-8 grid grid-cols-1 gap-4">
         {groupsSig.value?.map((group) => (
           <div key={group.id} class="w-full max-w-3xl">
-            <GroupFlatCard group={group} />
+            <FlatGroupCard group={group} />
             <Separator class="mt-4" />
           </div>
         ))}
