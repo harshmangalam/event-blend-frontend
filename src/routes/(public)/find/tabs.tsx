@@ -1,10 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { Link, useLocation } from "@builder.io/qwik-city";
+import { Source } from "~/lib/types";
 
-enum Source {
-  EVENTS = "EVENTS",
-  GROUPS = "GROUPS",
-}
 export const Tabs = component$(() => {
   const loc = useLocation();
   const source = loc.url.searchParams.get("source") as Source;

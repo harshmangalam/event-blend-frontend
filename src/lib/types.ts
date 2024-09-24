@@ -125,3 +125,8 @@ export type AuthUser = {
 
 export type TopicOption = Pick<Topic, "id" | "name">;
 export type GroupOptions = Pick<Group, "id" | "name">;
+
+export enum Source {
+  EVENTS = "EVENTS",
+  GROUPS = "GROUPS",
+}
