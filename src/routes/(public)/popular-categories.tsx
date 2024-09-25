@@ -9,7 +9,7 @@ export const PopularCategories = component$(() => {
     <section>
       <div class="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
         <h2 class="text-xl font-semibold">Explore popular categories</h2>
-        <Link class="text-primary hover:underline" href="/categories">
+        <Link class="text-primary hover:underline" href="/topics">
           See all categories
         </Link>
       </div>

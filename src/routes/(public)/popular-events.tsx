@@ -2,6 +2,7 @@ import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import { useGetPopularEvents } from ".";
 import { EventCard } from "~/components/shared/event-card";
+import { Source } from "~/lib/constatnts";
 
 export const PopularEvents = component$(() => {
   const popularEvents = useGetPopularEvents();
@@ -9,7 +10,10 @@ export const PopularEvents = component$(() => {
     <section>
       <div class="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
         <h2 class="text-xl font-semibold">Explore popular events</h2>
-        <Link class="text-primary hover:underline" href="/Events">
+        <Link
+          class="text-primary hover:underline"
+          href={`/find?source=${Source.Events}`}
+        >
           See all events
         </Link>
       </div>

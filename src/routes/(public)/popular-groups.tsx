@@ -2,6 +2,7 @@ import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import { GroupCard } from "~/components/shared/group-card";
 import { useGetPopularGroups } from ".";
+import { Source } from "~/lib/constatnts";
 
 export const PopularGroups = component$(() => {
   const popularGroups = useGetPopularGroups();
@@ -9,7 +10,10 @@ export const PopularGroups = component$(() => {
     <section>
       <div class="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
         <h2 class="text-xl font-semibold">Explore popular groups</h2>
-        <Link class="text-primary hover:underline" href="/groups">
+        <Link
+          class="text-primary hover:underline"
+          href={`/find?source=${Source.Groups}`}
+        >
           See all groups
         </Link>
       </div>
