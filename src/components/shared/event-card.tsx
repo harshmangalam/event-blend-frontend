@@ -19,7 +19,7 @@ export const EventCard = component$(({ event }: { event: Event }) => {
     event;
   return (
     <Card.Root class="w-full max-w-md">
-      <Link href={`/groups/${id}`} class="block h-full">
+      <Link href={`/${group.slug}/events/${id}`} class="block h-full">
         {poster && (
           <Card.Image
             src={poster}

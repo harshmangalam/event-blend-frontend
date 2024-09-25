@@ -18,10 +18,10 @@ export const IconWithText = component$(
   },
 );
 export const GroupCard = component$(({ group }: { group: Group }) => {
-  const { id, location, name, category } = group;
+  const { slug, location, name, category } = group;
   return (
     <Card.Root class="w-full max-w-md">
-      <Link href={`/groups/${id}`} class="block h-full">
+      <Link href={`/${slug}`} class="block h-full">
         <Card.Image
           width={300}
           height={160}

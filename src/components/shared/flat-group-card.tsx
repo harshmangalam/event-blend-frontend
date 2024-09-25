@@ -22,7 +22,7 @@ export const FlatGroupCard = component$(({ group }: { group: Group }) => {
   const navigate = useNavigate();
   return (
     <Card.Root class="w-full rounded-md border-none shadow-none">
-      <Link href={`/groups/${group.slug}`}>
+      <Link href={`/${group.slug}`}>
         <Card.Content class="p-0">
           <div class="flex flex-col gap-8 sm:flex-row">
             <Card.Image
