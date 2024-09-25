@@ -1,4 +1,4 @@
-const BASE_URI = "http://localhost:3001/api";
+const BASE_URI = import.meta.env.VITE_BASE_URI;
 const ACCESS_TOKEN_KEY = "accessToken";
 const REFRESH_TOKEN_KEY = "accessToken";
 const ACCESS_TOKEN_EXP = 24 * 60 * 60; //  1 day
