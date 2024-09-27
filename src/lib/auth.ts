@@ -6,7 +6,7 @@ import {
 import { REDIRECT_STATUS_CODE } from "./constatnts";
 import { fetchBackend } from "./fetch-backend";
 import { ApiResponse, AuthUser } from "./types";
-import { event$, implicit$FirstArg, QRL } from "@builder.io/qwik";
+import { implicit$FirstArg } from "@builder.io/qwik";
 import { isServer } from "@builder.io/qwik/build";
 
 export const Auth$ = /*#__PURE__*/ implicit$FirstArg(AuthQrl);
@@ -25,6 +25,7 @@ export function AuthQrl() {
   const onRequest: RequestHandler = async (event) => {
     if (isServer) {
       const accessToken = event.cookie.get("accessToken")?.value;
+      console.log("acccccc", accessToken);
       if (accessToken) {
         event.sharedMap.set("accessToken", accessToken);
         const user = await getCurrentUser(accessToken);
