@@ -34,5 +34,5 @@ build: Changes that affect the build system or external dependencies (example sc
 - test: Adding missing tests or correcting existing tests
 
 ## Opening the Pull Request
-
+Always create PR for `dev` branch
 Before opening a pull request, ensure everything functions correctly locally. You can do this by running just comply followed by just check.
