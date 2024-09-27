@@ -25,7 +25,6 @@ export function AuthQrl() {
   const onRequest: RequestHandler = async (event) => {
     if (isServer) {
       const accessToken = event.cookie.get("accessToken")?.value;
-      console.log("acccccc", accessToken);
       if (accessToken) {
         event.sharedMap.set("accessToken", accessToken);
         const user = await getCurrentUser(accessToken);
