@@ -6,6 +6,7 @@ import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse, Event } from "~/lib/types";
 import { formatEventDateDifference } from "~/lib/utils";
 import { GroupCard } from "./group-card";
+import { LocationCard } from "./location-card";
 
 export const useGetEventDetails = routeLoader$(async (event) => {
   const resp = await fetchBackend(event)
@@ -62,8 +63,12 @@ export default component$(() => {
               class="aspect-video rounded-md"
             />
           </div>
-          <div class="col-span-4">
+          <div class="col-span-4 flex flex-col gap-4">
             <GroupCard group={eventSig.value.group} />
+            <LocationCard
+              location={eventSig.value.location}
+              address={eventSig.value.address}
+            />
           </div>
         </div>
       </section>
