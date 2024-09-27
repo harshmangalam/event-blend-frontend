@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
-import { Avatar } from "~/components/ui";
+import { Avatar, Button } from "~/components/ui";
 import { DEFAULT_POSTER } from "~/lib/constatnts";
 import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse, Event } from "~/lib/types";
@@ -8,6 +8,7 @@ import { formatEventDateDifference } from "~/lib/utils";
 import { GroupCard } from "./group-card";
 import { LocationCard } from "./location-card";
 import { TimeCard } from "./time-card";
+import { LuPlus, LuShare } from "@qwikest/icons/lucide";
 
 export const useGetEventDetails = routeLoader$(async (event) => {
   const resp = await fetchBackend(event)
@@ -26,7 +27,7 @@ export default component$(() => {
     <div>
       {/* event header section  */}
       <section class="bg-background py-4">
-        <div class="mx-auto max-w-4xl">
+        <div class="mx-auto max-w-4xl px-4">
           <span class="text-muted-foreground">
             {eventSig.value.dates.length
               ? formatEventDateDifference(eventSig.value.dates[0].startDate)
@@ -53,9 +54,9 @@ export default component$(() => {
         </div>
       </section>
 
-      <section class="py-12">
+      <section class="px-4 py-12">
         <div class="mx-auto grid max-w-4xl grid-cols-1 gap-8 md:grid-cols-12">
-          <div class="col-span-8">
+          <div class="col-span-12 md:col-span-8">
             <img
               src={eventSig.value.poster || DEFAULT_POSTER}
               alt={eventSig.value.name}
@@ -63,8 +64,19 @@ export default component$(() => {
               height={400}
               class="aspect-video rounded-md"
             />
+
+            <div class="mt-4 flex items-center justify-end gap-4">
+              <Button look={"outline"}>
+                <LuShare class="mr-2" />
+                Share
+              </Button>
+              <Button>
+                <LuPlus class="mr-2" />
+                Attend
+              </Button>
+            </div>
           </div>
-          <div class="col-span-4 flex flex-col gap-4">
+          <div class="col-span-12 flex flex-col gap-4 md:col-span-4">
             <GroupCard group={eventSig.value.group} />
             <TimeCard dates={eventSig.value.dates} />
             <LocationCard
@@ -73,6 +85,11 @@ export default component$(() => {
             />
           </div>
         </div>
+      </section>
+
+      <section class="mx-auto max-w-4xl py-4">
+        <h3 class="font-bold">Details</h3>
+        <p class="mt-2">{eventSig.value.details}</p>
       </section>
     </div>
   );
