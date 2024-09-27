@@ -7,7 +7,7 @@ export const GroupCard = component$(
     const { name, poster } = group;
     return (
       <Card.Root>
-        <Card.Content>
+        <Card.Content class="py-4">
           <div class="flex items-center gap-4">
             <Avatar.Root>
               <Avatar.Image src={poster ?? ""} alt={name} />

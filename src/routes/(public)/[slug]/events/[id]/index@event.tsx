@@ -1,7 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { Avatar } from "~/components/ui";
-import { DEFAULT_POSTER, REDIRECT_STATUS_CODE } from "~/lib/constatnts";
+import { DEFAULT_POSTER } from "~/lib/constatnts";
 import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse, Event } from "~/lib/types";
 import { formatEventDateDifference } from "~/lib/utils";
@@ -10,11 +10,12 @@ import { GroupCard } from "./group-card";
 export const useGetEventDetails = routeLoader$(async (event) => {
   const resp = await fetchBackend(event)
     .get(`/events/${event.params.id}`)
-    .fetchError((err) => console.log(err))
-    .internalError((err) => console.log(err))
+    .notFound(() => {
+      throw event.error(404, "Event not found");
+    })
     .json<ApiResponse<{ event: Event }>>();
 
-  if (!resp.data?.event) throw event.redirect(REDIRECT_STATUS_CODE, "/");
+  if (!resp.data?.event) throw event.error(404, "Event not found");
   return resp.data.event;
 });
 export default component$(() => {
