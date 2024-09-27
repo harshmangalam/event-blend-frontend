@@ -7,6 +7,7 @@ import type { ApiResponse, Event } from "~/lib/types";
 import { formatEventDateDifference } from "~/lib/utils";
 import { GroupCard } from "./group-card";
 import { LocationCard } from "./location-card";
+import { TimeCard } from "./time-card";
 
 export const useGetEventDetails = routeLoader$(async (event) => {
   const resp = await fetchBackend(event)
@@ -65,6 +66,7 @@ export default component$(() => {
           </div>
           <div class="col-span-4 flex flex-col gap-4">
             <GroupCard group={eventSig.value.group} />
+            <TimeCard dates={eventSig.value.dates} />
             <LocationCard
               location={eventSig.value.location}
               address={eventSig.value.address}
