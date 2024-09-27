@@ -23,7 +23,7 @@ export const useGetPopularCities = routeLoader$(async () => {
       ApiResponse<{ locations: Pick<Location, "id" | "city" | "_count">[] }>
     >();
 
-  return locations.data?.locations;
+  return locations.data?.locations ?? [];
 });
 export const useGetPopularGroups = routeLoader$(async () => {
   const resp = await fetchBackend()
@@ -31,8 +31,7 @@ export const useGetPopularGroups = routeLoader$(async () => {
     .fetchError((err) => console.log(err))
     .internalError((err) => console.log(err))
     .json<ApiResponse<{ groups: Group[] }>>();
-
-  return resp.data?.groups;
+  return resp.data?.groups ?? [];
 });
 export const useGetPopularCategories = routeLoader$(async () => {
   const resp = await fetchBackend()
@@ -41,10 +40,10 @@ export const useGetPopularCategories = routeLoader$(async () => {
     .internalError((err) => console.log(err))
     .json<ApiResponse<{ categories: PopularCategory[] }>>();
 
-  return resp.data?.categories;
+  return resp.data?.categories ?? [];
 });
-export const useGetPopularEvents = routeLoader$(async () => {
-  const resp = await fetchBackend()
+export const useGetPopularEvents = routeLoader$(async (event) => {
+  const resp = await fetchBackend(event)
     .get("/events/popular-events")
     .fetchError((err) => console.log(err))
     .internalError((err) => console.log(err))
