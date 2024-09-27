@@ -84,17 +84,17 @@ interface Category extends BaseSchema {
 
 interface Event extends BaseSchema {
   name: string;
-  group: Group;
+  group?: Group | null;
   poster?: string;
-  location: Location;
+  location?: Location | null;
   details?: string;
   address: string;
   eventType: "InPerson" | "Online";
   category: Category;
-  topics: Topic[];
+  topics?: Topic[] | null;
   user: User;
   _count: Pick<_Count, "attendees">;
-  dates: EventDateSchema[];
+  dates?: EventDateSchema[] | null;
 }
 
 export type {
