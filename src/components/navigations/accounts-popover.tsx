@@ -17,6 +17,15 @@ export const AccountsPopover = component$(() => {
       divider: true,
     },
     {
+      name: "create-group",
+      href: "/create-group",
+    },
+    {
+      name: "create-event",
+      href: "/create-event",
+      divider: true,
+    },
+    {
       name: "View profile",
       href: `/members/${sessionSig.value.user?.id}`,
     },
