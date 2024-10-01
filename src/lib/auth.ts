@@ -17,7 +17,7 @@ async function getCurrentUser(accessToken: string) {
     .get("/auth/me")
     .json<ApiResponse<{ user: AuthUser }>>();
 
-  if (!resp.data?.user) return null;
+  if (!resp?.data?.user) return null;
   return resp.data.user;
 }
 
