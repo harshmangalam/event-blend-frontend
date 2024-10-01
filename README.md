@@ -34,3 +34,5 @@ http://localhost:5173/
 - Valibot
 - Wretch
 - Modular forms
+
+**Please go through CONTRIBUTING.md file before start contribution and code changes**.
