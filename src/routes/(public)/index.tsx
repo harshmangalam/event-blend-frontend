@@ -23,6 +23,8 @@ export const useGetPopularCities = routeLoader$(async () => {
       ApiResponse<{ locations: Pick<Location, "id" | "city" | "_count">[] }>
     >();
 
+  console.log(locations);
+
   return locations.data?.locations ?? [];
 });
 export const useGetPopularGroups = routeLoader$(async () => {
@@ -49,7 +51,7 @@ export const useGetPopularEvents = routeLoader$(async (event) => {
     .internalError((err) => console.log(err))
     .json<ApiResponse<{ events: Event[] }>>();
 
-  return resp.data?.events;
+  return resp.data?.events ?? [];
 });
 export default component$(() => {
   return (
