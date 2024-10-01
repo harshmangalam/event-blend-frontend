@@ -11,23 +11,28 @@ import { isServer } from "@builder.io/qwik/build";
 
 export const Auth$ = /*#__PURE__*/ implicit$FirstArg(AuthQrl);
 
-async function getCurrentUser(accessToken: string) {
-  const resp = await fetchBackend()
-    .headers({ Authorization: `Bearer ${accessToken}` })
-    .get("/auth/me")
-    .json<ApiResponse<{ user: AuthUser }>>();
-
-  if (!resp.data?.user) return null;
-  return resp.data.user;
-}
-
 export function AuthQrl() {
   const onRequest: RequestHandler = async (event) => {
     if (isServer) {
       const accessToken = event.cookie.get("accessToken")?.value;
       if (accessToken) {
         event.sharedMap.set("accessToken", accessToken);
-        const user = await getCurrentUser(accessToken);
+        const user = await fetchBackend(event)
+          .headers({ Authorization: `Bearer ${accessToken}` })
+          .get("/auth/me")
+          .unauthorized(() => {
+            event.cookie.delete("accessToken");
+            // delete refresh token from cookie
+            event.cookie.delete("refreshToken");
+
+            // remove sharedmap data related to accessToken and user
+            event.sharedMap.delete("user");
+            event.sharedMap.delete("accessToken");
+
+            throw event.redirect(REDIRECT_STATUS_CODE, "/");
+          })
+          .json<ApiResponse<{ user: AuthUser }>>();
+
         event.sharedMap.set("user", user);
       }
     }
