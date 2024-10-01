@@ -28,6 +28,12 @@ export default component$(() => {
           />
         )}
         <RouterHead />
+        {/* Added reCAPTCHA v3 script */}
+        <script
+         src="https://www.google.com/recaptcha/api.js"
+          async
+          defer
+        ></script>
       </head>
       <body lang="en">
         <RouterOutlet />
