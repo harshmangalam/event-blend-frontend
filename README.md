@@ -36,3 +36,5 @@ http://localhost:5173/
 - Modular forms
 
 **Please go through CONTRIBUTING.md file before start contribution and code changes**.
+
+Join Discord Server: https://discord.gg/YNk8MRzb
