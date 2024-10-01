@@ -16,7 +16,7 @@ export async function autocompleteLocation(text: string, apiKey?: string) {
     `https://api.geoapify.com/v1/geocode/autocomplete?text=${text}&format=json&apiKey=${apiKey}`,
   )
     .get()
-    .fetchError((err) => console.log(err))
+    .fetchError((err) => console.error(err))
     .json<{ results: GeoapifyLocation[] }>();
 
   return resp.results;

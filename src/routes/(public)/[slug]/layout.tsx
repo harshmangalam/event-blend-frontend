@@ -18,8 +18,8 @@ import { GroupTabs } from "./group-tabs";
 export const useGetGroupBySlug = routeLoader$(async ({ params }) => {
   const group = await fetchBackend()
     .get(`/groups/${params.slug}`)
-    .fetchError((err) => console.log(err))
-    .internalError((err) => console.log(err))
+    .fetchError((err) => console.error(err))
+    .internalError((err) => console.error(err))
     .json<ApiResponse<{ group: Group }>>();
   return group.data?.group;
 });
