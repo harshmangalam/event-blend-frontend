@@ -37,4 +37,7 @@ http://localhost:5173/
 
 **Please go through CONTRIBUTING.md file before start contribution and code changes**.
 
+Also setup eventblend server locally
+https://github.com/harshmangalam/event-blend-server
+
 Join Discord Server: https://discord.gg/YNk8MRzb
