@@ -17,11 +17,11 @@ export const AccountsPopover = component$(() => {
       divider: true,
     },
     {
-      name: "create-group",
+      name: "Create group",
       href: "/create-group",
     },
     {
-      name: "create-event",
+      name: "Create event",
       href: "/create-event",
       divider: true,
     },
