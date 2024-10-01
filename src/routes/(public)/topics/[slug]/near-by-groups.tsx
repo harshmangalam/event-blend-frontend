@@ -14,7 +14,7 @@ export const NearbyGroups = component$(({ name }: { name?: string }) => {
   });
 
   const errorCallback = $((err: GeolocationPositionError) => {
-    console.log(err);
+    console.error(err);
   });
 
   // eslint-disable-next-line qwik/no-use-visible-task

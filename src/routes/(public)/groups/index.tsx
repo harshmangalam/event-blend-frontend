@@ -8,8 +8,8 @@ import type { ApiResponse, Group } from "~/lib/types";
 export const useDiscoverGroups = routeLoader$(async () => {
   const groups = await fetchBackend()
     .get("/groups/discover-groups")
-    .fetchError((err) => console.log(err))
-    .internalError((err) => console.log(err))
+    .fetchError((err) => console.error(err))
+    .internalError((err) => console.error(err))
     .json<ApiResponse<{ groups: Group[] }>>();
   return groups.data?.groups;
 });

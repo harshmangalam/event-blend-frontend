@@ -20,8 +20,8 @@ export const useGetSource = routeLoader$(async (event) => {
   if (source === Source.Events) {
     const resp = await fetchBackend()
       .get("/events/discover-events")
-      .fetchError((err) => console.log(err))
-      .internalError((err) => console.log(err))
+      .fetchError((err) => console.error(err))
+      .internalError((err) => console.error(err))
       .json<ApiResponse<{ events: Event[] }>>();
     return { events: resp.data?.events, groups: null };
   }
@@ -29,8 +29,8 @@ export const useGetSource = routeLoader$(async (event) => {
   if (source === Source.Groups) {
     const resp = await fetchBackend()
       .get("/groups/discover-groups")
-      .fetchError((err) => console.log(err))
-      .internalError((err) => console.log(err))
+      .fetchError((err) => console.error(err))
+      .internalError((err) => console.error(err))
       .json<ApiResponse<{ groups: Group[] }>>();
     return { groups: resp.data?.groups, events: null };
   }

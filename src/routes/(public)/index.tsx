@@ -17,29 +17,27 @@ import { Hero } from "./hero";
 export const useGetPopularCities = routeLoader$(async () => {
   const locations = await fetchBackend()
     .get("/locations/popular-cities")
-    .fetchError((err) => console.log(err))
-    .internalError((err) => console.log(err))
+    .fetchError((err) => console.error(err))
+    .internalError((err) => console.error(err))
     .json<
       ApiResponse<{ locations: Pick<Location, "id" | "city" | "_count">[] }>
     >();
-
-  console.log(locations);
 
   return locations.data?.locations ?? [];
 });
 export const useGetPopularGroups = routeLoader$(async () => {
   const resp = await fetchBackend()
     .get("/groups/popular-groups")
-    .fetchError((err) => console.log(err))
-    .internalError((err) => console.log(err))
+    .fetchError((err) => console.error(err))
+    .internalError((err) => console.error(err))
     .json<ApiResponse<{ groups: Group[] }>>();
   return resp.data?.groups ?? [];
 });
 export const useGetPopularCategories = routeLoader$(async () => {
   const resp = await fetchBackend()
     .get("/categories/popular-categories")
-    .fetchError((err) => console.log(err))
-    .internalError((err) => console.log(err))
+    .fetchError((err) => console.error(err))
+    .internalError((err) => console.error(err))
     .json<ApiResponse<{ categories: PopularCategory[] }>>();
 
   return resp.data?.categories ?? [];
@@ -47,8 +45,8 @@ export const useGetPopularCategories = routeLoader$(async () => {
 export const useGetPopularEvents = routeLoader$(async (event) => {
   const resp = await fetchBackend(event)
     .get("/events/popular-events")
-    .fetchError((err) => console.log(err))
-    .internalError((err) => console.log(err))
+    .fetchError((err) => console.error(err))
+    .internalError((err) => console.error(err))
     .json<ApiResponse<{ events: Event[] }>>();
 
   return resp.data?.events ?? [];

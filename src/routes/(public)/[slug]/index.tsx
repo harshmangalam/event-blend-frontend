@@ -6,8 +6,8 @@ import type { ApiResponse, Group } from "~/lib/types";
 export const useGetGroupDescriptionBySlug = routeLoader$(async ({ params }) => {
   const group = await fetchBackend()
     .get(`/groups/${params.slug}/details`)
-    .fetchError((err) => console.log(err))
-    .internalError((err) => console.log(err))
+    .fetchError((err) => console.error(err))
+    .internalError((err) => console.error(err))
     .json<ApiResponse<{ group: Pick<Group, "description"> }>>();
   return group.data?.group;
 });
