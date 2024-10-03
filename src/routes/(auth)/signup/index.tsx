@@ -30,16 +30,13 @@ export const useSignup = routeAction$(
       .string()
       .min(1, "Name is required")
       .max(32, "Name has to be less than 32 characters"),
-    email: z
-      .string({
-        message: "Email is required",
-      })
-      .email({
-        message: "Email has invalid format",
-      }),
+      email: z
+      .string()
+      .min(1, { message: "Email is required" }) 
+      .email({ message: "Email has an invalid format" }),
     password: z.string().min(6, "Password has to be at least 6 characters"),
     age: z.literal("on", {
-      message: "You need to be 18 or older to continue",
+      errorMap: () => ({ message: "You need to be 18 or older to continue" }) 
     }),
   })),
 );
