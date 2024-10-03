@@ -13,7 +13,7 @@ export default component$(() => {
   return (
     <div class="flex min-h-screen flex-col bg-muted">
       <Navbar />
-      <main class="grid flex-1 place-items-center py-12">
+      <main class="grid flex-1">
         <Slot />
       </main>
       <Footer />
