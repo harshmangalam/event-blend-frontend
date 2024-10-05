@@ -48,6 +48,7 @@ export const useLogin = routeAction$(
     password: z.string().min(6, "Password has to be at least 6 characters"),
   })),
 );
+
 export default component$(() => {
   const action = useLogin();
   return (
@@ -85,12 +86,20 @@ export default component$(() => {
         </Form>
       </Card.Content>
       <Card.Footer>
-        <p class="w-full text-center">
-          Not a member yet?{" "}
-          <Link href="/signup" class="text-primary">
-            Sign up
-          </Link>
-        </p>
+        <div class="w-full text-center space-y-2">
+          <p>
+            Not a member yet?{" "}
+            <Link href="/signup" class="text-primary">
+              Sign up
+            </Link>
+          </p>
+          <p>
+            Forgot your password?{" "}
+            <Link href="/reset-password" class="text-primary">
+              Reset password
+            </Link>
+          </p>
+        </div>
       </Card.Footer>
     </Card.Root>
   );
