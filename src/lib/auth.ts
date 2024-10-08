@@ -17,7 +17,7 @@ export function AuthQrl() {
       const accessToken = event.cookie.get("accessToken")?.value;
       if (accessToken) {
         event.sharedMap.set("accessToken", accessToken);
-        const user = await fetchBackend(event)
+        const userResp = await fetchBackend(event)
           .headers({ Authorization: `Bearer ${accessToken}` })
           .get("/auth/me")
           .fetchError((err) => {
@@ -39,7 +39,7 @@ export function AuthQrl() {
           })
           .json<ApiResponse<{ user: AuthUser }>>();
 
-        event.sharedMap.set("user", user);
+        event.sharedMap.set("user", userResp.data?.user);
       }
     }
   };
