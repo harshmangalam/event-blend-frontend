@@ -1,7 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import { PopularCities } from "./popular-cities";
-import { fetchBackend } from "~/lib/fetch-backend";
+import { fetchBackend, fetchPublicAPI } from "~/lib/fetch-backend";
 import type {
   Group,
   ApiResponse,
@@ -15,7 +15,7 @@ import { PopularEvents } from "./popular-events";
 import { Hero } from "./hero";
 
 export const useGetPopularCities = routeLoader$(async (event) => {
-  const locations = await fetchBackend()
+  const locations = await fetchPublicAPI()
     .get("/locations/popular-cities")
     .fetchError((err) => {
       throw event.error(500, err.message);
@@ -30,7 +30,7 @@ export const useGetPopularCities = routeLoader$(async (event) => {
   return locations.data?.locations ?? [];
 });
 export const useGetPopularGroups = routeLoader$(async (event) => {
-  const resp = await fetchBackend()
+  const resp = await fetchPublicAPI()
     .get("/groups/popular-groups")
     .fetchError((err) => {
       throw event.error(500, err.message);
@@ -42,7 +42,7 @@ export const useGetPopularGroups = routeLoader$(async (event) => {
   return resp.data?.groups ?? [];
 });
 export const useGetPopularCategories = routeLoader$(async (event) => {
-  const resp = await fetchBackend()
+  const resp = await fetchPublicAPI()
     .get("/categories/popular-categories")
     .fetchError((err) => {
       throw event.error(500, err.message);
