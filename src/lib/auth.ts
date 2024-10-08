@@ -20,6 +20,12 @@ export function AuthQrl() {
         const user = await fetchBackend(event)
           .headers({ Authorization: `Bearer ${accessToken}` })
           .get("/auth/me")
+          .fetchError((err) => {
+            throw event.error(500, err.message);
+          })
+          .internalError((err) => {
+            throw event.error(500, err.message);
+          })
           .unauthorized(() => {
             event.cookie.delete("accessToken");
             // delete refresh token from cookie

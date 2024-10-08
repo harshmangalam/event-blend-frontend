@@ -14,30 +14,42 @@ import { PopularCategories } from "./popular-categories";
 import { PopularEvents } from "./popular-events";
 import { Hero } from "./hero";
 
-export const useGetPopularCities = routeLoader$(async () => {
+export const useGetPopularCities = routeLoader$(async (event) => {
   const locations = await fetchBackend()
     .get("/locations/popular-cities")
-    .fetchError((err) => console.error(err))
-    .internalError((err) => console.error(err))
+    .fetchError((err) => {
+      throw event.error(500, err.message);
+    })
+    .internalError((err) => {
+      throw event.error(500, err.message);
+    })
     .json<
       ApiResponse<{ locations: Pick<Location, "id" | "city" | "_count">[] }>
     >();
 
   return locations.data?.locations ?? [];
 });
-export const useGetPopularGroups = routeLoader$(async () => {
+export const useGetPopularGroups = routeLoader$(async (event) => {
   const resp = await fetchBackend()
     .get("/groups/popular-groups")
-    .fetchError((err) => console.error(err))
-    .internalError((err) => console.error(err))
+    .fetchError((err) => {
+      throw event.error(500, err.message);
+    })
+    .internalError((err) => {
+      throw event.error(500, err.message);
+    })
     .json<ApiResponse<{ groups: Group[] }>>();
   return resp.data?.groups ?? [];
 });
-export const useGetPopularCategories = routeLoader$(async () => {
+export const useGetPopularCategories = routeLoader$(async (event) => {
   const resp = await fetchBackend()
     .get("/categories/popular-categories")
-    .fetchError((err) => console.error(err))
-    .internalError((err) => console.error(err))
+    .fetchError((err) => {
+      throw event.error(500, err.message);
+    })
+    .internalError((err) => {
+      throw event.error(500, err.message);
+    })
     .json<ApiResponse<{ categories: PopularCategory[] }>>();
 
   return resp.data?.categories ?? [];
@@ -45,8 +57,12 @@ export const useGetPopularCategories = routeLoader$(async () => {
 export const useGetPopularEvents = routeLoader$(async (event) => {
   const resp = await fetchBackend(event)
     .get("/events/popular-events")
-    .fetchError((err) => console.error(err))
-    .internalError((err) => console.error(err))
+    .fetchError((err) => {
+      throw event.error(500, err.message);
+    })
+    .internalError((err) => {
+      throw event.error(500, err.message);
+    })
     .json<ApiResponse<{ events: Event[] }>>();
 
   return resp.data?.events ?? [];
