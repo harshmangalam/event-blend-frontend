@@ -1,7 +1,8 @@
 import { component$ } from "@builder.io/qwik";
+import { Link } from "@builder.io/qwik-city";
 import { LuCalendar, LuMapPin, LuPencilLine } from "@qwikest/icons/lucide";
 import { format } from "date-fns";
-import { Button } from "~/components/ui";
+import { Button, buttonVariants } from "~/components/ui";
 import { SITE_NAME } from "~/lib/constatnts";
 import { User } from "~/lib/types";
 import { getGravatarUrlWithResolution } from "~/lib/utils";
@@ -12,7 +13,7 @@ type UserCardProps = {
 export const UserCard = component$(({ user }: UserCardProps) => {
   return (
     <div
-      class="relative h-[400px] w-80 rounded bg-cover bg-center"
+      class="relative aspect-square h-auto w-full overflow-hidden bg-cover bg-center md:rounded"
       style={{
         backgroundImage: `url('${getGravatarUrlWithResolution(user.profilePhoto, 400)}')`,
       }}
@@ -20,9 +21,12 @@ export const UserCard = component$(({ user }: UserCardProps) => {
       <div class="opacity-1 absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
 
       <div class="absolute right-0 top-0 pr-4 pt-4">
-        <Button look={"outline"} size={"sm"}>
+        <Link
+          href="/account"
+          class={buttonVariants({ look: "outline", size: "sm" })}
+        >
           <LuPencilLine class="mr-2" /> Change profile photo
-        </Button>
+        </Link>
       </div>
       <div class="absolute bottom-0 left-0 right-0 px-6 py-8 text-white">
         <h3 class="text-xl font-bold">{user.name}</h3>

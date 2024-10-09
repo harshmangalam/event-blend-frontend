@@ -27,6 +27,8 @@ interface _Count {
   topics: number;
   followedByUsers: number;
   attendees: number;
+  followingTopics: number;
+  groupsAdmin: number;
 }
 interface Location extends BaseSchema {
   lat: number;
@@ -41,8 +43,15 @@ interface Location extends BaseSchema {
 interface User extends BaseSchema {
   name: string;
   profilePhoto: string;
-  role: "User" | "Admin";
   email: string;
+  bio?: string | null;
+  gender?: "Male" | "Female" | "Other" | null;
+  role: "User" | "Admin";
+  status: "Online" | "Offline" | "Banned";
+  _count?: Pick<
+    _Count,
+    "members" | "groupsAdmin" | "events" | "topics" | "followingTopics"
+  >;
 }
 
 interface Topic extends BaseSchema {
