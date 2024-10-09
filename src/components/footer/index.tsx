@@ -33,7 +33,7 @@ export const Footer = component$(() => {
         },
         {
           name: "Cities",
-          href: "/cities",
+          href: "/  ",
         },
         {
           name: "Topics",
@@ -77,7 +77,8 @@ export const Footer = component$(() => {
               <h4 class="font-medium text-muted">{nav.label}</h4>
               <div class="mt-2 flex flex-col gap-1">
                 {nav.links.map((link) => (
-                  <Link class="font-normal" href={link.href} key={link.name}>
+                  <Link class="font-normal text-white opacity-70 hover:opacity-100 
+                  " href={link.href} key={link.name}>
                     {link.name}
                   </Link>
                 ))}
