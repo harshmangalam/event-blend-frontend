@@ -2,7 +2,7 @@ import { component$ } from "@builder.io/qwik";
 import { Tabs } from "./tabs";
 import { Separator } from "~/components/ui";
 import { routeLoader$, useLocation } from "@builder.io/qwik-city";
-import { fetchBackend } from "~/lib/fetch-backend";
+import { fetchPublicAPI } from "~/lib/fetch-backend";
 import type { ApiResponse, Event, Group } from "~/lib/types";
 import { FlatEventCard } from "~/components/shared/flat-event-card";
 import { REDIRECT_STATUS_CODE, Source } from "~/lib/constatnts";
@@ -18,7 +18,7 @@ export const useGetSource = routeLoader$(async (event) => {
     );
 
   if (source === Source.Events) {
-    const resp = await fetchBackend()
+    const resp = await fetchPublicAPI()
       .get("/events/discover-events")
       .fetchError((err) => console.error(err))
       .internalError((err) => console.error(err))
@@ -27,7 +27,7 @@ export const useGetSource = routeLoader$(async (event) => {
   }
 
   if (source === Source.Groups) {
-    const resp = await fetchBackend()
+    const resp = await fetchPublicAPI()
       .get("/groups/discover-groups")
       .fetchError((err) => console.error(err))
       .internalError((err) => console.error(err))

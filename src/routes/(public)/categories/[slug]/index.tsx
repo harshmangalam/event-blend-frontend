@@ -2,7 +2,7 @@ import { component$ } from "@builder.io/qwik";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
 import { cn } from "@qwik-ui/utils";
 import { buttonVariants } from "~/components/ui/button/button";
-import { fetchBackend } from "~/lib/fetch-backend";
+import { fetchPublicAPI } from "~/lib/fetch-backend";
 import type { ApiResponse, Category, Topic, Event } from "~/lib/types";
 import { TrendingTopics } from "./trending-topics";
 import { Topics } from "./topics";
@@ -10,28 +10,28 @@ import { Separator } from "~/components/ui/separator/separator";
 import { Events } from "./events";
 
 export const useGetCategoryBySlug = routeLoader$(async ({ params }) => {
-  const resp = await fetchBackend()
+  const resp = await fetchPublicAPI()
     .get(`/categories/${params.slug}`)
     .json<ApiResponse<{ category: Category }>>();
   return resp.data?.category;
 });
 
 export const useGetCategoryTrendingTopics = routeLoader$(async ({ params }) => {
-  const resp = await fetchBackend()
+  const resp = await fetchPublicAPI()
     .get(`/categories/${params.slug}/trending-topics`)
     .json<ApiResponse<{ topics: Topic[] }>>();
   return resp.data?.topics;
 });
 
 export const useGetCategoryTopics = routeLoader$(async ({ params }) => {
-  const resp = await fetchBackend()
+  const resp = await fetchPublicAPI()
     .get(`/categories/${params.slug}/topics`)
     .json<ApiResponse<{ topics: Topic[] }>>();
   return resp.data?.topics;
 });
 
 export const useGetCategoryEvents = routeLoader$(async ({ params }) => {
-  const resp = await fetchBackend()
+  const resp = await fetchPublicAPI()
     .get(`/categories/${params.slug}/events`)
     .json<ApiResponse<{ events: Event[] }>>();
   return resp.data?.events;

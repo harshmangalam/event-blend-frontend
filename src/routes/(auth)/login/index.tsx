@@ -5,7 +5,7 @@ import { Button } from "~/components/ui/button/button";
 import { Card } from "~/components/ui/card/card";
 import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
-import { fetchBackend } from "~/lib/fetch-backend";
+import { fetchBackend, fetchPublicAPI } from "~/lib/fetch-backend";
 import { type ApiResponse } from "~/lib/types";
 import { LuAlertTriangle } from "@qwikest/icons/lucide";
 import {
@@ -16,7 +16,7 @@ import {
 
 export const useLogin = routeAction$(
   async (values, { fail, redirect, cookie }) => {
-    const resp = await fetchBackend()
+    const resp = await fetchPublicAPI()
       .url("/auth/login")
       .post({ ...values, isAdult: true })
       .badRequest((err) => fail(err.status, err.json))
@@ -86,7 +86,7 @@ export default component$(() => {
         </Form>
       </Card.Content>
       <Card.Footer>
-        <div class="w-full text-center space-y-2">
+        <div class="w-full space-y-2 text-center">
           <p>
             Not a member yet?{" "}
             <Link href="/signup" class="text-primary">

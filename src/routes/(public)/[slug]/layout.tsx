@@ -10,13 +10,13 @@ import { Badge } from "~/components/ui/badge/badge";
 import { Button } from "~/components/ui/button/button";
 import { Separator } from "~/components/ui/separator/separator";
 import { DEFAULT_POSTER } from "~/lib/constatnts";
-import { fetchBackend } from "~/lib/fetch-backend";
+import { fetchPublicAPI } from "~/lib/fetch-backend";
 import type { ApiResponse, Group } from "~/lib/types";
 import { GroupsActions } from "./group-actions";
 import { GroupTabs } from "./group-tabs";
 
 export const useGetGroupBySlug = routeLoader$(async ({ params }) => {
-  const group = await fetchBackend()
+  const group = await fetchPublicAPI()
     .get(`/groups/${params.slug}`)
     .fetchError((err) => console.error(err))
     .internalError((err) => console.error(err))
