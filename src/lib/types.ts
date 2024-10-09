@@ -42,6 +42,7 @@ interface User extends BaseSchema {
   name: string;
   profilePhoto: string;
   role: "User" | "Admin";
+  email: string;
 }
 
 interface Topic extends BaseSchema {
