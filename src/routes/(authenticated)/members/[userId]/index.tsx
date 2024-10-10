@@ -33,7 +33,7 @@ export default component$(() => {
               </div>
             </Card.Content>
           </Card.Root>
-          <Card.Root class="sticky bottom-0 mt-8 md:relative md:rounded-lg">
+          <Card.Root class="fixed bottom-0 left-0 right-0 mt-8 md:relative md:rounded-lg">
             <Card.Content class="flex items-center gap-3 px-4 py-3">
               <Avatar.Root>
                 <Avatar.Image
