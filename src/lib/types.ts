@@ -52,6 +52,7 @@ interface User extends BaseSchema {
     _Count,
     "members" | "groupsAdmin" | "events" | "topics" | "followingTopics"
   >;
+  followingTopics: Topic[];
 }
 
 interface Topic extends BaseSchema {
