@@ -14,7 +14,7 @@ export const LocationCard = component$(
             <div class="grid h-36 w-36 place-items-center rounded-full bg-muted">
               <LuBuilding2 class="h-16 w-16 text-muted-foreground" />
             </div>
-            <h3 class="font-medium">{city}</h3>
+            <h3 class="font-bold">{city}</h3>
             <Badge look={"outline"}>{_count.groups} Groups</Badge>
           </Card.Content>
         </Card.Root>
