@@ -6,6 +6,8 @@ import { UserCard } from "./user-card";
 import { Avatar, Card } from "~/components/ui";
 import { UserStats } from "./user-stats";
 import { LuPencilLine } from "@qwikest/icons/lucide";
+import { Interests } from "./interests";
+import { Members } from "./members";
 
 export const useGetMemberDetails = routeLoader$(async (event) => {
   const userResp = await fetchBackend(event)
@@ -19,7 +21,7 @@ export default component$(() => {
   const user = useGetMemberDetails();
   return (
     <div class="container mx-auto">
-      <div class="grid grid-cols-12">
+      <div class="grid grid-cols-12 gap-8">
         <section class="col-span-12 md:col-span-4 md:py-8">
           <Card.Root class="md:overflow-hidden md:rounded-lg">
             <Card.Content class="px-0 py-0 md:px-6 md:py-6">
@@ -31,7 +33,7 @@ export default component$(() => {
               </div>
             </Card.Content>
           </Card.Root>
-          <Card.Root class="sticky bottom-0 mt-8 md:relative md:rounded-lg">
+          <Card.Root class="fixed bottom-0 left-0 right-0 mt-8 md:relative md:rounded-lg">
             <Card.Content class="flex items-center gap-3 px-4 py-3">
               <Avatar.Root>
                 <Avatar.Image
@@ -55,7 +57,12 @@ export default component$(() => {
             </Card.Content>
           </Card.Root>
         </section>
-        <section class="col-span-12 md:col-span-8"></section>
+        <section class="col-span-12 mt-8 flex flex-col gap-8 md:col-span-8">
+          {/* interests section  */}
+          <Interests topics={user.value?.followingTopics} />
+          {/* members section  */}
+          <Members members={user.value?.members} />
+        </section>
       </div>
     </div>
   );

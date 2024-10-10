@@ -40,6 +40,18 @@ interface Location extends BaseSchema {
   _count: Pick<_Count, "groups">;
 }
 
+interface GroupMember extends BaseSchema {
+  groupId: string;
+  userId: string;
+  group: Group;
+  user: User;
+  role:
+    | "Member"
+    | "Organizer"
+    | "CoOrganizer"
+    | "EventOrganizer"
+    | "AssistantOrganizer";
+}
 interface User extends BaseSchema {
   name: string;
   profilePhoto: string;
@@ -52,6 +64,8 @@ interface User extends BaseSchema {
     _Count,
     "members" | "groupsAdmin" | "events" | "topics" | "followingTopics"
   >;
+  followingTopics?: Topic[] | null;
+  members?: GroupMember[];
 }
 
 interface Topic extends BaseSchema {
@@ -118,6 +132,7 @@ export type {
   User,
   Event,
   _Count,
+  GroupMember,
 };
 
 export type DiscoverCategory = Pick<
