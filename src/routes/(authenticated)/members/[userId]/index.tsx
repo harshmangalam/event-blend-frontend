@@ -7,6 +7,7 @@ import { Avatar, Card } from "~/components/ui";
 import { UserStats } from "./user-stats";
 import { LuPencilLine } from "@qwikest/icons/lucide";
 import { Interests } from "./interests";
+import { Members } from "./members";
 
 export const useGetMemberDetails = routeLoader$(async (event) => {
   const userResp = await fetchBackend(event)
@@ -56,9 +57,11 @@ export default component$(() => {
             </Card.Content>
           </Card.Root>
         </section>
-        <section class="col-span-12 mt-8 md:col-span-8">
+        <section class="col-span-12 mt-8 flex flex-col gap-8 md:col-span-8">
           {/* interests section  */}
-          <Interests topics={user.value.followingTopics} />
+          <Interests topics={user.value?.followingTopics} />
+          {/* members section  */}
+          <Members members={user.value?.members} />
         </section>
       </div>
     </div>
