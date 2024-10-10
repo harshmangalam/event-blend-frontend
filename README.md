@@ -1,5 +1,7 @@
 # Eventblend Frontend
 
+If you find this project helpful, please consider giving it a ⭐ to help it grow and support open source development!
+
 ## Setup
 
 ### Install dependencies
