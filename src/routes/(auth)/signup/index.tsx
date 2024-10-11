@@ -38,8 +38,11 @@ export const useSignup = routeAction$(
     age: z.literal("on", {
       errorMap: () => ({ message: "You need to be 18 or older to continue" }),
     }),
-    gender: z.enum(["male", "female", "other"], {
-      errorMap: () => ({ message: "Gender is required and must be either 'male', 'female', or 'other'" }),
+    gender: z.enum(["Male", "Female", "Other"], {
+      errorMap: () => ({
+        message:
+          "Gender is required and must be either 'male', 'female', or 'other'",
+      }),
     }),
   })),
 );
@@ -82,11 +85,13 @@ export default component$(() => {
           </div>
           <div class="flex flex-col gap-1">
             <Label for="gender">Gender</Label>
-            <select id="gender" name="gender" class="border p-2 rounded">
-              <option value="" disabled selected>Select your gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
+            <select id="gender" name="gender" class="rounded border p-2">
+              <option value="" disabled selected>
+                Select your gender
+              </option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
             </select>
             <span class="text-sm text-alert">
               {action.value?.fieldErrors?.gender}
