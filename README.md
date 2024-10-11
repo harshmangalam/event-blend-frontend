@@ -1,5 +1,7 @@
 # Eventblend Frontend
 
+If you find this project helpful, please consider giving it a ⭐ to help it grow and support open source development!
+
 ## Setup
 
 ### Install dependencies
@@ -20,6 +22,9 @@ cp .env.example .env
 pnpm run dev
 ```
 
+Also setup eventblend server locally
+https://github.com/harshmangalam/event-blend-server
+
 ### Open
 
 http://localhost:5173/
@@ -36,8 +41,5 @@ http://localhost:5173/
 - Modular forms
 
 **Please go through CONTRIBUTING.md file before start contribution and code changes**.
-
-Also setup eventblend server locally
-https://github.com/harshmangalam/event-blend-server
 
 Join Discord Server: https://discord.gg/YNk8MRzb

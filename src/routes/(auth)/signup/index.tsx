@@ -6,13 +6,13 @@ import { Card } from "~/components/ui/card/card";
 import { Checkbox } from "~/components/ui/checkbox/checkbox";
 import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
-import { fetchBackend } from "~/lib/fetch-backend";
+import { fetchBackend, fetchPublicAPI } from "~/lib/fetch-backend";
 import { type ApiResponse } from "~/lib/types";
 import { LuAlertTriangle } from "@qwikest/icons/lucide";
 
 export const useSignup = routeAction$(
   async (values, { redirect, fail }) => {
-    const resp: any = await fetchBackend()
+    const resp: any = await fetchPublicAPI()
       .url("/auth/signup")
       .post({ ...values, isAdult: true })
       .badRequest((err) => fail(err.status, err.json))
@@ -30,13 +30,19 @@ export const useSignup = routeAction$(
       .string()
       .min(1, "Name is required")
       .max(32, "Name has to be less than 32 characters"),
-      email: z
+    email: z
       .string()
-      .min(1, { message: "Email is required" }) 
+      .min(1, { message: "Email is required" })
       .email({ message: "Email has an invalid format" }),
     password: z.string().min(6, "Password has to be at least 6 characters"),
     age: z.literal("on", {
-      errorMap: () => ({ message: "You need to be 18 or older to continue" }) 
+      errorMap: () => ({ message: "You need to be 18 or older to continue" }),
+    }),
+    gender: z.enum(["Male", "Female", "Other"], {
+      errorMap: () => ({
+        message:
+          "Gender is required and must be either 'male', 'female', or 'other'",
+      }),
     }),
   })),
 );
@@ -75,6 +81,20 @@ export default component$(() => {
             <Input type="password" id="password" name="password" />
             <span class="text-sm text-alert">
               {action.value?.fieldErrors?.password}
+            </span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <Label for="gender">Gender</Label>
+            <select id="gender" name="gender" class="rounded border p-2">
+              <option value="" disabled selected>
+                Select your gender
+              </option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+            <span class="text-sm text-alert">
+              {action.value?.fieldErrors?.gender}
             </span>
           </div>
           <div class="flex flex-col gap-1">

@@ -11,7 +11,7 @@ import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
 import { Button } from "~/components/ui/button/button";
 import { Textarea } from "~/components/ui/textarea/textarea";
-import { fetchBackend } from "~/lib/fetch-backend";
+import { fetchBackend, fetchPublicAPI } from "~/lib/fetch-backend";
 import { GEOAPIFY_API_KEY, REDIRECT_STATUS_CODE } from "~/lib/constatnts";
 import type { ApiResponse, Category, Topic, TopicOption } from "~/lib/types";
 import { Card } from "~/components/ui/card/card";
@@ -24,7 +24,7 @@ export const useFormAction = routeAction$(
   async (values, { redirect, cookie }) => {
     const accessToken = cookie.get("accessToken");
     if (!accessToken?.value) throw redirect(REDIRECT_STATUS_CODE, "/login");
-    await fetchBackend()
+    await fetchPublicAPI()
       .url("/groups")
       .headers({ Authorization: `Bearer ${accessToken.value}` })
       .post({
@@ -46,7 +46,7 @@ export const useFormAction = routeAction$(
 );
 
 export const useGetCategoriesOptions = routeLoader$(async () => {
-  const resp = await fetchBackend()
+  const resp = await fetchPublicAPI()
     .get(`/categories/categories-options`)
     .json<ApiResponse<{ categories: Pick<Category, "id" | "name">[] }>>();
   return resp.data?.categories || [];
@@ -55,7 +55,7 @@ export const useGetCategoriesOptions = routeLoader$(async () => {
 export type ChooseTopicType = Pick<Topic, "id" | "name">;
 
 export const fetchTopicsOptions = server$(async (categoryId: string) => {
-  const resp = await fetchBackend()
+  const resp = await fetchPublicAPI()
     .get(`/topics/topics-options?categoryId=${categoryId}`)
     .json<ApiResponse<{ topics: TopicOption[] }>>();
   return resp.data?.topics || [];

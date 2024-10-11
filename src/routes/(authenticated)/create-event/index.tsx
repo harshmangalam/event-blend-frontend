@@ -9,7 +9,7 @@ import {
 } from "@builder.io/qwik-city";
 import { LuPlus } from "@qwikest/icons/lucide";
 import { Button, Card, Input, Label, Textarea } from "~/components/ui";
-import { fetchBackend } from "~/lib/fetch-backend";
+import { fetchBackend, fetchPublicAPI } from "~/lib/fetch-backend";
 import type {
   ApiResponse,
   Category,
@@ -67,13 +67,13 @@ export const useFetchGroupsOptions = routeLoader$(async (event) => {
 
 export const fetchTopicsOptions = server$(async (categoryId?: string) => {
   if (!categoryId) return [];
-  const resp = await fetchBackend()
+  const resp = await fetchPublicAPI()
     .get(`/topics/topics-options?categoryId=${categoryId}`)
     .json<ApiResponse<{ topics: TopicOption[] }>>();
   return resp.data?.topics || [];
 });
 export const fetchGroupCategory = server$(async (groupId: string) => {
-  const resp = await fetchBackend()
+  const resp = await fetchPublicAPI()
     .get(`/groups/${groupId}/category`)
     .json<ApiResponse<{ category: Category }>>();
   return resp.data?.category || null;

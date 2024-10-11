@@ -2,11 +2,11 @@ import { component$ } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { FlatGroupCard } from "~/components/shared/flat-group-card";
 import { Separator } from "~/components/ui/separator/separator";
-import { fetchBackend } from "~/lib/fetch-backend";
+import { fetchPublicAPI } from "~/lib/fetch-backend";
 import type { ApiResponse, Group } from "~/lib/types";
 
 export const useDiscoverGroups = routeLoader$(async () => {
-  const groups = await fetchBackend()
+  const groups = await fetchPublicAPI()
     .get("/groups/discover-groups")
     .fetchError((err) => console.error(err))
     .internalError((err) => console.error(err))

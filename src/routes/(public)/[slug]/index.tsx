@@ -1,10 +1,10 @@
 import { component$ } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
-import { fetchBackend } from "~/lib/fetch-backend";
+import { fetchPublicAPI } from "~/lib/fetch-backend";
 import type { ApiResponse, Group } from "~/lib/types";
 
 export const useGetGroupDescriptionBySlug = routeLoader$(async ({ params }) => {
-  const group = await fetchBackend()
+  const group = await fetchPublicAPI()
     .get(`/groups/${params.slug}/details`)
     .fetchError((err) => console.error(err))
     .internalError((err) => console.error(err))
