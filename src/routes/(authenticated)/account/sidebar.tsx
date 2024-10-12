@@ -12,8 +12,8 @@ export const Sidebar = component$(() => {
     <aside class="w-full flex-none overflow-y-auto bg-muted md:w-[250px]">
       <h2 class="mt-4 px-4 text-lg font-bold">Settings</h2>
       <ul class="my-2">
-        {[...new Array(20)].map((_) => (
-          <li class="px-4 py-2">
+        {[...new Array(20)].map((i) => (
+          <li class="px-4 py-2" key={i}>
             <Link href="" class="text-sm opacity-80">
               Edit Profile
             </Link>
