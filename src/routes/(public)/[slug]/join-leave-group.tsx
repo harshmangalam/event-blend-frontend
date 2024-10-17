@@ -1,12 +1,13 @@
 import { component$ } from "@builder.io/qwik";
 import { Form, Link } from "@builder.io/qwik-city";
 import { Button, buttonVariants } from "~/components/ui";
-import { useGetIsMember } from "./layout";
+import { useGetIsMember, useJoinLeaveGroupAction } from "./layout";
 import { useSession } from "~/routes/plugin@auth";
 
-export const JoinLeaveGroup = component$(() => {
+export const JoinLeaveGroup = component$(({ groupId }: { groupId: string }) => {
   const isMemberSig = useGetIsMember();
   const sessionSig = useSession();
+  const joinLeaveGroup = useJoinLeaveGroupAction();
 
   if (!sessionSig.value.user) {
     return (
@@ -16,8 +17,13 @@ export const JoinLeaveGroup = component$(() => {
     );
   }
   return (
-    <Form>
-      <Button class="w-full" look={isMemberSig.value ? "secondary" : "primary"}>
+    <Form action={joinLeaveGroup}>
+      <input type="hidden" name="groupId" value={groupId} />
+      <Button
+        disabled={joinLeaveGroup.isRunning}
+        class="w-full"
+        look={isMemberSig.value ? "secondary" : "primary"}
+      >
         {isMemberSig.value ? "Leave this group" : " Join this group"}
       </Button>
     </Form>

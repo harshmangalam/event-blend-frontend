@@ -1,5 +1,11 @@
 import { component$, Slot } from "@builder.io/qwik";
-import { Link, routeLoader$ } from "@builder.io/qwik-city";
+import {
+  Link,
+  routeAction$,
+  routeLoader$,
+  z,
+  zod$,
+} from "@builder.io/qwik-city";
 import {
   LuCalendarCheck,
   LuMapPin,
@@ -8,7 +14,11 @@ import {
 } from "@qwikest/icons/lucide";
 import { Badge } from "~/components/ui/badge/badge";
 import { Separator } from "~/components/ui/separator/separator";
-import { DEFAULT_POSTER } from "~/lib/constatnts";
+import {
+  BASE_URI,
+  DEFAULT_POSTER,
+  REDIRECT_STATUS_CODE,
+} from "~/lib/constatnts";
 import { fetchBackend, fetchPublicAPI } from "~/lib/fetch-backend";
 import type { ApiResponse, Group } from "~/lib/types";
 
@@ -32,6 +42,24 @@ export const useGetIsMember = routeLoader$(async (event) => {
     .json<ApiResponse<{ isMember: boolean }>>();
   return resp.data?.isMember;
 });
+
+export const useJoinLeaveGroupAction = routeAction$(
+  async ({ groupId }, event) => {
+    const user = event.sharedMap.get("user");
+    if (!user) throw event.redirect(REDIRECT_STATUS_CODE, "/login");
+    await fetch(`${BASE_URI}/groups/${groupId}/join-leave`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${event.sharedMap.get("accessToken")}`,
+      },
+    });
+
+    throw event.redirect(REDIRECT_STATUS_CODE, `/${event.params.slug}`);
+  },
+  zod$({
+    groupId: z.string().cuid2(),
+  }),
+);
 
 export default component$(() => {
   const groupSig = useGetGroupBySlug();
@@ -90,7 +118,7 @@ export default component$(() => {
               ))}
             </div>
             <div class="mt-6 flex items-center gap-4">
-              <JoinLeaveGroup />
+              <JoinLeaveGroup groupId={groupSig.value?.id ?? ""} />
             </div>
           </div>
         </div>
