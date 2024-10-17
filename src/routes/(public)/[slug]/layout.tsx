@@ -7,13 +7,13 @@ import {
   LuUsers,
 } from "@qwikest/icons/lucide";
 import { Badge } from "~/components/ui/badge/badge";
-import { Button } from "~/components/ui/button/button";
 import { Separator } from "~/components/ui/separator/separator";
 import { DEFAULT_POSTER } from "~/lib/constatnts";
-import { fetchPublicAPI } from "~/lib/fetch-backend";
+import { fetchBackend, fetchPublicAPI } from "~/lib/fetch-backend";
 import type { ApiResponse, Group } from "~/lib/types";
-import { GroupsActions } from "./group-actions";
+
 import { GroupTabs } from "./group-tabs";
+import { JoinLeaveGroup } from "./join-leave-group";
 
 export const useGetGroupBySlug = routeLoader$(async ({ params }) => {
   const group = await fetchPublicAPI()
@@ -24,8 +24,18 @@ export const useGetGroupBySlug = routeLoader$(async ({ params }) => {
   return group.data?.group;
 });
 
+export const useGetIsMember = routeLoader$(async (event) => {
+  const user = event.sharedMap.get("user");
+  if (!user) return false;
+  const resp = await fetchBackend(event)
+    .get(`/groups/${event.params.slug}/is-member`)
+    .json<ApiResponse<{ isMember: boolean }>>();
+  return resp.data?.isMember;
+});
+
 export default component$(() => {
   const groupSig = useGetGroupBySlug();
+
   return (
     <div>
       <section class="bg-background py-12">
@@ -80,10 +90,7 @@ export default component$(() => {
               ))}
             </div>
             <div class="mt-6 flex items-center gap-4">
-              <Button class="w-full" look={"primary"}>
-                Join this group
-              </Button>
-              <GroupsActions />
+              <JoinLeaveGroup />
             </div>
           </div>
         </div>
