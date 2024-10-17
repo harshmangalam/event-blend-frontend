@@ -27,5 +27,18 @@ export const fetchBackend = (event: RequestEventCommon) => {
 };
 
 export const fetchPublicAPI = () => {
-  return wretch(BASE_URI).errorType("json");
+  return wretch(BASE_URI)
+    .errorType("json")
+    .catcher(404, (err) => {
+      console.log(err.message);
+    })
+    .catcher(403, (err) => {
+      console.log(err.message);
+    })
+    .catcher(401, (err) => {
+      console.log(err.message);
+    })
+    .catcher(500, (err) => {
+      console.log(err.message);
+    });
 };
