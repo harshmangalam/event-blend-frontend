@@ -86,10 +86,7 @@ interface Group extends BaseSchema {
   admin: Pick<User, "id" | "name" | "profilePhoto">;
   poster?: string | null;
   category: Pick<Category, "id" | "name" | "slug">;
-  _count: {
-    members: number;
-    events: number;
-  };
+  _count: Pick<_Count, "members" | "events">;
   network?: Pick<Network, "id" | "name">;
 }
 
