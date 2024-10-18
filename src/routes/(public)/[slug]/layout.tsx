@@ -24,6 +24,7 @@ import type { ApiResponse, Group } from "~/lib/types";
 
 import { GroupTabs } from "./group-tabs";
 import { JoinLeaveGroup } from "./join-leave-group";
+import { ShareOptions } from "~/components/shared/share-options";
 
 export const useGetGroupBySlug = routeLoader$(async ({ params }) => {
   const group = await fetchPublicAPI()
@@ -117,6 +118,7 @@ export default component$(() => {
                 </Link>
               ))}
             </div>
+            <ShareOptions class="mt-6" />
             <div class="mt-6 flex items-center gap-4">
               <JoinLeaveGroup groupId={groupSig.value?.id ?? ""} />
             </div>
