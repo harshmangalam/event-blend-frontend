@@ -105,7 +105,7 @@ export default component$(() => {
               </div>
               <div class="flex items-center gap-3 text-muted-foreground">
                 <LuCalendarCheck class="mr-1 h-5 w-5" />
-                <span>{groupSig.value?._count.members} events</span>
+                <span>{groupSig.value?._count.events} events</span>
               </div>
             </div>
             <div class="mt-6 flex flex-wrap gap-3">
