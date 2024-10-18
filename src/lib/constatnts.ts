@@ -41,6 +41,14 @@ const SOURCE_TABS = [
     slug: Source.Groups,
   },
 ];
+
+// SHARE
+const FACEBOOK_SHARE_URI = "https://www.facebook.com/sharer/sharer.php?u=";
+const LINKEDIN_SHARE_URI =
+  "https://www.linkedin.com/sharing/share-offsite/?url=";
+const X_SHARE_URI = "https://x.com/intent/tweet?url=";
+const MAIL_SHARE_URI = "mailto:?subject=Check this out&body=";
+
 export {
   ACCESS_TOKEN_EXP,
   BASE_URI,
@@ -55,4 +63,8 @@ export {
   GEOAPIFY_API_KEY,
   SOURCE_TABS,
   Source,
+  FACEBOOK_SHARE_URI,
+  X_SHARE_URI,
+  LINKEDIN_SHARE_URI,
+  MAIL_SHARE_URI,
 };

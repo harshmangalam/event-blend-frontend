@@ -118,7 +118,7 @@ export default component$(() => {
                 </Link>
               ))}
             </div>
-            <ShareOptions class="mt-6"/>
+            <ShareOptions class="mt-6" />
             <div class="mt-6 flex items-center gap-4">
               <JoinLeaveGroup groupId={groupSig.value?.id ?? ""} />
             </div>
