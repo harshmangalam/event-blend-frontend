@@ -20,19 +20,35 @@ export const Hero = component$(() => {
             experiences, and make memories. Join us and transform the way you
             engage with events. fun.
           </p>
-          <div class={`${sessionSig.value.user ? "hidden" : "block"}`}>
-            <Link
-              class={cn(
-                buttonVariants({
-                  size: "md",
-                  look: "primary",
-                  class: "px-6",
-                }),
-              )}
-              href="/signup"
-            >
-              Join {SITE_NAME}
-            </Link>
+
+          <div>
+            {!sessionSig.value.user ? (
+              <Link
+                class={cn(
+                  buttonVariants({
+                    size: "md",
+                    look: "primary",
+                    class: "px-6",
+                  }),
+                )}
+                href="/signup"
+              >
+                Join {SITE_NAME}
+              </Link>
+            ) : (
+              <Link
+                class={cn(
+                  buttonVariants({
+                    size: "md",
+                    look: "primary",
+                    class: "px-6",
+                  }),
+                )}
+                href="/find?source=EVENTS"
+              >
+                Explore events
+              </Link>
+            )}
           </div>
         </div>
         <div class="w-full lg:w-1/3 xl:w-1/2">
