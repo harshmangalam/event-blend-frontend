@@ -3,8 +3,10 @@ import { Link } from "@builder.io/qwik-city";
 import { cn } from "@qwik-ui/utils";
 import { buttonVariants } from "~/components/ui/button/button";
 import { SITE_NAME } from "~/lib/constatnts";
+import { useSession } from "~/routes/plugin@auth";
 
 export const Hero = component$(() => {
+  const sessionSig = useSession();
   return (
     <div class="relative w-full">
       <div class="flex flex-col items-center sm:flex-row">
@@ -18,7 +20,7 @@ export const Hero = component$(() => {
             experiences, and make memories. Join us and transform the way you
             engage with events. fun.
           </p>
-          <div>
+          <div class={`${sessionSig.value.user ? "hidden" : "block"}`}>
             <Link
               class={cn(
                 buttonVariants({
