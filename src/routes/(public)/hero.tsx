@@ -3,8 +3,10 @@ import { Link } from "@builder.io/qwik-city";
 import { cn } from "@qwik-ui/utils";
 import { buttonVariants } from "~/components/ui/button/button";
 import { SITE_NAME } from "~/lib/constatnts";
+import { useSession } from "~/routes/plugin@auth";
 
 export const Hero = component$(() => {
+  const sessionSig = useSession();
   return (
     <div class="relative w-full">
       <div class="flex flex-col items-center sm:flex-row">
@@ -18,19 +20,35 @@ export const Hero = component$(() => {
             experiences, and make memories. Join us and transform the way you
             engage with events. fun.
           </p>
+
           <div>
-            <Link
-              class={cn(
-                buttonVariants({
-                  size: "md",
-                  look: "primary",
-                  class: "px-6",
-                }),
-              )}
-              href="/signup"
-            >
-              Join {SITE_NAME}
-            </Link>
+            {!sessionSig.value.user ? (
+              <Link
+                class={cn(
+                  buttonVariants({
+                    size: "md",
+                    look: "primary",
+                    class: "px-6",
+                  }),
+                )}
+                href="/signup"
+              >
+                Join {SITE_NAME}
+              </Link>
+            ) : (
+              <Link
+                class={cn(
+                  buttonVariants({
+                    size: "md",
+                    look: "primary",
+                    class: "px-6",
+                  }),
+                )}
+                href="/find?source=EVENTS"
+              >
+                Explore events
+              </Link>
+            )}
           </div>
         </div>
         <div class="w-full lg:w-1/3 xl:w-1/2">

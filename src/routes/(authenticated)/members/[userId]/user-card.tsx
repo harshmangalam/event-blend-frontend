@@ -2,9 +2,9 @@ import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import { LuCalendar, LuMapPin, LuPencilLine } from "@qwikest/icons/lucide";
 import { format } from "date-fns";
-import { Button, buttonVariants } from "~/components/ui";
+import { buttonVariants } from "~/components/ui";
 import { SITE_NAME } from "~/lib/constatnts";
-import { User } from "~/lib/types";
+import type { User } from "~/lib/types";
 import { getGravatarUrlWithResolution } from "~/lib/utils";
 
 type UserCardProps = {
