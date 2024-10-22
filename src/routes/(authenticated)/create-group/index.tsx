@@ -1,4 +1,4 @@
-import { $, component$, useSignal } from "@builder.io/qwik";
+import { $, component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import {
   Form,
   routeAction$,
@@ -6,6 +6,9 @@ import {
   server$,
   zod$,
 } from "@builder.io/qwik-city";
+
+import Quill from "quill";
+import "quill/dist/quill.snow.css";
 
 import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
@@ -22,6 +25,7 @@ import { autocompleteLocation, type GeoapifyLocation } from "~/lib/geoapify";
 
 export const useFormAction = routeAction$(
   async (values, { redirect, cookie }) => {
+    alert(values.description);
     const accessToken = cookie.get("accessToken");
     if (!accessToken?.value) throw redirect(REDIRECT_STATUS_CODE, "/login");
     await fetchBackend()
@@ -81,6 +85,30 @@ export default component$(() => {
     const topics = await fetchTopicsOptions(value);
     topicsOptionsSig.value = topics;
   });
+
+  const editorContent = useSignal<string>("");
+
+  useVisibleTask$(() => {
+    const quill = new Quill("#editor", {
+      theme: "snow",
+      modules: {
+        toolbar: [
+          [{ header: [1, 2, 3, false] }],
+          ["bold", "italic", "underline"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          [{ align: [] }],
+          ["link"],
+          ["clean"],
+          ["clear"],
+        ],
+      },
+    });
+
+    quill.on("text-change", () => {
+      editorContent.value = quill.root.innerHTML;
+    });
+  });
+
   return (
     <Form action={actionSig} class="w-full max-w-xl">
       <Card.Root>
@@ -103,12 +131,29 @@ export default component$(() => {
 
             <div class="grid w-full items-center gap-1.5">
               <Label for={"description"}>Group description</Label>
-              <Textarea
-                id="description"
-                rows={10}
-                name="description"
-                error={actionSig.value?.fieldErrors.description}
-              />
+
+              <div class=" overflow-hidden rounded-base border border-input bg-transparent  text-sm shadow-sm placeholder:text-muted-foreground ">
+                <div
+                  id="editor"
+                  class="[&::-webkit-scrollbar-track]:bg-blue min-h-[15rem] w-full"
+                ></div>
+                <Input
+                  type="hidden"
+                  name="description"
+                  value={editorContent.value}
+                />
+                {/* <Textarea
+                  id="description"
+                  rows={10}
+                  name="description"
+                  error={actionSig.value?.fieldErrors.description}
+                /> */}
+              </div>
+              {actionSig.value?.fieldErrors.description && (
+                <p class="mt-1 text-sm text-alert">
+                  {actionSig.value.fieldErrors.description}
+                </p>
+              )}
             </div>
 
             <div class="grid w-full items-center gap-1.5">
