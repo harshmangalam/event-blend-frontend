@@ -14,6 +14,7 @@ import { fetchBackend, fetchPublicAPI } from "~/lib/fetch-backend";
 import type {
   ApiResponse,
   Category,
+  Event as EventType,
   GroupOptions,
   TopicOption,
 } from "~/lib/types";
@@ -36,7 +37,7 @@ export const useCreateEvent = routeAction$(
         topics: values.topics.split(","),
         dates: [{ startDate: values.startDate, endDate: values.endDate }],
       })
-      .json<ApiResponse>();
+      .json<ApiResponse<{ event: EventType }>>();
 
     if (resp.error) {
       return { error: resp.error };
