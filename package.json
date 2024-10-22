@@ -59,6 +59,7 @@
   "nx": {},
   "dependencies": {
     "date-fns": "^3.6.0",
+    "quill": "^2.0.2",
     "valibot": "^0.39.0",
     "wretch": "^2.9.0"
   },

@@ -7,33 +7,38 @@ import {
   zod$,
 } from "@builder.io/qwik-city";
 
-import { Input } from "~/components/ui/input/input";
+import { Input, inputClass } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
 import { Button } from "~/components/ui/button/button";
-import { Textarea } from "~/components/ui/textarea/textarea";
 import { fetchBackend, fetchPublicAPI } from "~/lib/fetch-backend";
 import { GEOAPIFY_API_KEY, REDIRECT_STATUS_CODE } from "~/lib/constatnts";
-import type { ApiResponse, Category, Topic, TopicOption } from "~/lib/types";
+import type {
+  ApiResponse,
+  Category,
+  Group,
+  Topic,
+  TopicOption,
+} from "~/lib/types";
 import { Card } from "~/components/ui/card/card";
 import { Topics } from "../topics";
 import { Location } from "../location";
 import { LuPlus } from "@qwikest/icons/lucide";
 import { autocompleteLocation, type GeoapifyLocation } from "~/lib/geoapify";
-
+import { Editor } from "~/components/ui/textarea/editor";
 export const useFormAction = routeAction$(
-  async (values, { redirect, cookie }) => {
-    const accessToken = cookie.get("accessToken");
-    if (!accessToken?.value) throw redirect(REDIRECT_STATUS_CODE, "/login");
-    await fetchPublicAPI()
+  async (values, event) => {
+    const groupResp = await fetchBackend(event)
       .url("/groups")
-      .headers({ Authorization: `Bearer ${accessToken.value}` })
       .post({
         ...values,
         topics: values.topics.split(","),
         location: values.location.split(","),
       })
-      .json();
-    throw redirect(REDIRECT_STATUS_CODE, "/");
+      .json<ApiResponse<{ group: Group }>>();
+    throw event.redirect(
+      REDIRECT_STATUS_CODE,
+      `/${groupResp.data?.group.slug}`,
+    );
   },
   zod$((z) => ({
     name: z.string().min(1),
@@ -81,6 +86,9 @@ export default component$(() => {
     const topics = await fetchTopicsOptions(value);
     topicsOptionsSig.value = topics;
   });
+
+  const editorContent = useSignal<string>("");
+
   return (
     <Form action={actionSig} class="w-full max-w-xl">
       <Card.Root>
@@ -103,12 +111,19 @@ export default component$(() => {
 
             <div class="grid w-full items-center gap-1.5">
               <Label for={"description"}>Group description</Label>
-              <Textarea
-                id="description"
-                rows={10}
-                name="description"
-                error={actionSig.value?.fieldErrors.description}
-              />
+              <div>
+                <Editor content={editorContent} />
+                <input
+                  type="hidden"
+                  name="description"
+                  value={editorContent.value}
+                />
+              </div>
+              {actionSig.value?.fieldErrors.description && (
+                <p class="mt-1 text-sm text-alert">
+                  {actionSig.value.fieldErrors.description}
+                </p>
+              )}
             </div>
 
             <div class="grid w-full items-center gap-1.5">
@@ -116,7 +131,7 @@ export default component$(() => {
               <select
                 id="categoryId"
                 name="categoryId"
-                class="rounded-md border px-4 py-3"
+                class={inputClass}
                 onChange$={handleFetchTopics}
               >
                 <option value={""}>Select</option>
