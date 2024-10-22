@@ -6,6 +6,7 @@ import plugin from "tailwindcss/plugin";
 module.exports = {
   content: [join(__dirname, "src/**/*.{js,ts,jsx,tsx,mdx}")],
   plugins: [
+    require("@tailwindcss/typography"),
     require("tailwindcss-animate"),
     plugin(function ({ addUtilities }) {
       addUtilities({
