@@ -15,7 +15,7 @@ export const PopularCategories = component$(() => {
       </div>
 
       <div class="mt-8 grid grid-cols-2 gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
-        {categoriesSig.value?.map((category) => (
+        {categoriesSig.value.map((category) => (
           <CategoryCard category={category} key={category.id} />
         ))}
       </div>

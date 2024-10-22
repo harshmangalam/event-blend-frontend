@@ -15,7 +15,7 @@ export const CategoryCard = component$(
           <Card.Content class="flex flex-col items-center gap-2 p-6">
             <CategoryIcon class="h-6 w-6" />
             <h3 class="text-center font-semibold">{name}</h3>
-            <Badge look={"primary"}>{_count.groups} Groups</Badge>
+            <Badge look={"primary"}>{_count?.groups} Groups</Badge>
           </Card.Content>
         </Link>
       </Card.Root>
