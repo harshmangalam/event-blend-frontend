@@ -44,9 +44,9 @@ export const Hero = component$(() => {
                     class: "px-6",
                   }),
                 )}
-                href="/find?source=EVENTS"
+                href="/your-events"
               >
-                Explore events
+                Your Events
               </Link>
             )}
           </div>
