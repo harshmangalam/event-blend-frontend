@@ -1,4 +1,4 @@
-import { $, component$, useSignal } from "@builder.io/qwik";
+import { $, component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import {
   Form,
   routeAction$,
@@ -7,6 +7,10 @@ import {
   z,
   zod$,
 } from "@builder.io/qwik-city";
+
+import Quill from "quill";
+import "quill/dist/quill.snow.css";
+
 import { LuPlus } from "@qwikest/icons/lucide";
 import { Button, Card, Input, Label, Textarea } from "~/components/ui";
 import { fetchBackend } from "~/lib/fetch-backend";
@@ -92,6 +96,29 @@ export default component$(() => {
     topicsOptionsSig.value = await fetchTopicsOptions(categorySig.value?.id);
   });
 
+  const editorContent = useSignal<string>("");
+
+  useVisibleTask$(() => {
+    const quill = new Quill("#editor", {
+      theme: "snow",
+      modules: {
+        toolbar: [
+          [{ header: [1, 2, 3, false] }],
+          ["bold", "italic", "underline"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          [{ align: [] }],
+          ["link"],
+          ["clean"],
+          ["clear"],
+        ],
+      },
+    });
+
+    quill.on("text-change", () => {
+      editorContent.value = quill.root.innerHTML;
+    });
+  });
+
   return (
     <Form action={createEventSig} class="w-full max-w-xl">
       <Card.Root>
@@ -116,12 +143,30 @@ export default component$(() => {
             </div>
             <div class="grid w-full items-center gap-1.5">
               <Label for={"name"}>Event details</Label>
-              <Textarea
+              <div class=" overflow-hidden rounded-base border border-input bg-transparent  text-sm shadow-sm placeholder:text-muted-foreground ">
+                <div
+                  id="editor"
+                  class="[&::-webkit-scrollbar-track]:bg-blue min-h-[15rem] w-full"
+                ></div>
+                <Input
+                  type="hidden"
+                  id="details"
+                  name="details"
+                  value={editorContent.value}
+                />
+
+                {/* <Textarea
                 id="details"
                 name="details"
                 rows={10}
                 error={createEventSig.value?.fieldErrors?.details}
-              />
+              /> */}
+              </div>
+              {createEventSig.value?.fieldErrors?.details && (
+                <p class="mt-1 text-sm text-alert">
+                  {createEventSig.value.fieldErrors.details}
+                </p>
+              )}
             </div>
             <div class="grid w-full items-center gap-1.5">
               <Label for={"name"}>Select group</Label>
