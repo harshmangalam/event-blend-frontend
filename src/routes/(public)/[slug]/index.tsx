@@ -15,7 +15,10 @@ export default component$(() => {
   return (
     <div>
       <h2 class="mb-4 text-xl font-bold">What we’re about</h2>
-      {groupSig.value?.description}
+      <div
+        dangerouslySetInnerHTML={groupSig.value?.description}
+        class="mt-6"
+      ></div>
     </div>
   );
 });

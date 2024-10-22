@@ -26,13 +26,14 @@ import { GroupTabs } from "./group-tabs";
 import { JoinLeaveGroup } from "./join-leave-group";
 import { ShareOptions } from "~/components/shared/share-options";
 
-export const useGetGroupBySlug = routeLoader$(async ({ params }) => {
-  const group = await fetchPublicAPI()
-    .get(`/groups/${params.slug}`)
-    .fetchError((err) => console.error(err))
-    .internalError((err) => console.error(err))
+export const useGetGroupBySlug = routeLoader$(async (event) => {
+  const groupResp = await fetchPublicAPI()
+    .get(`/groups/${event.params.slug}`)
+    .notFound(() => {
+      throw event.error(404, "Group not found");
+    })
     .json<ApiResponse<{ group: Group }>>();
-  return group.data?.group;
+  return groupResp.data?.group;
 });
 
 export const useGetIsMember = routeLoader$(async (event) => {

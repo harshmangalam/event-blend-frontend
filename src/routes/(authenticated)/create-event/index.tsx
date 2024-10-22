@@ -1,4 +1,4 @@
-import { $, component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import { $, component$, useSignal } from "@builder.io/qwik";
 import {
   Form,
   routeAction$,
@@ -7,9 +7,6 @@ import {
   z,
   zod$,
 } from "@builder.io/qwik-city";
-
-import Quill from "quill";
-import "quill/dist/quill.snow.css";
 
 import { LuPlus } from "@qwikest/icons/lucide";
 import { Button, Card, Input, Label, Textarea } from "~/components/ui";
@@ -27,6 +24,7 @@ import { Topics } from "../topics";
 import { SelctEventType } from "./select-event-type";
 import { EeventDates } from "./event-dates";
 import { REDIRECT_STATUS_CODE } from "~/lib/constatnts";
+import { Editor } from "~/components/ui/textarea/editor";
 
 export const useCreateEvent = routeAction$(
   async (values, event) => {
@@ -98,27 +96,6 @@ export default component$(() => {
 
   const editorContent = useSignal<string>("");
 
-  useVisibleTask$(() => {
-    const quill = new Quill("#editor", {
-      theme: "snow",
-      modules: {
-        toolbar: [
-          [{ header: [1, 2, 3, false] }],
-          ["bold", "italic", "underline"],
-          [{ list: "ordered" }, { list: "bullet" }],
-          [{ align: [] }],
-          ["link"],
-          ["clean"],
-          ["clear"],
-        ],
-      },
-    });
-
-    quill.on("text-change", () => {
-      editorContent.value = quill.root.innerHTML;
-    });
-  });
-
   return (
     <Form action={createEventSig} class="w-full max-w-xl">
       <Card.Root>
@@ -143,12 +120,9 @@ export default component$(() => {
             </div>
             <div class="grid w-full items-center gap-1.5">
               <Label for={"name"}>Event details</Label>
-              <div class=" overflow-hidden rounded-base border border-input bg-transparent  text-sm shadow-sm placeholder:text-muted-foreground ">
-                <div
-                  id="editor"
-                  class="[&::-webkit-scrollbar-track]:bg-blue min-h-[15rem] w-full"
-                ></div>
-                <Input
+              <div>
+                <Editor content={editorContent} />
+                <input
                   type="hidden"
                   id="details"
                   name="details"

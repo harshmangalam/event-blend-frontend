@@ -12,9 +12,9 @@
     --popover-foreground: 222.2 47.4% 11.2%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 47.4% 11.2%;
-    --border: 0 0% 0%;
-    --input: 0 0% 0%;
-    --primary: 217.2 91.2% 59.8%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --primary: 191.6 91.4% 36.5%;
     --primary-foreground: 0 0% 100%;
     --secondary: 222.2 47.4% 11.2%;
     --secondary-foreground: 0 0% 100%;
@@ -22,18 +22,21 @@
     --accent-foreground: 222.2 47.4% 11.2%;
     --alert: 0 84.2% 60.2%;
     --alert-foreground: 210 40% 98%;
-    --ring: 0 0% 0%;
-    --border-width: 2px;
-    --border-radius: 0.25rem;
-    --shadow-base: 0px 0px 0px 0 rgba(0, 0, 0, 1);
-    --shadow-sm: 4px 4px 0px 0 rgba(0, 0, 0, 1);
-    --shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-md: 6px 6px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-xl: 11px 11px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-2xl: 13px 13px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-inner: inset 2px 2px 0px 0px rgba(0, 0, 0, 0);
-    --transform-press: translate(4px, 4px);
+    --ring: 222.2 47.4% 11.2%;
+    --border-width: 0px;
+    --border-radius: 0;
+    --shadow-base: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 1);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
+    --transform-press: scale(0.95);
   }
   .dark {
     --background: 222.2 84% 4.9%;
@@ -44,9 +47,9 @@
     --popover-foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
-    --border: 0 0% 0%;
-    --input: 0 0% 0%;
-    --primary: 217.2 91.2% 59.8%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --primary: 191.6 91.4% 36.5%;
     --primary-foreground: 0 0% 100%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 0 0% 0%;
@@ -54,17 +57,20 @@
     --accent-foreground: 210 40% 98%;
     --alert: 0 84.2% 60.2%;
     --alert-foreground: 210 40% 98%;
-    --ring: 0 0% 0%;
-    --border-width: 2px;
-    --border-radius: 0.25rem;
-    --shadow-base: 0px 0px 0px 0 rgba(0, 0, 0, 1);
-    --shadow-sm: 4px 4px 0px 0 rgba(0, 0, 0, 1);
-    --shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-md: 6px 6px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-xl: 11px 11px 0px 0px rgba(0, 0, 0, 1);
-    --shadow-2xl: 13px 13px 0px 0px rgba(0, 0, 0, 1);
+    --ring: 212.7 26.8% 83.9;
+    --border-width: 0px;
+    --border-radius: 0;
+    --shadow-base: 0 1px 2px 0 rgba(0, 0, 0, 0.01);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 1);
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.01);
-    --transform-press: translate(4px, 4px);
+    --transform-press: scale(0.95);
   }
 }
