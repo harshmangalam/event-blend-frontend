@@ -88,7 +88,10 @@ export default component$(() => {
       </section>
 
       <section class="mx-auto max-w-4xl py-4">
-        <div dangerouslySetInnerHTML={eventSig.value.details ?? ""}></div>
+        <div
+          class="prose-base"
+          dangerouslySetInnerHTML={eventSig.value.details ?? ""}
+        ></div>
       </section>
     </div>
   );
