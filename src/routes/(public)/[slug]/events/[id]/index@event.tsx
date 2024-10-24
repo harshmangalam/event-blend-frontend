@@ -1,7 +1,7 @@
 import { component$ } from "@builder.io/qwik";
-import { Link, routeLoader$ } from "@builder.io/qwik-city";
+import { Link, routeAction$, routeLoader$ } from "@builder.io/qwik-city";
 import { Avatar, Button, buttonVariants } from "~/components/ui";
-import { DEFAULT_POSTER } from "~/lib/constatnts";
+import { DEFAULT_POSTER, REDIRECT_STATUS_CODE } from "~/lib/constatnts";
 import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse, Event } from "~/lib/types";
 import { formatEventDateDifference } from "~/lib/utils";
@@ -25,10 +25,21 @@ export const useGetEventDetails = routeLoader$(async (event) => {
 });
 export const useHasAlreadyRSVP = routeLoader$(async (event) => {
   const resp = await fetchBackend(event)
-    .get("/events/has-rsvp")
+    .get(`/events/${event.params.id}/has-rsvp`)
     .json<ApiResponse<{ hasRSVP: boolean }>>();
 
   return resp.data?.hasRSVP;
+});
+
+export const useRSVP = routeAction$(async (data, event) => {
+  await fetchBackend(event)
+    .url(`/events/${event.params.id}/join-leave`)
+    .patch()
+    .json();
+  throw event.redirect(
+    REDIRECT_STATUS_CODE,
+    `/${event.params.slug}/events/${event.params.id}`,
+  );
 });
 export default component$(() => {
   const eventSig = useGetEventDetails();
