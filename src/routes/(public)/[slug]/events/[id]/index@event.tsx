@@ -1,14 +1,15 @@
 import { component$ } from "@builder.io/qwik";
-import { routeLoader$ } from "@builder.io/qwik-city";
+import { routeAction$, routeLoader$ } from "@builder.io/qwik-city";
 import { Avatar, Button } from "~/components/ui";
-import { DEFAULT_POSTER } from "~/lib/constatnts";
+import { DEFAULT_POSTER, REDIRECT_STATUS_CODE } from "~/lib/constatnts";
 import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse, Event } from "~/lib/types";
 import { formatEventDateDifference } from "~/lib/utils";
 import { GroupCard } from "./group-card";
 import { LocationCard } from "./location-card";
 import { TimeCard } from "./time-card";
-import { LuPlus, LuShare } from "@qwikest/icons/lucide";
+import { LuShare } from "@qwikest/icons/lucide";
+import { RSVPEvent } from "./rsvp-event";
 
 export const useGetEventDetails = routeLoader$(async (event) => {
   const resp = await fetchBackend(event)
@@ -21,8 +22,27 @@ export const useGetEventDetails = routeLoader$(async (event) => {
   if (!resp.data?.event) throw event.error(404, "Event not found");
   return resp.data.event;
 });
+export const useHasAlreadyRSVP = routeLoader$(async (event) => {
+  const resp = await fetchBackend(event)
+    .get(`/events/${event.params.id}/has-rsvp`)
+    .json<ApiResponse<{ hasRSVP: boolean }>>();
+
+  return resp.data?.hasRSVP;
+});
+
+export const useRSVP = routeAction$(async (data, event) => {
+  await fetchBackend(event)
+    .url(`/events/${event.params.id}/join-leave`)
+    .patch()
+    .json();
+  throw event.redirect(
+    REDIRECT_STATUS_CODE,
+    `/${event.params.slug}/events/${event.params.id}`,
+  );
+});
 export default component$(() => {
   const eventSig = useGetEventDetails();
+
   return (
     <div>
       {/* event header section  */}
@@ -70,10 +90,8 @@ export default component$(() => {
                 <LuShare class="mr-2" />
                 Share
               </Button>
-              <Button>
-                <LuPlus class="mr-2" />
-                Attend
-              </Button>
+
+              <RSVPEvent />
             </div>
           </div>
           <div class="col-span-12 flex flex-col gap-4 md:col-span-4">
