@@ -14,11 +14,7 @@ import {
 } from "@qwikest/icons/lucide";
 import { Badge } from "~/components/ui/badge/badge";
 import { Separator } from "~/components/ui/separator/separator";
-import {
-  BASE_URI,
-  DEFAULT_POSTER,
-  REDIRECT_STATUS_CODE,
-} from "~/lib/constatnts";
+import { DEFAULT_POSTER, REDIRECT_STATUS_CODE } from "~/lib/constatnts";
 import { fetchBackend, fetchPublicAPI } from "~/lib/fetch-backend";
 import type { ApiResponse, Group } from "~/lib/types";
 
@@ -47,14 +43,10 @@ export const useGetIsMember = routeLoader$(async (event) => {
 
 export const useJoinLeaveGroupAction = routeAction$(
   async ({ groupId }, event) => {
-    const user = event.sharedMap.get("user");
-    if (!user) throw event.redirect(REDIRECT_STATUS_CODE, "/login");
-    await fetch(`${BASE_URI}/groups/${groupId}/join-leave`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${event.sharedMap.get("accessToken")}`,
-      },
-    });
+    await fetchBackend(event)
+      .url(`/groups/${groupId}/join-leave`)
+      .patch()
+      .json();
 
     throw event.redirect(REDIRECT_STATUS_CODE, `/${event.params.slug}`);
   },

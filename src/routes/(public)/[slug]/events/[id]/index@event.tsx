@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
-import { Link, routeAction$, routeLoader$ } from "@builder.io/qwik-city";
-import { Avatar, Button, buttonVariants } from "~/components/ui";
+import { routeAction$, routeLoader$ } from "@builder.io/qwik-city";
+import { Avatar, Button } from "~/components/ui";
 import { DEFAULT_POSTER, REDIRECT_STATUS_CODE } from "~/lib/constatnts";
 import { fetchBackend } from "~/lib/fetch-backend";
 import type { ApiResponse, Event } from "~/lib/types";
@@ -9,8 +9,7 @@ import { GroupCard } from "./group-card";
 import { LocationCard } from "./location-card";
 import { TimeCard } from "./time-card";
 import { LuShare } from "@qwikest/icons/lucide";
-import { JoinEvent } from "./join-event";
-import { useSession } from "~/routes/plugin@auth";
+import { RSVPEvent } from "./rsvp-event";
 
 export const useGetEventDetails = routeLoader$(async (event) => {
   const resp = await fetchBackend(event)
@@ -43,7 +42,7 @@ export const useRSVP = routeAction$(async (data, event) => {
 });
 export default component$(() => {
   const eventSig = useGetEventDetails();
-  const sessionSig = useSession();
+
   return (
     <div>
       {/* event header section  */}
@@ -91,13 +90,8 @@ export default component$(() => {
                 <LuShare class="mr-2" />
                 Share
               </Button>
-              {sessionSig.value.user ? (
-                <JoinEvent />
-              ) : (
-                <Link href="/login" class={buttonVariants()}>
-                  Login to join event
-                </Link>
-              )}
+
+              <RSVPEvent />
             </div>
           </div>
           <div class="col-span-12 flex flex-col gap-4 md:col-span-4">
