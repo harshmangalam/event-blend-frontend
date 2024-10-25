@@ -90,114 +90,117 @@ export default component$(() => {
   const editorContent = useSignal<string>("");
 
   return (
-    <Form action={actionSig} class="w-full max-w-xl">
-      <Card.Root>
-        <Card.Header>
-          <Card.Title class="text-xl font-bold">Create New Group</Card.Title>
-          <Card.Description class="text-md">
-            Create a new group to bring together people who share your passion!
-          </Card.Description>
-        </Card.Header>
-        <Card.Content>
-          <div class="grid grid-cols-1 gap-3">
-            <div class="grid w-full items-center gap-1.5">
-              <Label for={"name"}>Group name</Label>
-              <Input
-                name="name"
-                id="name"
-                error={actionSig.value?.fieldErrors.name}
-              />
-            </div>
-
-            <div class="grid w-full items-center gap-1.5">
-              <Label for={"description"}>Group description</Label>
-              <div>
-                <Editor content={editorContent} />
-                <input
-                  type="hidden"
-                  name="description"
-                  value={editorContent.value}
+    <div class="flex min-h-screen items-center justify-center">
+      <Form action={actionSig} class="w-full max-w-xl">
+        <Card.Root>
+          <Card.Header>
+            <Card.Title class="text-xl font-bold">Create New Group</Card.Title>
+            <Card.Description class="text-md">
+              Create a new group to bring together people who share your
+              passion!
+            </Card.Description>
+          </Card.Header>
+          <Card.Content>
+            <div class="grid grid-cols-1 gap-3">
+              <div class="grid w-full items-center gap-1.5">
+                <Label for={"name"}>Group name</Label>
+                <Input
+                  name="name"
+                  id="name"
+                  error={actionSig.value?.fieldErrors.name}
                 />
               </div>
-              {actionSig.value?.fieldErrors.description && (
-                <p class="mt-1 text-sm text-alert">
-                  {actionSig.value.fieldErrors.description}
-                </p>
-              )}
-            </div>
 
-            <div class="grid w-full items-center gap-1.5">
-              <Label for={"categoryId"}>Choose group category</Label>
-              <select
-                id="categoryId"
-                name="categoryId"
-                class={inputClass}
-                onChange$={handleFetchTopics}
-              >
-                <option value={""}>Select</option>
-                {categoriesSig.value.map((c) => (
-                  <option value={c.id} key={c.id}>
-                    {c.name}
-                  </option>
-                ))}
-              </select>
-              {actionSig.value?.fieldErrors.categoryId && (
-                <p class="mt-1 text-sm text-alert">
-                  {actionSig.value.fieldErrors.categoryId}
-                </p>
-              )}
-            </div>
+              <div class="grid w-full items-center gap-1.5">
+                <Label for={"description"}>Group description</Label>
+                <div>
+                  <Editor content={editorContent} />
+                  <input
+                    type="hidden"
+                    name="description"
+                    value={editorContent.value}
+                  />
+                </div>
+                {actionSig.value?.fieldErrors.description && (
+                  <p class="mt-1 text-sm text-alert">
+                    {actionSig.value.fieldErrors.description}
+                  </p>
+                )}
+              </div>
 
-            <div>
-              {topicsOptionsSig.value.length ? (
-                <Topics
-                  selectedTopicsSig={selectedTopicsSig}
-                  topicsOptionsSig={topicsOptionsSig}
+              <div class="grid w-full items-center gap-1.5">
+                <Label for={"categoryId"}>Choose group category</Label>
+                <select
+                  id="categoryId"
+                  name="categoryId"
+                  class={inputClass}
+                  onChange$={handleFetchTopics}
+                >
+                  <option value={""}>Select</option>
+                  {categoriesSig.value.map((c) => (
+                    <option value={c.id} key={c.id}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
+                {actionSig.value?.fieldErrors.categoryId && (
+                  <p class="mt-1 text-sm text-alert">
+                    {actionSig.value.fieldErrors.categoryId}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                {topicsOptionsSig.value.length ? (
+                  <Topics
+                    selectedTopicsSig={selectedTopicsSig}
+                    topicsOptionsSig={topicsOptionsSig}
+                  />
+                ) : null}
+                <input
+                  type="hidden"
+                  name="topics"
+                  value={selectedTopicsSig.value}
                 />
-              ) : null}
-              <input
-                type="hidden"
-                name="topics"
-                value={selectedTopicsSig.value}
-              />
-              {actionSig.value?.fieldErrors.topics && (
-                <p class="mt-1 text-sm text-alert">
-                  {actionSig.value.fieldErrors.topics}
-                </p>
-              )}
-            </div>
+                {actionSig.value?.fieldErrors.topics && (
+                  <p class="mt-1 text-sm text-alert">
+                    {actionSig.value.fieldErrors.topics}
+                  </p>
+                )}
+              </div>
 
-            <div class="grid w-full items-center gap-1.5">
-              <Label for={"poster"}>Group poster url</Label>
-              <Input
-                id="poster"
-                name="poster"
-                error={actionSig.value?.fieldErrors.poster}
-              />
-            </div>
+              <div class="grid w-full items-center gap-1.5">
+                <Label for={"poster"}>Group poster url</Label>
+                <Input
+                  id="poster"
+                  name="poster"
+                  error={actionSig.value?.fieldErrors.poster}
+                />
+              </div>
 
-            <div>
-              <Location selectedLocationSig={selectedLocationSig} />
-              <input
-                type="hidden"
-                name="location"
-                value={`${selectedLocationSig.value?.lat},${selectedLocationSig.value?.lon}`}
-              />
-              {actionSig.value?.fieldErrors.location && (
-                <p class="mt-1 text-sm text-alert">
-                  {actionSig.value.fieldErrors.location}
-                </p>
-              )}
+              <div>
+                <Location selectedLocationSig={selectedLocationSig} />
+                <input
+                  type="hidden"
+                  name="location"
+                  value={`${selectedLocationSig.value?.lat},${selectedLocationSig.value?.lon}`}
+                />
+                {actionSig.value?.fieldErrors.location && (
+                  <p class="mt-1 text-sm text-alert">
+                    {actionSig.value.fieldErrors.location}
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
-        </Card.Content>
-        <Card.Footer>
-          <Button type="submit" disabled={actionSig.isRunning}>
-            <LuPlus class="mr-2 h-4 w-4" />
-            Create
-          </Button>
-        </Card.Footer>
-      </Card.Root>
-    </Form>
+          </Card.Content>
+          <Card.Footer>
+            <Button type="submit" disabled={actionSig.isRunning}>
+              <LuPlus class="mr-2 h-4 w-4" />
+              Create
+            </Button>
+          </Card.Footer>
+        </Card.Root>
+      </Form>
+    </div>
   );
 });
