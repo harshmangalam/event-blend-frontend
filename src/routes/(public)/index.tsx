@@ -13,6 +13,7 @@ import { PopularGroups } from "./popular-groups";
 import { PopularCategories } from "./popular-categories";
 import { PopularEvents } from "./popular-events";
 import { Hero } from "./hero";
+import EventblendWorks from './eventblend-works';
 
 export const useGetPopularCities = routeLoader$(async (event) => {
   const locations = await fetchPublicAPI()
@@ -75,6 +76,7 @@ export default component$(() => {
       <PopularCategories />
       <PopularCities />
       <PopularGroups />
+      <EventblendWorks />
     </div>
   );
 });

@@ -31,7 +31,7 @@ export const useGetGroupBySlug = routeLoader$(async ({ params }) => {
     .fetchError((err) => console.error(err))
     .internalError((err) => console.error(err))
     .json<ApiResponse<{ group: Group }>>();
-  return group.data?.group;
+  return group?.data?.group;
 });
 
 export const useGetIsMember = routeLoader$(async (event) => {
