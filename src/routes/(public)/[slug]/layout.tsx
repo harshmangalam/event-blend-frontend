@@ -29,7 +29,7 @@ export const useGetGroupBySlug = routeLoader$(async (event) => {
       throw event.error(404, "Group not found");
     })
     .json<ApiResponse<{ group: Group }>>();
-  return groupResp.data?.group;
+  return group?.data?.group;
 });
 
 export const useGetIsMember = routeLoader$(async (event) => {
