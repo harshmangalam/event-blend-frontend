@@ -9,7 +9,7 @@ export const GroupCard = component$(
     const { poster, name, slug, _count } = group;
     return (
       <Card.Root class="w-full rounded-md">
-        <Link href={`/groups/${slug}`}>
+        <Link href={`/${slug}`}>
           <Card.Content class="p-0">
             <div
               style={{ backgroundImage: `url(${poster})` }}

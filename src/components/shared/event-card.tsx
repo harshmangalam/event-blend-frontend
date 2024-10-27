@@ -18,14 +18,14 @@ export const EventCard = component$(({ event }: { event: Event }) => {
   const { _count, id, location, name, poster, group, createdAt, category } =
     event;
   return (
-    <Card.Root class="w-full max-w-md">
+    <Card.Root class="w-full rounded-lg max-w-md">
       <Link href={`/${group.slug}/events/${id}`} class="block h-full">
         {poster && (
           <Card.Image
             src={poster}
             width={300}
             height={160}
-            class="mb-4 grid h-48 w-full place-items-center rounded-t bg-muted"
+            class="mb-4 grid h-48 w-full place-items-center rounded-t-lg bg-muted"
           ></Card.Image>
         )}
         <Card.Header class="py-0">

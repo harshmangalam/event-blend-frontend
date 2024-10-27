@@ -5,6 +5,8 @@ type InputProps = PropsOf<"input"> & {
   error?: string;
 };
 
+export const inputClass = ` "flex h-12 w-full rounded-base border border-input bg-background px-3 py-1 text-sm text-foreground shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"`;
+
 export const Input = component$<InputProps>(
   ({
     name,
@@ -28,10 +30,7 @@ export const Input = component$<InputProps>(
           onInput$={
             valueSig ? $((__, el) => (valueSig.value = el.value)) : onInput$
           }
-          class={cn(
-            "flex h-12 w-full rounded-base border border-input bg-background px-3 py-1 text-sm text-foreground shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
-            props.class,
-          )}
+          class={cn(inputClass, props.class)}
           id={inputId}
           name={name}
         />
