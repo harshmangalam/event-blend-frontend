@@ -7,7 +7,7 @@ export const useGetGroupDescriptionBySlug = routeLoader$(async ({ params }) => {
   const group = await fetchPublicAPI()
     .get(`/groups/${params.slug}/details`)
     .json<ApiResponse<{ group: Pick<Group, "description"> }>>();
-  return group.data?.group;
+  return group?.data?.group;
 });
 
 export default component$(() => {
@@ -15,7 +15,10 @@ export default component$(() => {
   return (
     <div>
       <h2 class="mb-4 text-xl font-bold">What we’re about</h2>
-      {groupSig.value?.description}
+      <div
+        dangerouslySetInnerHTML={groupSig.value?.description}
+        class="pros mt-6"
+      ></div>
     </div>
   );
 });

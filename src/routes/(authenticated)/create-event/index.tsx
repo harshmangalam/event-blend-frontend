@@ -7,12 +7,14 @@ import {
   z,
   zod$,
 } from "@builder.io/qwik-city";
+
 import { LuPlus } from "@qwikest/icons/lucide";
 import { Button, Card, Input, Label, Textarea } from "~/components/ui";
 import { fetchBackend, fetchPublicAPI } from "~/lib/fetch-backend";
 import type {
   ApiResponse,
   Category,
+  Event as EventType,
   GroupOptions,
   TopicOption,
 } from "~/lib/types";
@@ -23,6 +25,7 @@ import { Topics } from "../topics";
 import { SelctEventType } from "./select-event-type";
 import { EeventDates } from "./event-dates";
 import { REDIRECT_STATUS_CODE } from "~/lib/constatnts";
+import { Editor } from "~/components/ui/textarea/editor";
 
 export const useCreateEvent = routeAction$(
   async (values, event) => {
@@ -34,7 +37,7 @@ export const useCreateEvent = routeAction$(
         topics: values.topics.split(","),
         dates: [{ startDate: values.startDate, endDate: values.endDate }],
       })
-      .json<ApiResponse>();
+      .json<ApiResponse<{ event: EventType }>>();
 
     if (resp.error) {
       return { error: resp.error };
@@ -92,6 +95,8 @@ export default component$(() => {
     topicsOptionsSig.value = await fetchTopicsOptions(categorySig.value?.id);
   });
 
+  const editorContent = useSignal<string>("");
+
   return (
     <Form action={createEventSig} class="w-full max-w-xl">
       <Card.Root>
@@ -116,12 +121,27 @@ export default component$(() => {
             </div>
             <div class="grid w-full items-center gap-1.5">
               <Label for={"name"}>Event details</Label>
-              <Textarea
+              <div>
+                <Editor content={editorContent} />
+                <input
+                  type="hidden"
+                  id="details"
+                  name="details"
+                  value={editorContent.value}
+                />
+
+                {/* <Textarea
                 id="details"
                 name="details"
                 rows={10}
                 error={createEventSig.value?.fieldErrors?.details}
-              />
+              /> */}
+              </div>
+              {createEventSig.value?.fieldErrors?.details && (
+                <p class="mt-1 text-sm text-alert">
+                  {createEventSig.value.fieldErrors.details}
+                </p>
+              )}
             </div>
             <div class="grid w-full items-center gap-1.5">
               <Label for={"name"}>Select group</Label>

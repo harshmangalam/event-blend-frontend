@@ -1,7 +1,5 @@
 # Eventblend Frontend
 
-If you find this project helpful, please consider giving it a ⭐ to help it grow and support open source development!
-
 ## Setup
 
 ### Install dependencies
@@ -15,12 +13,14 @@ pnpm i
 ```
 cp .env.example .env
 ```
+
 ### Obtaining the GEOAPIFY_API_KEY:
-   - Visit the Geoapify website: https://www.geoapify.com/
-   - Sign up for an account or log in using Google or GitHub.
-   - Create a new project in your Geoapify dashboard.
-   - Once the project is created, you will be provided with an API key.
-   - Copy the API key and paste it into your `.env` file for the GEOAPIFY_API_KEY variable.
+
+- Visit the Geoapify website: https://www.geoapify.com/
+- Sign up for an account or log in using Google or GitHub.
+- Create a new project in your Geoapify dashboard.
+- Once the project is created, you will be provided with an API key.
+- Copy the API key and paste it into your `.env` file for the GEOAPIFY_API_KEY variable.
 
 ### Start dev server
 
@@ -48,4 +48,4 @@ http://localhost:5173/
 
 **Please go through CONTRIBUTING.md file before start contribution and code changes**.
 
-Join Discord Server: https://discord.gg/YNk8MRzb
+Join Discord Server: https://discord.gg/tDGxWUvTEP

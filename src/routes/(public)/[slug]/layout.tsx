@@ -14,24 +14,22 @@ import {
 } from "@qwikest/icons/lucide";
 import { Badge } from "~/components/ui/badge/badge";
 import { Separator } from "~/components/ui/separator/separator";
-import {
-  BASE_URI,
-  DEFAULT_POSTER,
-  REDIRECT_STATUS_CODE,
-} from "~/lib/constatnts";
+import { DEFAULT_POSTER, REDIRECT_STATUS_CODE } from "~/lib/constatnts";
 import { fetchBackend, fetchPublicAPI } from "~/lib/fetch-backend";
 import type { ApiResponse, Group } from "~/lib/types";
 
 import { GroupTabs } from "./group-tabs";
 import { JoinLeaveGroup } from "./join-leave-group";
+import { ShareOptions } from "~/components/shared/share-options";
 
-export const useGetGroupBySlug = routeLoader$(async ({ params }) => {
-  const group = await fetchPublicAPI()
-    .get(`/groups/${params.slug}`)
-    .fetchError((err) => console.error(err))
-    .internalError((err) => console.error(err))
+export const useGetGroupBySlug = routeLoader$(async (event) => {
+  const groupResp = await fetchPublicAPI()
+    .get(`/groups/${event.params.slug}`)
+    .notFound(() => {
+      throw event.error(404, "Group not found");
+    })
     .json<ApiResponse<{ group: Group }>>();
-  return group.data?.group;
+  return group?.data?.group;
 });
 
 export const useGetIsMember = routeLoader$(async (event) => {
@@ -45,14 +43,10 @@ export const useGetIsMember = routeLoader$(async (event) => {
 
 export const useJoinLeaveGroupAction = routeAction$(
   async ({ groupId }, event) => {
-    const user = event.sharedMap.get("user");
-    if (!user) throw event.redirect(REDIRECT_STATUS_CODE, "/login");
-    await fetch(`${BASE_URI}/groups/${groupId}/join-leave`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${event.sharedMap.get("accessToken")}`,
-      },
-    });
+    await fetchBackend(event)
+      .url(`/groups/${groupId}/join-leave`)
+      .patch()
+      .json();
 
     throw event.redirect(REDIRECT_STATUS_CODE, `/${event.params.slug}`);
   },
@@ -105,7 +99,7 @@ export default component$(() => {
               </div>
               <div class="flex items-center gap-3 text-muted-foreground">
                 <LuCalendarCheck class="mr-1 h-5 w-5" />
-                <span>{groupSig.value?._count.members} events</span>
+                <span>{groupSig.value?._count.events} events</span>
               </div>
             </div>
             <div class="mt-6 flex flex-wrap gap-3">
@@ -117,6 +111,7 @@ export default component$(() => {
                 </Link>
               ))}
             </div>
+            <ShareOptions class="mt-6" />
             <div class="mt-6 flex items-center gap-4">
               <JoinLeaveGroup groupId={groupSig.value?.id ?? ""} />
             </div>

@@ -1,7 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
 import { fetchBackend } from "~/lib/fetch-backend";
-import { ApiResponse, User } from "~/lib/types";
+import type { ApiResponse, User } from "~/lib/types";
 import { UserCard } from "./user-card";
 import { Avatar, Card } from "~/components/ui";
 import { UserStats } from "./user-stats";

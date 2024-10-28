@@ -22,7 +22,7 @@ export const JoinLeaveGroup = component$(({ groupId }: { groupId: string }) => {
       <Button
         disabled={joinLeaveGroup.isRunning}
         class="w-full"
-        look={isMemberSig.value ? "secondary" : "primary"}
+        look={isMemberSig.value ? "alert" : "primary"}
       >
         {isMemberSig.value ? "Leave this group" : " Join this group"}
       </Button>
