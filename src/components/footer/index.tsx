@@ -64,7 +64,7 @@ export const Footer = component$(() => {
           </span>
           <Link
             class={cn(buttonVariants({ size: "sm", look: "outline" }))}
-            href="/groups/new"
+            href="/create-group"
           >
             Get Started
           </Link>

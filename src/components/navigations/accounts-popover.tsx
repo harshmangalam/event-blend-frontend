@@ -23,7 +23,6 @@ export const AccountsPopover = component$(() => {
     {
       name: "Create event",
       href: "/create-event",
-      divider: true,
     },
     {
       name: "View profile",

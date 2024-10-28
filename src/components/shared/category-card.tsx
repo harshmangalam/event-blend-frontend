@@ -10,7 +10,7 @@ export const CategoryCard = component$(
     const { _count, name, slug } = category;
     const CategoryIcon = getCategoriesIcon(slug);
     return (
-      <Card.Root class="w-full max-w-xs border-none bg-muted shadow-none">
+      <Card.Root class="w-full max-w-xs border-none bg-muted shadow-none transition duration-300 hover:scale-105">
         <Link href={`/categories/${slug}`} class="block h-full">
           <Card.Content class="flex flex-col items-center gap-2 p-6">
             <CategoryIcon class="h-6 w-6" />
