@@ -13,7 +13,7 @@ import { PopularGroups } from "./popular-groups";
 import { PopularCategories } from "./popular-categories";
 import { PopularEvents } from "./popular-events";
 import { Hero } from "./hero";
-import JoinMeetupSection from "./join-meetup-section";
+import JoinEventBlendSection from "./join-eventblend-section";
 
 export const useGetPopularCities = routeLoader$(async (event) => {
   const locations = await fetchPublicAPI()
@@ -73,7 +73,7 @@ export default component$(() => {
     <div class="container mx-auto grid w-full grid-cols-1 gap-16 px-4 py-12">
       <Hero />
       <PopularEvents />
-      <JoinMeetupSection />
+      <JoinEventBlendSection />
       <PopularCategories />
       <PopularCities />
       <PopularGroups />
