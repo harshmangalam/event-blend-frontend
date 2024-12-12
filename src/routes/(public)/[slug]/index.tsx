@@ -8,7 +8,7 @@ export const useGetGroupDescriptionBySlug = routeLoader$(async ({ params }) => {
   const group = await fetchPublicAPI()
     .get(`/groups/${params.slug}/details`)
     .json<ApiResponse<{ group: Pick<Group, "description" | "id"> }>>();
-  return group.data?.group;
+  return group?.data?.group;
 });
 
 export default component$(() => {
