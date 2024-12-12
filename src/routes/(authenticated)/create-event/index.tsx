@@ -23,7 +23,7 @@ import { Location } from "../location";
 import type { GeoapifyLocation } from "~/lib/geoapify";
 import { Topics } from "../topics";
 import { SelctEventType } from "./select-event-type";
-import { EeventDates } from "./event-dates";
+import { EventDates } from "./event-dates";
 import { REDIRECT_STATUS_CODE } from "~/lib/constatnts";
 import { Editor } from "~/components/ui/textarea/editor";
 
@@ -35,7 +35,13 @@ export const useCreateEvent = routeAction$(
         ...values,
         location: values.location.split(","),
         topics: values.topics.split(","),
-        dates: [{ startDate: values.startDate, endDate: values.endDate }],
+        // Combine dates and times into ISO format
+        dates: [
+          {
+            startDate: `${values.startDate}T${values.startTime}`,
+            endDate: `${values.endDate}T${values.endTime}`,
+          },
+        ],
       })
       .json<ApiResponse<{ event: EventType }>>();
 
@@ -57,7 +63,9 @@ export const useCreateEvent = routeAction$(
     categoryId: z.string(),
     eventType: z.string(),
     startDate: z.string(),
+    startTime: z.string(),
     endDate: z.string(),
+    endTime: z.string(),
   }),
 );
 
@@ -75,6 +83,7 @@ export const fetchTopicsOptions = server$(async (categoryId?: string) => {
     .json<ApiResponse<{ topics: TopicOption[] }>>();
   return resp.data?.topics || [];
 });
+
 export const fetchGroupCategory = server$(async (groupId: string) => {
   const resp = await fetchPublicAPI()
     .get(`/groups/${groupId}/category`)
@@ -129,13 +138,6 @@ export default component$(() => {
                   name="details"
                   value={editorContent.value}
                 />
-
-                {/* <Textarea
-                id="details"
-                name="details"
-                rows={10}
-                error={createEventSig.value?.fieldErrors?.details}
-              /> */}
               </div>
               {createEventSig.value?.fieldErrors?.details && (
                 <p class="mt-1 text-sm text-alert">
@@ -162,7 +164,7 @@ export default component$(() => {
                   value={categorySig.value.name}
                 />
                 <input
-                  type="text"
+                  type="hidden"
                   name="categoryId"
                   id="categoryId"
                   value={categorySig.value.id}
@@ -236,7 +238,7 @@ export default component$(() => {
               />
             </div>
             <div class="grid w-full items-center gap-1.5">
-              <EeventDates />
+              <EventDates />
             </div>
           </div>
         </Card.Content>
