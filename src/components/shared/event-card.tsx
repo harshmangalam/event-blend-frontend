@@ -14,11 +14,14 @@ export const IconWithText = component$(({ text }: { text: string }) => {
     </div>
   );
 });
+
 export const EventCard = component$(({ event }: { event: Event }) => {
   const { _count, id, location, name, poster, group, createdAt, category } =
     event;
+
   return (
     <Card.Root class="w-full rounded-lg max-w-md">
+      {/* Link the whole card to the event details */}
       <Link href={`/${group.slug}/events/${id}`} class="block h-full">
         {poster && (
           <Card.Image
@@ -32,7 +35,14 @@ export const EventCard = component$(({ event }: { event: Event }) => {
           <Card.Title class="text-lg font-bold">{name}</Card.Title>
           <Card.Description>
             <span class="opacity-70">Hosted by: </span>
-            <span class="font-medium">{group.name}</span>
+            {/* Link the group name to the group details */}
+            <Link
+              href={`/${group.slug}`}
+              class="font-medium text-primary hover:underline"
+              onClick$={(e) => e.stopPropagation()} // Prevent bubbling to the outer link
+            >
+              {group.name}
+            </Link>
           </Card.Description>
         </Card.Header>
         <Card.Content>
